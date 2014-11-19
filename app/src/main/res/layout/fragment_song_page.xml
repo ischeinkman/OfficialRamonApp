@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:id="@+id/linearlayoutsong"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:background="#FFFFFF">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Up You Men"
+        android:id="@+id/upYouMenButton"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/songbuttonlayout"
+        android:focusable="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="For Tommorow And Today"
+        android:id="@+id/forTommorowAndTodayButton"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/songbuttonlayout"
+        android:focusable="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="World of AZA"
+        android:id="@+id/worldOfAZAButton"
+        android:background="@drawable/songbuttonlayout"
+        android:layout_gravity="center_horizontal"
+        android:focusable="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AZA All The Way"
+        android:id="@+id/azaAllTheWayButton"
+        android:background="@drawable/songbuttonlayout"
+        android:focusable="true" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="I'm Proud To Be An Aleph"
+        android:id="@+id/proudToBeAnAlephButton"
+        android:background="@drawable/songbuttonlayout"
+        android:focusable="true" />
+</LinearLayout>

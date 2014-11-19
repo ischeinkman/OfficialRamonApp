@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/Users/ilanscheinkman/AndroidStudioProjects/OfficialRamonApp/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-a8dace581903e453d94d363945f7a927289f6bf3.jar"
+        jar="/Users/ilanscheinkman/AndroidStudioProjects/OfficialRamonApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="/Users/ilanscheinkman/AndroidStudioProjects/OfficialRamonApp/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-cc9844cead98b1c51a4065afd84f6becfaccaabf.jar"
+        jar="/Users/ilanscheinkman/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="/Users/ilanscheinkman/AndroidStudioProjects/OfficialRamonApp/app/build/intermediates/pre-dexed/debug/classes-78ebf6ab2dc00c4754514989685394501581687b.jar"
+        jar="/Users/ilanscheinkman/AndroidStudioProjects/OfficialRamonApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+
+</pre-dex-items>
