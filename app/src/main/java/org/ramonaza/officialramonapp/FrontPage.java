@@ -176,11 +176,11 @@ public class FrontPage extends Activity
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static int heyletseeifthisworks; //int to store the position in
+        public static int fragLayer; //int to store the position in
         public static PlaceholderFragmentSong newInstance(int sectionNumber) {
             PlaceholderFragmentSong fragment = new PlaceholderFragmentSong();
             Bundle args = new Bundle();
-            heyletseeifthisworks=sectionNumber;
+            fragLayer=sectionNumber;
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
@@ -197,9 +197,9 @@ public class FrontPage extends Activity
             View rootView = inflater.inflate(R.layout.fragment_song_page, container, false);
             Button upYouMenButton=(Button) rootView.findViewById(R.id.upYouMenButton);
             upYouMenButton.setOnClickListener(new View.OnClickListener(){ //Confused by this syntax? So am I.
-                public void onClick(View v){  //We appear to be defining an instance method for a nameless OnClickListener, though I am not sure.
+                public void onClick(View v){  //We appear to be defining an instance method for a nameless OnClickListener
                 FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, UpYouMenFragment.newInstance(heyletseeifthisworks + 1))
+                FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFrag.newInstance(fragLayer + 1,"Up You Men"))
                             .addToBackStack(null); //At least this is clear. Begin the transaction, replace the frag with the new one, and then allow it to be back buttoned in a single line.
                 transaction.commit();
                 }
@@ -208,7 +208,7 @@ public class FrontPage extends Activity
             forTommorowAndTodayButton.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
                     FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, ForTommorowAndTodayFrag.newInstance(heyletseeifthisworks + 1))
+                    FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFrag.newInstance(fragLayer + 1, "For Tomorow And Today"))
                             .addToBackStack(null);
                     transaction.commit();
                 }
@@ -217,7 +217,7 @@ public class FrontPage extends Activity
             worldOfAZAButton.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View v) {
                     FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, WorldOfAZAFrag.newInstance(heyletseeifthisworks + 1))
+                    FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFrag.newInstance(fragLayer + 1, "World of AZA"))
                             .addToBackStack(null);
                     transaction.commit();
                 }
@@ -237,115 +237,4 @@ public class FrontPage extends Activity
 
     }
 
-
-
-
-
-    //Fragment for Up You Men
-    public static class UpYouMenFragment extends Fragment {
-
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-
-        public static UpYouMenFragment newInstance(int sectionNumber) {
-            UpYouMenFragment fragment = new UpYouMenFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public UpYouMenFragment() {
-        }
-
-        @Override
-        public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                                 Bundle savedInstanceState) {
-            ActionBar actionBar = getActivity().getActionBar();
-            actionBar.setTitle("Up You Men");
-            View rootView = inflater.inflate(R.layout.up_you_men_text, container, false);
-            return rootView;
-        }
-
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((FrontPage) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-
-    }
-
-    //Fragment for Tomorrow And Today
-    public static class ForTommorowAndTodayFrag extends Fragment {
-
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-
-        public static ForTommorowAndTodayFrag newInstance(int sectionNumber) {
-            ForTommorowAndTodayFrag fragment = new ForTommorowAndTodayFrag();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public ForTommorowAndTodayFrag() {
-        }
-
-        @Override
-        public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                                 Bundle savedInstanceState) {
-            ActionBar actionBar = getActivity().getActionBar();
-            actionBar.setTitle("For Tomorrow And Today");
-            View rootView = inflater.inflate(R.layout.tomorow_and_today_text, container, false);
-            return rootView;
-        }
-
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((FrontPage) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-
-    }
-
-    //Fragment for World of AZA
-    public static class WorldOfAZAFrag extends Fragment {
-
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-
-        public static WorldOfAZAFrag newInstance(int sectionNumber) {
-            WorldOfAZAFrag fragment = new WorldOfAZAFrag();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public WorldOfAZAFrag() {
-        }
-
-        @Override
-        public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                                 Bundle savedInstanceState) {
-            ActionBar actionBar = getActivity().getActionBar();
-            actionBar.setTitle("World of AZA");
-            View rootView = inflater.inflate(R.layout.world_of_aza_text, container, false);
-            return rootView;
-        }
-
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((FrontPage) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-
-    }
 }
