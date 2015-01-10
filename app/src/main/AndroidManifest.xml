@@ -16,10 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".UpYouMenDisplayer"
-            android:label="@string/title_activity_up_you_men_displayer" >
-        </activity>
     </application>
 
 </manifest>

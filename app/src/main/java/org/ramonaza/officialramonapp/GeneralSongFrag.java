@@ -21,7 +21,7 @@ public class GeneralSongFrag extends Fragment {
         GeneralSongFrag fragment = new GeneralSongFrag();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        args.putString("songTitle",songTitle);
+        args.putString("songTitle", songTitle);
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,11 +33,11 @@ public class GeneralSongFrag extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         ActionBar actionBar = getActivity().getActionBar();
-        String songName=getArguments().getString("songTitle");
+        String songName = getArguments().getString("songTitle");
         actionBar.setTitle(songName);
         View rootView = inflater.inflate(R.layout.fragment_general_song_page, container, false);
-        TextView songText= (TextView) rootView.findViewById(R.id.songTextView);
-        songText.setText(getStringResourceByName(songName.toLowerCase().replace(" ","")+"text"));
+        TextView songText = (TextView) rootView.findViewById(R.id.songTextView);
+        songText.setText(getStringResourceByName(songName.toLowerCase().replace(" ", "") + "text"));
         return rootView;
     }
 
@@ -49,8 +49,7 @@ public class GeneralSongFrag extends Fragment {
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
-    private String getStringResourceByName(String aString)
-    {
+    private String getStringResourceByName(String aString) {
         String packageName = "org.ramonaza.officialramonapp";
         int resId = getResources().getIdentifier(aString, "string", packageName);
         return getString(resId);

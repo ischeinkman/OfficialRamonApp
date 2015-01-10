@@ -2,18 +2,11 @@ package org.ramonaza.officialramonapp;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 
 public class FrontPage extends Activity
@@ -50,13 +43,13 @@ public class FrontPage extends Activity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
-        if(position==0){
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();}
-        else if(position==1){
+        if (position == 0) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, PlaceholderFragmentSong.newInstance(position + 1))
+                    .replace(R.id.container, FrontPageFragment.newInstance(position + 1))
+                    .commit();
+        } else if (position == 1) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, SongListFragment.newInstance(position + 1))
                     .commit();
         }
     }
@@ -70,8 +63,8 @@ public class FrontPage extends Activity
                 mTitle = getString(R.string.title_section2);
                 break;
             //case 3:
-                //mTitle = getString(R.string.title_section3);
-                //break;
+            //mTitle = getString(R.string.title_section3);
+            //break;
         }
     }
 
@@ -103,138 +96,10 @@ public class FrontPage extends Activity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         /**if (id == R.id.action_settings) {
-            return true;
-        }**/
+         return true;
+         }**/
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            ActionBar actionBar = getActivity().getActionBar();
-            actionBar.setTitle("Frontpage");
-            View rootView = inflater.inflate(R.layout.fragment_front_page, container, false);
-            LinearLayout myLayout;
-            myLayout = (LinearLayout) rootView.findViewById(R.id.linearlayoutfront);
-            /**Button b1=new Button(rootView.getContext());
-            b1.setText("Hello World");
-            b1.setBackgroundColor(000000);
-            myLayout.addView(b1);
-            HashMap<String,Button> ooo=new HashMap<String, Button>();
-            String[] ddd={"l","m"}; //TODO: Parse Site
-            for(String a:ddd){
-                ooo.put(a,new Button(rootView.getContext()));
-                ooo.get(a).setText(a);
-                ooo.get(a).setBackgroundColor(000000);
-                myLayout.addView(ooo.get(a));
-            }**/
-            return rootView;
-        }
-
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((FrontPage) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-
-    }
-    public static class PlaceholderFragmentSong extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static int fragLayer; //int to store the position in
-        public static PlaceholderFragmentSong newInstance(int sectionNumber) {
-            PlaceholderFragmentSong fragment = new PlaceholderFragmentSong();
-            Bundle args = new Bundle();
-            fragLayer=sectionNumber;
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragmentSong() {
-        }
-
-        @Override
-        public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                                 Bundle savedInstanceState) {
-            ActionBar actionBar = getActivity().getActionBar();
-            actionBar.setTitle("Songs");
-            View rootView = inflater.inflate(R.layout.fragment_song_page, container, false);
-            Button upYouMenButton=(Button) rootView.findViewById(R.id.upYouMenButton);
-            upYouMenButton.setOnClickListener(new View.OnClickListener(){ //Confused by this syntax? So am I.
-                public void onClick(View v){  //We appear to be defining an instance method for a nameless OnClickListener
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFrag.newInstance(fragLayer + 1,"Up You Men"))
-                            .addToBackStack(null); //At least this is clear. Begin the transaction, replace the frag with the new one, and then allow it to be back buttoned in a single line.
-                transaction.commit();
-                }
-            });
-            Button forTommorowAndTodayButton =(Button) rootView.findViewById(R.id.forTommorowAndTodayButton);
-            forTommorowAndTodayButton.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFrag.newInstance(fragLayer + 1, "For Tomorow And Today"))
-                            .addToBackStack(null);
-                    transaction.commit();
-                }
-            });
-            Button worldOfAZAButton =(Button) rootView.findViewById(R.id.worldOfAZAButton);
-            worldOfAZAButton.setOnClickListener(new View.OnClickListener(){
-                    public void onClick(View v) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFrag.newInstance(fragLayer + 1, "World of AZA"))
-                            .addToBackStack(null);
-                    transaction.commit();
-                }
-            });
-            return rootView;
-        }
-
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((FrontPage) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-
-
-
-    }
 
 }
