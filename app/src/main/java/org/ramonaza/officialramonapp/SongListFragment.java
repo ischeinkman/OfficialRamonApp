@@ -74,6 +74,15 @@ public class SongListFragment extends Fragment {
                 transaction.commit();
             }
         });
+        Button azaAllTheWayButton=(Button) rootView.findViewById(R.id.azaAllTheWayButton);
+        azaAllTheWayButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                    FragmentManager fragmentManager=getFragmentManager();
+                    FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container,GeneralSongFrag.newInstance(fragLayer, "AZA All The Way"))
+                            .addToBackStack(null);
+                    transaction.commit();
+            }
+        });
         return rootView;
     }
 
