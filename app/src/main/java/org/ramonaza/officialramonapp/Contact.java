@@ -1,9 +1,10 @@
 package org.ramonaza.officialramonapp;
 
 import android.util.Log;
-import java.util.Date;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Ilan Scheinkman on 1/12/15.
@@ -13,7 +14,6 @@ public class Contact {
     private String email;
     private String school;
     private String phoneNumber;
-    //private String year;
     private String address;
     private String gradYear;
 
@@ -41,12 +41,7 @@ public class Contact {
         return this.phoneNumber;
     }
 
-    //public String getYear(){
-    //    return this.year;
-    //}
-    //public String getAddress(){
-    //    return this.address;
-    //}
+
     public String getGradYear(){
         return this.gradYear;
     }
