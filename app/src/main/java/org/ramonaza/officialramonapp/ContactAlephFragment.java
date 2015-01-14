@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,6 @@ public class ContactAlephFragment extends Fragment{
         TextView information=new TextView(getActivity());
         information.setTextSize(22);
         String infoDump=String.format("Name:   %s\nSchool:  %s\nEmail:  %s\nPhone:   %s\n",aleph.getName(),aleph.getSchool(),aleph.getEmail(),aleph.getPhoneNumber());
-        Log.d("DEBUG",infoDump);
         information.setText(infoDump);
         rootLayout.addView(information);
         return rootView;

@@ -249,7 +249,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_settings) {
-            Toast.makeText(getActivity(), "Settings Coming Soon! Request them from your friendly neighborhood מחשב", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Settings Coming Soon!", Toast.LENGTH_SHORT).show();
             return true;
         }
 

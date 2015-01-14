@@ -31,7 +31,6 @@ import java.util.List;
 public class ContactListFragment  extends Fragment{
     private static final String ARG_SECTION_NUMBER = "section_number";
     public int fraglayer;
-    public Contact alephIterator; //TODO:Find a non-hack way to iterate
 
     public static ContactListFragment newInstance(int sectionNumber) {
         ContactListFragment fragment = new ContactListFragment();
@@ -62,21 +61,13 @@ public class ContactListFragment  extends Fragment{
         for(Contact aleph: alephs){
             Button temp=new Button(this.getActivity());
             temp.setBackground(getResources().getDrawable(R.drawable.songbuttonlayout));
-            Log.d("DEBUG","Setting text:"+aleph.getName());
             temp.setText(aleph.getName());
-            this.alephIterator=aleph;
-            temp.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, ContactAlephFragment.newInstance(fraglayer + 1, alephIterator))
-                            .addToBackStack(null);
-                    transaction.commit();
-                }
-            });
+            ButtonClickListener buttonClickListener=new ButtonClickListener();
+            buttonClickListener.setContact(aleph);
+            temp.setOnClickListener(buttonClickListener);
             contactButtons.add(temp);
         }
         for(Button cButton:contactButtons){
-            Log.d("DEBUG","Adding button: "+cButton.getText());
             cLayout.addView(cButton);
         }
         return rootView;
@@ -103,7 +94,6 @@ public class ContactListFragment  extends Fragment{
 
             while ((line = csvReader.readNext()) != null) {
                 questionList.add(line);
-                Log.d("DEBUG",String.format("List:{%s,\n %s,\n %s,\n %s,\n%s}",line[0],line[1],line[2],line[3],line[4]));
             }
         } catch (IOException e) {
             Log.d("DEBUG",e.getMessage());
@@ -112,4 +102,21 @@ public class ContactListFragment  extends Fragment{
         return questionList;
     }
 
-}
+    public class ButtonClickListener implements View.OnClickListener{
+        Contact buttonContact;
+        public ButtonClickListener setContact(Contact inContact){
+            this.buttonContact=inContact;
+            return this;
+        }
+
+            public void onClick(View v) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, ContactAlephFragment.newInstance(fraglayer + 1, this.buttonContact))
+                    .addToBackStack(null);
+            transaction.commit();
+        }
+        }
+
+    }
+
+
