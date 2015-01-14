@@ -1,6 +1,9 @@
 package org.ramonaza.officialramonapp;
 
 import android.util.Log;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Ilan Scheinkman on 1/12/15.
@@ -10,8 +13,9 @@ public class Contact {
     private String email;
     private String school;
     private String phoneNumber;
-    private String year;
+    //private String year;
     private String address;
+    private String gradYear;
 
     public Contact(String[] args){
         for (String inputStr:args){
@@ -19,7 +23,7 @@ public class Contact {
         }
         this.name=args[0];
         this.school=args[1];
-        this.year=args[2];
+        this.gradYear=args[2];
         this.address=args[3];
         this.email=args[4];
         this.phoneNumber=args[5];
@@ -37,10 +41,47 @@ public class Contact {
         return this.phoneNumber;
     }
 
-    public String getYear(){
-        return this.year;
+    //public String getYear(){
+    //    return this.year;
+    //}
+    //public String getAddress(){
+    //    return this.address;
+    //}
+    public String getGradYear(){
+        return this.gradYear;
     }
-    public String getAddress(){
-        return this.address;
+    public String getYear() {
+        String yearString = "";
+        switch (getDifference())    {
+            case -1: yearString += "College ";
+            case  3: yearString += "Freshman"; break;
+            case -2: yearString += "College ";
+            case  2: yearString += "Sophomore"; break;
+            case -3: yearString += "College ";
+            case  1: yearString += "Junior"; break;
+            case -4: yearString += "College ";
+            case  0: yearString += "Senior"; break;
+            
+            case  4: yearString += "8th Grader"; break;
+            case  5: yearString += "7th Grader"; break;
+            case  6: yearString += "Invalid"; break;
+            
+            default: yearString += "Alumnus";
+        }
+        return yearString;
+    }
+    private int getDifference() {
+        Date date = new Date();
+        int gradYearInt = Integer.parseInt(gradYear);           // Graduation year of contact (month would be june or 6)
+        
+        DateFormat DF = new SimpleDateFormat("yyyy");           // get the current year
+        int currentYear = Integer.parseInt(DF.format(date));
+        
+        DF = new SimpleDateFormat("MM");                        // get the current month
+        int currentMonth = Integer.parseInt(DF.format(date));
+        
+        if (currentMonth > 6)   currentYear++;                  // the school year passes through the real year, this should fix that
+        
+        return gradYearInt - currentYear;
     }
 }
