@@ -5,6 +5,7 @@
     <string name="title_section1">Frontpage</string>
     <string name="title_section2">Songs</string>
     <string name="title_section3">Rides</string>
+    <string name="title_section4">Contact List</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>

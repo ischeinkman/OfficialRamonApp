@@ -51,6 +51,10 @@ public class FrontPage extends Activity
             fragmentManager.beginTransaction()
                     .replace(R.id.container, SongListFragment.newInstance(position + 1))
                     .commit();
+        } else if (position == 2) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, ContactListFragment.newInstance(position + 1))
+                    .commit();
         }
     }
 
@@ -62,9 +66,9 @@ public class FrontPage extends Activity
             case 2:
                 mTitle = getString(R.string.title_section2);
                 break;
-            //case 3:
-            //mTitle = getString(R.string.title_section3);
-            //break;
+            case 3:
+                mTitle = getString(R.string.title_section4);
+                break;
         }
     }
 
