@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,14 +48,22 @@ public class ContactAlephFragment extends Fragment{
         String infoDump=String.format("Name:   %s\nSchool:  %s\nEmail:  %s\nPhone:   %s\n",aleph.getName(),aleph.getSchool(),aleph.getEmail(),aleph.getPhoneNumber());
         information.setText(infoDump);
         rootLayout.addView(information);
+
         Button callButton=new Button(getActivity());
         callButton.setText("Call");
         callButton.setOnClickListener(new CallButtonListener().setAleph(this.aleph));
         rootLayout.addView(callButton);
+
         Button emailButton=new Button(getActivity());
         emailButton.setText("Email");
         emailButton.setOnClickListener(new EmailButtonListener().setAleph(this.aleph));
         rootLayout.addView(emailButton);
+
+        Button addContactButton=new Button(getActivity());
+        addContactButton.setText("Add to Contacts");
+        addContactButton.setOnClickListener(new AddContactButtonListener().setAleph(this.aleph));
+        rootLayout.addView(addContactButton);
+
         return rootView;
     }
 
@@ -97,6 +106,27 @@ public class ContactAlephFragment extends Fragment{
                 startActivity(Intent.createChooser(emailIntent,"Email using:"));
             }catch (ActivityNotFoundException activityException) {
                 Log.d("Emailing:: "+contactAleph.getEmail(), "Email failed", activityException);
+            }
+        }
+    }
+
+    public class AddContactButtonListener implements View.OnClickListener{
+        Contact contactAleph;
+        public AddContactButtonListener setAleph(Contact inAleph){
+            this.contactAleph=inAleph;
+            return this;
+        }
+        public void onClick(View v){
+            try {
+                Intent contactIntent=new Intent(ContactsContract.Intents.Insert.ACTION);
+                contactIntent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+                contactIntent.putExtra(ContactsContract.Intents.Insert.NAME, contactAleph.getName());
+                contactIntent.putExtra(ContactsContract.Intents.Insert.PHONE,contactAleph.getPhoneNumber());
+                contactIntent.putExtra(ContactsContract.Intents.Insert.EMAIL,contactAleph.getEmail());
+                contactIntent.putExtra(ContactsContract.Intents.Insert.POSTAL,contactAleph.getAddress());
+                startActivity(contactIntent);
+            }catch (ActivityNotFoundException activityException) {
+                Log.d("Adding Contact: "+contactAleph.getName(), "Failed", activityException);
             }
         }
     }
