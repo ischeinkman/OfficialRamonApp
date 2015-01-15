@@ -48,7 +48,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="I'm Proud To Be An Aleph"
+        android:text="Proud To Be An Aleph"
         android:id="@+id/proudToBeAnAlephButton"
         android:background="@drawable/songbuttonlayout"
         android:focusable="true" />

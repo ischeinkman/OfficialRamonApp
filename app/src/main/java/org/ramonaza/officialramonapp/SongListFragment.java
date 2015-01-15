@@ -57,32 +57,13 @@ public class SongListFragment extends Fragment {
             }
         });
         Button forTommorowAndTodayButton = (Button) rootView.findViewById(R.id.forTommorowAndTodayButton);
-        forTommorowAndTodayButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFrag.newInstance(fragLayer + 1, "For Tomorow And Today"))
-                        .addToBackStack(null);
-                transaction.commit();
-            }
-        });
+        forTommorowAndTodayButton.setOnClickListener(new SongButtonListener().setSong("For Tomorow And Today"));
         Button worldOfAZAButton = (Button) rootView.findViewById(R.id.worldOfAZAButton);
-        worldOfAZAButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFrag.newInstance(fragLayer + 1, "World of AZA"))
-                        .addToBackStack(null);
-                transaction.commit();
-            }
-        });
+        worldOfAZAButton.setOnClickListener(new SongButtonListener().setSong("World of AZA"));
         Button azaAllTheWayButton=(Button) rootView.findViewById(R.id.azaAllTheWayButton);
-        azaAllTheWayButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                    FragmentManager fragmentManager=getFragmentManager();
-                    FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container,GeneralSongFrag.newInstance(fragLayer, "AZA All The Way"))
-                            .addToBackStack(null);
-                    transaction.commit();
-            }
-        });
+        azaAllTheWayButton.setOnClickListener(new SongButtonListener().setSong("AZA All The Way"));
+        Button proudToBeAlephButton=(Button) rootView.findViewById(R.id.proudToBeAnAlephButton);
+        proudToBeAlephButton.setOnClickListener(new SongButtonListener().setSong("Proud To Be An Aleph"));
         return rootView;
     }
 
@@ -93,6 +74,18 @@ public class SongListFragment extends Fragment {
         ((FrontPage) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
-
+    public class SongButtonListener implements View.OnClickListener{
+        String songName;
+        public SongButtonListener setSong(String song){
+            this.songName=song;
+            return this;
+        }
+        public void onClick(View v) {
+            FragmentManager fragmentManager=getFragmentManager();
+            FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container,GeneralSongFrag.newInstance(fragLayer, songName))
+                    .addToBackStack(null);
+            transaction.commit();
+        }
+    }
 
 }
