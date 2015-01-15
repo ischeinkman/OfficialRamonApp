@@ -1,7 +1,5 @@
 package org.ramonaza.officialramonapp;
 
-import android.util.Log;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,9 +16,6 @@ public class Contact {
     private String gradYear;
 
     public Contact(String[] args){
-        for (String inputStr:args){
-            Log.d("DEBUG",String.format("Creating %s: %s inputted",args[0],inputStr));
-        }
         this.name=args[0];
         this.school=args[1];
         this.gradYear=args[2];
@@ -40,7 +35,9 @@ public class Contact {
     public String getPhoneNumber(){
         return this.phoneNumber;
     }
-
+    public String getAddress(){
+        return this.address;
+    }
 
     public String getGradYear(){
         return this.gradYear;

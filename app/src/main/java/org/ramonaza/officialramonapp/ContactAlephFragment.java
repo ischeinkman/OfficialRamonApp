@@ -51,6 +51,10 @@ public class ContactAlephFragment extends Fragment{
         callButton.setText("Call");
         callButton.setOnClickListener(new CallButtonListener().setAleph(this.aleph));
         rootLayout.addView(callButton);
+        Button emailButton=new Button(getActivity());
+        emailButton.setText("Email");
+        emailButton.setOnClickListener(new EmailButtonListener().setAleph(this.aleph));
+        rootLayout.addView(emailButton);
         return rootView;
     }
 
@@ -74,7 +78,25 @@ public class ContactAlephFragment extends Fragment{
                 callIntent.setData(Uri.parse("tel:" + contactAleph.getPhoneNumber()));
                 startActivity(callIntent);
             } catch (ActivityNotFoundException activityException) {
-                Log.e("Calling Phone Number: "+contactAleph.getPhoneNumber(), "Call failed", activityException);
+                Log.d("Calling Phone Number: "+contactAleph.getPhoneNumber(), "Call failed", activityException);
+            }
+        }
+    }
+
+    public class EmailButtonListener implements View.OnClickListener{
+        Contact contactAleph;
+        public EmailButtonListener setAleph(Contact inAleph){
+            this.contactAleph=inAleph;
+            return this;
+        }
+        public void onClick(View v){
+            try {
+                Intent emailIntent=new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL,new String[]{this.contactAleph.getEmail()});
+                startActivity(Intent.createChooser(emailIntent,"Email using:"));
+            }catch (ActivityNotFoundException activityException) {
+                Log.d("Emailing:: "+contactAleph.getEmail(), "Email failed", activityException);
             }
         }
     }
