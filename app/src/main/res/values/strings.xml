@@ -45,15 +45,19 @@ Sing up you men of AZA\, up you men of AZA!\n\</string>
     <string name="worldofazatext">In the time (In the time!)\n\
 Of AZA (of AZA!)\n\
 There lived a Jewish boy named Mordechai. (Barzilay!)\n\
-He was young and insecure, (insecure!)\n\
-He spent his Saturdays killing flies. (Killin flies!)\n\
+He was young (He was young!)\n\
+And insecure, (insecure!)\n\
+He spent his Saturdays (Saturdays!) \n\
+Killing flies. (Killin flies!)\n\
 \n\
 But there was (But there was!)\n\
 This guy at school (This guy at school!)\n\
-Who treated Mordechai with sympathy, (sympathy!)\n\
+Who treated Mordechai (Barzilay!)\n\
+With sympathy, (sympathy!)\n\
 And he told (And he told!)\n\
 Him of a place (of a place!)\n\
-He could be anything he wished to be. (wished to be!)\n\
+He could be anything (anything!)\n\
+He wished to be. (wished to be!)\n\
 \n\
 We all live in the world of AZA, (A!)\n\
 The world of AZA, (Z!)\n\
@@ -147,4 +151,57 @@ So I\'m proud to be in AZA, where everyone accepts me.\n\
 And I won\'t forget the cool events and the sexy BBGs.\n\
 So I raise my hand up and teach prospectives the handshake of AZA.\n\
 \'Cuz I love my brother alephs, and I love AZA</string>
+    <string name="gentlementext">
+        (Leader:)Gentlemen, put your hands together!\n\
+        (Rest:)Clap!\n\
+        (Leader:)I said gentlemen, put your hands together!\n\
+        (Rest:)Clap!\n\
+        \n\
+        (This next part is repeated at least twice, though sometimes more)\n\
+        (Leader:) Ready, go!\n\
+        (Rest:) Stomp, stomp, clap!\n\
+        \n\
+        (Leader:)Gentlemen, who are we?\n\
+        (Rest, repeatedly:) We are AZA!\n\
+    </string>
+    <string name="elhamaayantext">
+        (Each line is repeated by the group after the leader)\n\
+        El HaMaayan!\n\
+        Bagdi, bagdi katan.\n\
+        El HaMaayan,\n\
+        Bagdi (hold)\n\
+        (The group not chanting counts to 7 at the hold in "Bagdi", then say "Katan")\n\
+        \n\
+        (The song now has 3 different pathes to take. This page will present the most common order, though that may be subject to change. In addition, the "India" paragraph is sometimes omitted.)\n\
+        \n\
+        Once there was a wizard\n\
+        Who went to Africa\n\
+        To study the Megillah\n\
+        Megillah\n\
+        Megillah-Gorilla\n\
+        Megillah-Gorilla-Gorilla-Megillah\n\
+        Megillah-Gorilla-Gorrila-Megillah-Megillah-Gorilla-Gorilla-Megillah\n\
+        \n\
+        Once there was a wizard\n\
+        Who went to China\n\
+        To study the Torah\n\
+        Torah\n\
+        Torah-Horah\n\
+        Torah-Horah-Horah-Torah\n\
+        Torah-Horah-Horah-Torah-Torah-Horah-Horah-Torah\n\
+        \n\
+        Once there was an aleph\n\
+        Who went to India\n\
+        To study the Mishna\n\
+        Mishna\n\
+        Mishna-Krishna\n\
+        Mishna-Krishna-Krishna-Mishna\n\
+        Mishna-Krishna-Krishna-Mishna-Mishna-Krishna-Krishna-Mishna\n\
+    </string>
+    <string name="nevertoomanytext">
+        (Each line is repeated by the group after the leader)\n\
+        Never too many!\n\
+        Never too strong!\n\
+        Always AZA! (Clap)\n\
+    </string>
 </resources>

@@ -64,6 +64,12 @@ public class SongListFragment extends Fragment {
         azaAllTheWayButton.setOnClickListener(new SongButtonListener().setSong("AZA All The Way"));
         Button proudToBeAlephButton=(Button) rootView.findViewById(R.id.proudToBeAnAlephButton);
         proudToBeAlephButton.setOnClickListener(new SongButtonListener().setSong("Proud To Be An Aleph"));
+        Button elHamaayanButton=(Button) rootView.findViewById(R.id.elHaMaayanButton);
+        elHamaayanButton.setOnClickListener(new SongButtonListener().setSong("El HaMaayan"));
+        Button neverTooManyButton=(Button) rootView.findViewById(R.id.neverTooManyButton);
+        neverTooManyButton.setOnClickListener(new SongButtonListener().setSong("Never Too Many"));
+        Button gentlemenButton=(Button) rootView.findViewById(R.id.gentlemenButton);
+        gentlemenButton.setOnClickListener(new SongButtonListener().setSong("Gentlemen"));
         return rootView;
     }
 
