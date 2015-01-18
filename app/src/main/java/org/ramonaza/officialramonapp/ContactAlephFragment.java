@@ -64,6 +64,11 @@ public class ContactAlephFragment extends Fragment{
         addContactButton.setOnClickListener(new AddContactButtonListener().setAleph(this.aleph));
         rootLayout.addView(addContactButton);
 
+        Button navButton=new Button(getActivity());
+        navButton.setText("Get to house");
+        navButton.setOnClickListener(new NavigatorButtonListener().setAleph(this.aleph));
+        rootLayout.addView(navButton);
+
         return rootView;
     }
 
@@ -127,6 +132,23 @@ public class ContactAlephFragment extends Fragment{
                 startActivity(contactIntent);
             }catch (ActivityNotFoundException activityException) {
                 Log.d("Adding Contact: "+contactAleph.getName(), "Failed", activityException);
+            }
+        }
+    }
+
+    public class NavigatorButtonListener implements View.OnClickListener{
+        Contact contactAleph;
+        public NavigatorButtonListener setAleph(Contact inAleph){
+            this.contactAleph=inAleph;
+            return this;
+        }
+        public void onClick(View v){
+            try {
+                 String uri=String.format("google.navigation:q=%s",contactAleph.getAddress().replace(" ","+"));
+                 Intent navIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(uri));
+                startActivity(navIntent);
+            }catch (ActivityNotFoundException activityException){
+                Log.d("Directions to:"+contactAleph.getAddress(), "Failed", activityException);
             }
         }
     }
