@@ -45,7 +45,7 @@ public class ContactAlephFragment extends Fragment{
         LinearLayout rootLayout=(LinearLayout) rootView.findViewById(R.id.cPageLayout);
         TextView information=new TextView(getActivity());
         information.setTextSize(22);
-        String infoDump=String.format("Name:   %s\nGrade:   %s\nSchool:  %s\nAddress:   %s\nEmail:  %s\nPhone:   %s\n",aleph.getName(), aleph.getSchool(),aleph.getSchool(),aleph.getAddress(),aleph.getEmail(),aleph.getPhoneNumber());
+        String infoDump=String.format("Name:   %s\nGrade:   %s\nSchool:  %s\nAddress:   %s\nEmail:  %s\nPhone:   %s\n",aleph.getName(), aleph.getYear(), aleph.getSchool(),aleph.getAddress(),aleph.getEmail(),aleph.getPhoneNumber());
         information.setText(infoDump);
         rootLayout.addView(information);
 
