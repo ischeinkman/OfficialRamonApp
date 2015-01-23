@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.activities.FrontalActivity;
 
 /**
  * General Song Text Class.
@@ -48,8 +47,7 @@ public class GeneralSongFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((FrontalActivity) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
+
     }
 
     private String getStringResourceByName(String aString) {

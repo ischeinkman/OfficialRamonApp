@@ -10,10 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.UIFragments.GeneralContactFragment;
-import org.ramonaza.officialramonapp.dataFiles.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.UIFragments.GeneralSongFragment;
 
-public class ContactDataActivity extends Activity {
+public class SongDataActivity extends Activity {
 
     private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
@@ -22,24 +21,19 @@ public class ContactDataActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
+        setContentView(R.layout.activity_song_data);
         Intent intent=getIntent();
-        FragmentManager fragmentManager = getFragmentManager();
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        ContactInfoWrapper contactInfoWrapper=new ContactInfoWrapper(intent.getStringArrayExtra(EXTRA_CONTRUCTION_INFO));
-        FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralContactFragment.newInstance(1,contactInfoWrapper));
+        String songName=intent.getStringExtra(EXTRA_CONTRUCTION_INFO);
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFragment.newInstance(0,songName));
         transaction.commit();
-
-
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_layer2, menu);
-
+        getMenuInflater().inflate(R.menu.menu_song_data, menu);
         return true;
     }
 
@@ -56,8 +50,8 @@ public class ContactDataActivity extends Activity {
         }
         switch (id){
             case android.R.id.home:
-                Intent bacIntent=NavUtils.getParentActivityIntent(this);
-                bacIntent.putExtra(EXTRA_OPENEDPAGE,3);
+                Intent bacIntent= NavUtils.getParentActivityIntent(this);
+                bacIntent.putExtra(EXTRA_OPENEDPAGE,2);
                 startActivity(bacIntent);
                 return true;
         }

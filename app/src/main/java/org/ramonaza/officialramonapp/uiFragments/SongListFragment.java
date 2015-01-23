@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Button;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.activities.FrontalActivity;
+import org.ramonaza.officialramonapp.activities.SongDataActivity;
 
 /**
  * The fragment containing the list of songs.
@@ -20,6 +22,11 @@ import org.ramonaza.officialramonapp.activities.FrontalActivity;
  */
 
 public class SongListFragment extends Fragment {
+
+    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
+    private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
+    private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
+
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -90,10 +97,9 @@ public class SongListFragment extends Fragment {
             return this;
         }
         public void onClick(View v) {
-            FragmentManager fragmentManager=getFragmentManager();
-            FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFragment.newInstance(fragLayer, songName))
-                    .addToBackStack(null);
-            transaction.commit();
+            Intent intent=new Intent(getActivity(), SongDataActivity.class);
+            intent.putExtra(EXTRA_CONTRUCTION_INFO,songName);
+            startActivity(intent);
         }
     }
 
