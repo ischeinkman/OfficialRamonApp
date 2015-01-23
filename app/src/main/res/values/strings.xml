@@ -123,9 +123,7 @@ For tomorrow and today\-\-\n\
 One, two, three, four\-\-\n\
 (Fast again)\n\
 For the chapter, and what we\'re after\n\
-AZA all the way\n\
-
-    </string>
+AZA all the way\n\</string>
     <string name="proudtobeanalephtext">If tomorrow I\'d be facing death, and saying goodbye to life\n\
 I\'d be looking at the Israelis in the South bay,\n\
 And the East bay growing hyphe (like hyphy).\n\
@@ -151,8 +149,7 @@ So I\'m proud to be in AZA, where everyone accepts me.\n\
 And I won\'t forget the cool events and the sexy BBGs.\n\
 So I raise my hand up and teach prospectives the handshake of AZA.\n\
 \'Cuz I love my brother alephs, and I love AZA</string>
-    <string name="gentlementext">
-        (Leader:)Gentlemen, put your hands together!\n\
+    <string name="gentlementext">        (Leader:)Gentlemen, put your hands together!\n\
         (Rest:)Clap!\n\
         (Leader:)I said gentlemen, put your hands together!\n\
         (Rest:)Clap!\n\
@@ -162,10 +159,8 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
         (Rest:) Stomp, stomp, clap!\n\
         \n\
         (Leader:)Gentlemen, who are we?\n\
-        (Rest, repeatedly:) We are AZA!\n\
-    </string>
-    <string name="elhamaayantext">
-        (Each line is repeated by the group after the leader)\n\
+        (Rest, repeatedly:) We are AZA!\n\</string>
+    <string name="elhamaayantext">        (Each line is repeated by the group after the leader)\n\
         El HaMaayan!\n\
         Ba gdi, ba gdi katan.\n\
         El HaMaayan,\n\
@@ -196,12 +191,11 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
         Mishna\n\
         Mishna-Krishna\n\
         Mishna-Krishna-Krishna-Mishna\n\
-        Mishna-Krishna-Krishna-Mishna-Mishna-Krishna-Krishna-Mishna\n\
-    </string>
-    <string name="nevertoomanytext">
-        (Each line is repeated by the group after the leader)\n\
+        Mishna-Krishna-Krishna-Mishna-Mishna-Krishna-Krishna-Mishna\n\</string>
+    <string name="nevertoomanytext">        (Each line is repeated by the group after the leader)\n\
         Never too many!\n\
         Never too strong!\n\
-        Always AZA! (Clap)\n\
-    </string>
+        Always AZA! (Clap)\n\</string>
+    <string name="title_activity_layer2">Layer2Activity</string>
+
 </resources>
