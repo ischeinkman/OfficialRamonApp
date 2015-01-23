@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.uiFragments;
+package org.ramonaza.officialramonapp.UIFragments;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.ramonaza.officialramonapp.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.activities.FrontalActivity;
 
 /**
  * General Song Text Class.

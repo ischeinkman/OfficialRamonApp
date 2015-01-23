@@ -1,18 +1,19 @@
-package org.ramonaza.officialramonapp.Activities;
+package org.ramonaza.officialramonapp.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.ramonaza.officialramonapp.ContactListFragment;
-import org.ramonaza.officialramonapp.FrontPageFragment;
-import org.ramonaza.officialramonapp.NavigationDrawerFragment;
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.SongListFragment;
+import org.ramonaza.officialramonapp.UIFragments.ContactListFragment;
+import org.ramonaza.officialramonapp.UIFragments.EventPageFragment;
+import org.ramonaza.officialramonapp.UIFragments.NavigationDrawerFragment;
+import org.ramonaza.officialramonapp.UIFragments.SongListFragment;
 
 
 public class FrontalActivity extends Activity
@@ -22,6 +23,7 @@ public class FrontalActivity extends Activity
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
+    private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -41,6 +43,16 @@ public class FrontalActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        Intent intent=getIntent();
+        switch (intent.getIntExtra(EXTRA_OPENEDPAGE,0)){
+            case 0:
+                getFragmentManager().beginTransaction().replace(R.id.container,EventPageFragment.newInstance(0));
+            case 1:
+                getFragmentManager().beginTransaction().replace(R.id.container,SongListFragment.newInstance(0));
+            case 2:
+                getFragmentManager().beginTransaction().replace(R.id.container,ContactListFragment.newInstance(0));
+
+        }
 
 
     }
@@ -51,7 +63,7 @@ public class FrontalActivity extends Activity
         FragmentManager fragmentManager = getFragmentManager();
         if (position == 0) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, FrontPageFragment.newInstance(position + 1))
+                    .replace(R.id.container, EventPageFragment.newInstance(position + 1))
                     .commit();
         } else if (position == 1) {
             fragmentManager.beginTransaction()

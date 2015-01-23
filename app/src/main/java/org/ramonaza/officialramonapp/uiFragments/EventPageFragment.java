@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.uiFragments;
+package org.ramonaza.officialramonapp.UIFragments;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import org.ramonaza.officialramonapp.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.activities.FrontalActivity;
 
 /**
  * The fragment for the front page. TODO: Add event data.

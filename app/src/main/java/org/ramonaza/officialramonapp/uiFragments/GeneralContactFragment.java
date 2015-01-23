@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.uiFragments;
+package org.ramonaza.officialramonapp.UIFragments;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -16,9 +16,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.ramonaza.officialramonapp.activities.FrontalActivity;
-import org.ramonaza.officialramonapp.dataFiles.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.dataFiles.ContactInfoWrapper;
 
 /**
  * Created by Ilan Scheinkman on 1/13/15.
@@ -80,8 +79,6 @@ public class GeneralContactFragment extends Fragment{
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((FrontalActivity) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
     public class CallButtonListener implements View.OnClickListener{

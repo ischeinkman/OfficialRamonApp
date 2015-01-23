@@ -1,12 +1,11 @@
-package org.ramonaza.officialramonapp.uiFragments;
+package org.ramonaza.officialramonapp.UIFragments;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,9 +18,10 @@ import android.widget.LinearLayout;
 
 import com.opencsv.CSVReader;
 
+import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.activities.ContactDataActivity;
 import org.ramonaza.officialramonapp.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.dataFiles.ContactInfoWrapper;
-import org.ramonaza.officialramonapp.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +34,9 @@ import java.util.List;
  */
 public class ContactListFragment  extends Fragment{
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
+    private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
+    private static final String PAGE_NAME="Contact List";
     public int fraglayer;
 
     public static ContactListFragment newInstance(int sectionNumber) {
@@ -114,10 +117,10 @@ public class ContactListFragment  extends Fragment{
         }
 
             public void onClick(View v) {
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralContactFragment.newInstance(fraglayer + 1, this.buttonContactInfoWrapper))
-                    .addToBackStack(null);
-            transaction.commit();
+                Intent intent=new Intent(getActivity(), ContactDataActivity.class);
+                intent.putExtra(EXTRA_LAYER,PAGE_NAME);
+                intent.putExtra(EXTRA_CONTRUCTION_INFO,this.buttonContactInfoWrapper.getArgArray());
+                startActivity(intent);
         }
         }
 

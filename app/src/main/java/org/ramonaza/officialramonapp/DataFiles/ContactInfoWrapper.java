@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.DataFiles;
+package org.ramonaza.officialramonapp.dataFiles;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -7,13 +7,14 @@ import java.util.Date;
 /**
  * Created by Ilan Scheinkman on 1/12/15.
  */
-public class ContactInfoWrapper {
+public class ContactInfoWrapper{
     private String name;
     private String email;
     private String school;
     private String phoneNumber;
     private String address;
     private String gradYear;
+    private String[] argArray;
 
     public ContactInfoWrapper(String[] args){
         this.name=args[0];
@@ -22,6 +23,7 @@ public class ContactInfoWrapper {
         this.address=args[3];
         this.email=args[4];
         this.phoneNumber=args[5];
+        this.argArray=args;
      }
     public String getName(){
         return this.name;
@@ -38,7 +40,9 @@ public class ContactInfoWrapper {
     public String getAddress(){
         return this.address;
     }
-
+    public String[] getArgArray(){
+        return this.argArray;
+    }
     public String getGradYear(){
         return this.gradYear;
     }
@@ -76,4 +80,6 @@ public class ContactInfoWrapper {
         
         return gradYearInt - currentYear;
     }
+
+
 }

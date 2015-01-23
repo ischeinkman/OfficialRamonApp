@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,20 +17,19 @@ public class ContactDataActivity extends Activity {
 
     private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
+    private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_layer2);
+        setContentView(R.layout.activity_contact);
         Intent intent=getIntent();
         FragmentManager fragmentManager = getFragmentManager();
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        if(intent.getStringExtra(EXTRA_LAYER).equals("Contact List")){
-            ContactInfoWrapper contactInfoWrapper=new ContactInfoWrapper(getIntent().getStringArrayExtra(EXTRA_CONTRUCTION_INFO));
-            FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralContactFragment.newInstance(1,contactInfoWrapper))
-                    .addToBackStack(null);
-            transaction.commit();
-        }
+        ContactInfoWrapper contactInfoWrapper=new ContactInfoWrapper(intent.getStringArrayExtra(EXTRA_CONTRUCTION_INFO));
+        FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralContactFragment.newInstance(1,contactInfoWrapper));
+        transaction.commit();
+
 
 
     }
@@ -57,7 +57,9 @@ public class ContactDataActivity extends Activity {
         }
         switch (id){
             case android.R.id.home:
-
+                Intent bacIntent=NavUtils.getParentActivityIntent(this);
+                bacIntent.putExtra(EXTRA_OPENEDPAGE,3);
+                startActivity(bacIntent);
                 return true;
         }
 
