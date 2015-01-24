@@ -197,5 +197,6 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
         Never too strong!\n\
         Always AZA! (Clap)\n\</string>
     <string name="title_activity_layer2">Layer2Activity</string>
+    <string name="title_activity_song_data">SongDataActivity</string>
 
 </resources>

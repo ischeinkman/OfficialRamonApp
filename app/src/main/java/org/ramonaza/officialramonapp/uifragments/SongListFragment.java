@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.UIFragments;
+package org.ramonaza.officialramonapp.uifragments;
 
 import android.app.ActionBar;
 import android.app.Activity;

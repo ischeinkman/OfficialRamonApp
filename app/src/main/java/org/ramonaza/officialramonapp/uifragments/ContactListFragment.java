@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.UIFragments;
+package org.ramonaza.officialramonapp.uifragments;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -21,7 +21,7 @@ import com.opencsv.CSVReader;
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.activities.ContactDataActivity;
 import org.ramonaza.officialramonapp.activities.FrontalActivity;
-import org.ramonaza.officialramonapp.dataFiles.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.datafiles.ContactInfoWrapper;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -10,10 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.UIFragments.ContactListFragment;
-import org.ramonaza.officialramonapp.UIFragments.EventPageFragment;
-import org.ramonaza.officialramonapp.UIFragments.NavigationDrawerFragment;
-import org.ramonaza.officialramonapp.UIFragments.SongListFragment;
+import org.ramonaza.officialramonapp.uifragments.ContactListFragment;
+import org.ramonaza.officialramonapp.uifragments.EventPageFragment;
+import org.ramonaza.officialramonapp.uifragments.NavigationDrawerFragment;
+import org.ramonaza.officialramonapp.uifragments.SongListFragment;
 
 
 public class FrontalActivity extends Activity

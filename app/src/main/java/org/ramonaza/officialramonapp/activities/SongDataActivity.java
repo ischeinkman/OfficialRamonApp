@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.UIFragments.GeneralSongFragment;
+import org.ramonaza.officialramonapp.uifragments.GeneralSongFragment;
 
 public class SongDataActivity extends Activity {
 

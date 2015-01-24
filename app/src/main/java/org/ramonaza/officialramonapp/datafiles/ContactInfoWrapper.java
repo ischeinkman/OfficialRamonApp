@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.dataFiles;
+package org.ramonaza.officialramonapp.datafiles;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -21,8 +21,12 @@
         <activity
             android:name=".activities.ContactDataActivity"
             android:label="@string/title_activity_layer2"
-            android:parentActivityName="org.ramonaza.officialramonapp.activities.FrontalActivity">
-
+            android:parentActivityName=".activities.FrontalActivity" >
+        </activity>
+        <activity
+            android:name=".activities.SongDataActivity"
+            android:label="@string/title_activity_song_data"
+            android:parentActivityName=".activities.FrontalActivity" >
         </activity>
     </application>
 

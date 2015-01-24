@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.UIFragments;
+package org.ramonaza.officialramonapp.uifragments;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.dataFiles.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.datafiles.ContactInfoWrapper;
 
 /**
  * Created by Ilan Scheinkman on 1/13/15.
