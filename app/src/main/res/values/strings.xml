@@ -198,5 +198,6 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
         Always AZA! (Clap)\n\</string>
     <string name="title_activity_layer2">Layer2Activity</string>
     <string name="title_activity_song_data">SongDataActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/textviewfront"
-        android:text="Event information coming... eventually.\nNeed to work with the Sgan and Machshev for that one."
+        android:text="Loading..."
         android:textSize="15pt"/>
     </LinearLayout>
 
