@@ -4,8 +4,16 @@
     tools:context="org.ramonaza.officialramonapp.uifragments.EventDisplayFragment">
 
 
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:id="@+id/EventDisplayTextView"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/EventDisplayScollView">
+            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+            android:text="@string/hello_blank_fragment"
+            android:id="@+id/EventDisplayTextView"
+            android:textSize="12pt"
+        /></ScrollView>
+
 
 </LinearLayout>

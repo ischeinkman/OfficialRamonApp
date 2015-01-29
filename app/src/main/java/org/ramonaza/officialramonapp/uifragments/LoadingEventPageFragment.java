@@ -55,7 +55,7 @@ public class LoadingEventPageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_front_loading_page, container, false);
         LinearLayout myLayout;
         myLayout = (LinearLayout) rootView.findViewById(R.id.linearlayoutfront);
-        new GetEventData().execute("http://www.ramonaza.org");
+        new GetEventData().execute("http://69.195.124.114/~ramonaza/events/feed/");
         return rootView;
     }
 
@@ -97,7 +97,13 @@ public class LoadingEventPageFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             Log.d("DEBUG","Begin frag trans");
-            getFragmentManager().beginTransaction().replace(R.id.container,EventDisplayFragment.newInstance(result)).commit();
+            String[] splitFeed=result.split("<br/>");
+            String parsedResult="";
+            for(int i=1;i<=splitFeed.length-2;i++){
+                parsedResult+=splitFeed[i]+"\n";
+            }
+
+            getFragmentManager().beginTransaction().replace(R.id.container,EventDisplayFragment.newInstance(parsedResult)).commit();
         }
     }
 
