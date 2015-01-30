@@ -16,10 +16,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.activities.FrontalActivity;
+import org.ramonaza.officialramonapp.datafiles.EventInfoWrapper;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * The fragment for the front page. TODO: Add event data.
@@ -83,7 +87,7 @@ public class LoadingEventPageFragment extends Fragment {
                     String s = "";
                     while ((s = buffer.readLine()) != null) {
                         builder.append(s);
-                        Log.d("DEBUG", "Line Got");
+                        Log.d("DEBUG", "Line Got\n"+s);
                     }
 
                 } catch (Exception e) {
@@ -96,14 +100,22 @@ public class LoadingEventPageFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.d("DEBUG","Begin frag trans");
-            String[] splitFeed=result.split("<br/>");
-            String parsedResult="";
-            for(int i=1;i<=splitFeed.length-2;i++){
-                parsedResult+=splitFeed[i]+"\n";
+            Log.d("DEBUG","Begin frag trans\n"+result);
+            ArrayList<EventInfoWrapper> events=new ArrayList<EventInfoWrapper>();
+            String[] itemmedRSS=result.split("<item>");
+            List<String> aListRSS=new ArrayList<String>();
+            Collections.addAll(aListRSS, itemmedRSS);
+            aListRSS.remove(0);
+            Log.d("DEBUG",""+itemmedRSS.length);
+            for (String eventRSS:aListRSS){
+                Log.d("DEBUG",eventRSS);
+                events.add(new EventInfoWrapper(eventRSS));
             }
-
-            getFragmentManager().beginTransaction().replace(R.id.container,EventDisplayFragment.newInstance(parsedResult)).commit();
+            try {
+                getFragmentManager().beginTransaction().replace(R.id.container, EventListFragment.newInstance(events)).commit();
+            }catch (NullPointerException e){
+                ;
+            }
         }
     }
 

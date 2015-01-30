@@ -29,6 +29,14 @@
             android:label="@string/title_activity_song_data"
             android:parentActivityName=".activities.FrontalActivity" >
         </activity>
+        <activity
+            android:name=".activities.EventPageActivity"
+            android:label="@string/title_activity_event_page"
+            android:parentActivityName=".activities.FrontalActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ramonaza.officialramonapp.activities.FrontalActivity" />
+        </activity>
     </application>
 
 </manifest>
