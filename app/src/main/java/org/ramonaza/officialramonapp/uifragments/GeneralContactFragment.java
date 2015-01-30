@@ -145,8 +145,8 @@ public class GeneralContactFragment extends Fragment{
         }
         public void onClick(View v){
             try {
-                 String uri=String.format("google.navigation:q=%s", contactInfoWrapperAleph.getAddress().replace(" ","+"));
-                 Intent navIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(uri));
+                String uri=String.format("google.navigation:q=%s", contactInfoWrapperAleph.getAddress().replace(" ","+"));
+                Intent navIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(uri));
                 startActivity(navIntent);
             }catch (ActivityNotFoundException activityException){
                 Log.d("Directions to:"+ contactInfoWrapperAleph.getAddress(), "Failed", activityException);
