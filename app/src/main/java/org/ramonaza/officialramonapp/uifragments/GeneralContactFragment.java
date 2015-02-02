@@ -46,31 +46,26 @@ public class GeneralContactFragment extends Fragment{
         actionBar.setTitle(this.aleph.getName());
         View rootView=inflater.inflate(R.layout.fragment_contact_page,container,false);
         LinearLayout rootLayout=(LinearLayout) rootView.findViewById(R.id.cPageLayout);
-        TextView information=new TextView(getActivity());
+        TextView information=(TextView) rootView.findViewById(R.id.ContactInfoView);
         information.setTextSize(22);
         String infoDump=String.format("Name:   %s\nGrade:   %s\nSchool:  %s\nAddress:   %s\nEmail:  %s\nPhone:   %s\n",aleph.getName(), aleph.getYear(), aleph.getSchool(),aleph.getAddress(),aleph.getEmail(),aleph.getPhoneNumber());
         information.setText(infoDump);
-        rootLayout.addView(information);
 
-        Button callButton=new Button(getActivity());
-        callButton.setText("Call");
+
+        Button callButton=(Button) rootView.findViewById(R.id.ContactCallButton);
         callButton.setOnClickListener(new CallButtonListener().setAleph(this.aleph));
-        rootLayout.addView(callButton);
 
-        Button emailButton=new Button(getActivity());
-        emailButton.setText("Email");
+        Button textButton=(Button) rootView.findViewById(R.id.ContactTextButton);
+        textButton.setOnClickListener(new TextButtonListener().setAleph(this.aleph));
+
+        Button emailButton=(Button) rootView.findViewById(R.id.ContactEmailButton);
         emailButton.setOnClickListener(new EmailButtonListener().setAleph(this.aleph));
-        rootLayout.addView(emailButton);
 
-        Button addContactButton=new Button(getActivity());
-        addContactButton.setText("Add to Contacts");
+        Button addContactButton=(Button) rootView.findViewById(R.id.ContactAddButton);
         addContactButton.setOnClickListener(new AddContactButtonListener().setAleph(this.aleph));
-        rootLayout.addView(addContactButton);
 
-        Button navButton=new Button(getActivity());
-        navButton.setText("Get to house");
+        Button navButton=(Button) rootView.findViewById(R.id.ContactDirButton);
         navButton.setOnClickListener(new NavigatorButtonListener().setAleph(this.aleph));
-        rootLayout.addView(navButton);
 
         return rootView;
     }
@@ -148,6 +143,22 @@ public class GeneralContactFragment extends Fragment{
                 String uri=String.format("google.navigation:q=%s", contactInfoWrapperAleph.getAddress().replace(" ","+"));
                 Intent navIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(uri));
                 startActivity(navIntent);
+            }catch (ActivityNotFoundException activityException){
+                Log.d("Directions to:"+ contactInfoWrapperAleph.getAddress(), "Failed", activityException);
+            }
+        }
+    }
+
+    public class TextButtonListener implements View.OnClickListener{
+        ContactInfoWrapper contactInfoWrapperAleph;
+        public TextButtonListener setAleph(ContactInfoWrapper inAleph){
+            this.contactInfoWrapperAleph =inAleph;
+            return this;
+        }
+        public void onClick(View v){
+            try {
+                Intent textIntent=new Intent(Intent.ACTION_VIEW,Uri.fromParts("sms",this.contactInfoWrapperAleph.getPhoneNumber(),null));
+                startActivity(textIntent);
             }catch (ActivityNotFoundException activityException){
                 Log.d("Directions to:"+ contactInfoWrapperAleph.getAddress(), "Failed", activityException);
             }

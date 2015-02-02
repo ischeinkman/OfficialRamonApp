@@ -3,6 +3,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/cPageLayoutWrapper"><ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:id="@+id/cPageLayout">
 
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ContactInfoView"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <LinearLayout
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="@string/CallButton"
+        android:id="@+id/ContactCallButton"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="@string/TextButton"
+        android:id="@+id/ContactTextButton"/>
+        </LinearLayout>
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:text="Email"
+         android:id="@+id/ContactEmailButton"/>
+      <Button
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:text="Add to Contacts"
+          android:id="@+id/ContactAddButton"/>
+      <Button
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:text="Get to House"
+          android:id="@+id/ContactDirButton"/>
+        </LinearLayout></LinearLayout></ScrollView>
 </LinearLayout>
