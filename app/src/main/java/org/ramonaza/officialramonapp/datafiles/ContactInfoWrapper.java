@@ -78,7 +78,11 @@ public class ContactInfoWrapper{
         
         if (currentMonth > 6)   currentYear++;                  // the school year passes through the real year, this should fix that
         
-        return gradYearInt - currentYear;
+        int dif = gradYearInt - currentYear;
+        if (dif == -1 && currentMonth <= 8)                     // if the person is a senior in summer, say he's still a senior
+            dif++;
+        
+        return dif;
     }
 
 
