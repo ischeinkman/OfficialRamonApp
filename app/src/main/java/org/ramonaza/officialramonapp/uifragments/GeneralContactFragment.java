@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.datafiles.ContactInfoWrapper;
@@ -140,9 +141,14 @@ public class GeneralContactFragment extends Fragment{
         }
         public void onClick(View v){
             try {
-                String uri=String.format("google.navigation:q=%s", contactInfoWrapperAleph.getAddress().replace(" ","+"));
-                Intent navIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(uri));
-                startActivity(navIntent);
+                if(aleph.getAddress().equals("Not Submitted")){
+                    Toast.makeText(getActivity(), "Address Not Submitted", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String uri = String.format("google.navigation:q=%s", contactInfoWrapperAleph.getAddress().replace(" ", "+"));
+                    Intent navIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    startActivity(navIntent);
+                }
             }catch (ActivityNotFoundException activityException){
                 Log.d("Directions to:"+ contactInfoWrapperAleph.getAddress(), "Failed", activityException);
             }
