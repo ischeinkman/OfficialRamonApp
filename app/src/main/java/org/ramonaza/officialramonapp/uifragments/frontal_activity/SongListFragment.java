@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.uifragments;
+package org.ramonaza.officialramonapp.uifragments.frontal_activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -15,6 +15,7 @@ import android.widget.Button;
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.activities.SongDataActivity;
+import org.ramonaza.officialramonapp.uifragments.GeneralSongFragment;
 
 /**
  * The fragment containing the list of songs.

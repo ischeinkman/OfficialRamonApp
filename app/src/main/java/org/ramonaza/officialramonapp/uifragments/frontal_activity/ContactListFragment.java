@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.uifragments;
+package org.ramonaza.officialramonapp.uifragments.frontal_activity;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -59,12 +59,8 @@ public class ContactListFragment  extends Fragment{
         actionBar.setTitle("Contact List");
         View rootView = inflater.inflate(R.layout.fragment_contact_list_page, container, false);
         LinearLayout cLayout=(LinearLayout) rootView.findViewById(R.id.cListLinearList);
-        List<String[]> contactInfo=readCsv(this.getActivity());
         List<Button> contactButtons=new ArrayList<Button>();
-        List<ContactInfoWrapper> alephs=new ArrayList<ContactInfoWrapper>();
-        for(String[] argumentss:contactInfo){
-            alephs.add(new ContactInfoWrapper(argumentss));
-        }
+        List<ContactInfoWrapper> alephs=getContactInfoList(this.getActivity());
         for(ContactInfoWrapper aleph: alephs){
             Button temp=new Button(this.getActivity());
             temp.setBackground(getResources().getDrawable(R.drawable.songbuttonlayout));
@@ -88,7 +84,7 @@ public class ContactListFragment  extends Fragment{
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
-    public final List<String[]> readCsv(Context context) {
+    public static final List<String[]> readAlephInfoCsv(Context context) {
         List<String[]> questionList = new ArrayList<String[]>();
         AssetManager assetManager = context.getAssets();
 
@@ -107,6 +103,14 @@ public class ContactListFragment  extends Fragment{
         }
         Log.d("DEBUG","List size: "+questionList.size());
         return questionList;
+    }
+    public static final List<ContactInfoWrapper> getContactInfoList(Context context){
+        List<String[]>cInfo=readAlephInfoCsv(context);
+        List<ContactInfoWrapper> rval=new ArrayList<ContactInfoWrapper>();
+        for(String[] argumentss:cInfo){
+            rval.add(new ContactInfoWrapper(argumentss));
+        }
+        return rval;
     }
 
     public class ButtonClickListener implements View.OnClickListener{

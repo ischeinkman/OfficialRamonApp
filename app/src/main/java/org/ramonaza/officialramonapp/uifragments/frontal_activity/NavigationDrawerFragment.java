@@ -1,9 +1,10 @@
-package org.ramonaza.officialramonapp.uifragments;
+package org.ramonaza.officialramonapp.uifragments.frontal_activity;
 
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,9 +22,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.activities.SettingsActivity;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -31,6 +33,7 @@ import org.ramonaza.officialramonapp.R;
  */
 public class NavigationDrawerFragment extends Fragment {
 
+    SharedPreferences sharedPref;
     /**
      * Remember the position of the selected item.
      */
@@ -67,15 +70,16 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d("NavDrawer","onCreate");
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mUserLearnedDrawer = sharedPref.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
-        }
+        };
 
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
@@ -85,8 +89,26 @@ public class NavigationDrawerFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
+
+        Log.d("NavDrawer","onActivityCreated");
         setHasOptionsMenu(true);
     }
+
+    @Override
+    public void onResume(){
+        Log.d("NavDrawer","onResume");
+        Log.d("NavDrawer",sharedPref.getString("rides","0"));
+        super.onResume();
+        String[] drawerlist=getDrawerTitles();
+
+        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,
+                drawerlist
+        ));
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,22 +121,47 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+        String[] drawerlist=getDrawerTitles();
+
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1), //Strings n main/res/values/strings.xml
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section4),
-
-                }));
+                drawerlist
+        ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+        Log.d("NavDrawer","onCreateView");
         return mDrawerListView;
     }
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
+    }
+
+    public String[] getDrawerTitles(){
+        String[] drawerlist;
+        if (sharedPref.getString("rides","0").equals("0")){
+            drawerlist=new String[]{
+                    getString(R.string.title_section1), //Strings n main/res/values/strings.xml
+                    getString(R.string.title_section2),
+                    getString(R.string.title_section4),
+
+            };
+        }
+        else if (sharedPref.getString("rides","0").equals("1")){
+            drawerlist=new String[]{
+                    getString(R.string.title_section1), //Strings n main/res/values/strings.xml
+                    getString(R.string.title_section2),
+                    getString(R.string.title_section4),
+                    getString(R.string.title_section5)
+            };
+        }
+        else{
+            drawerlist=new String[]{
+                    "ERROR"
+            };
+        }
+        return drawerlist;
     }
 
     /**
@@ -251,7 +298,8 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_settings) {
-            Toast.makeText(getActivity(), "Settings Coming Soon!", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(getActivity(), SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 

@@ -6,10 +6,14 @@
     <string name="title_section2">Songs</string>
     <string name="title_section3">Rides</string>
     <string name="title_section4">Contact List</string>
+    <string name="title_section5">Rides</string>
+    <string name="rides_title_section1">Alephs</string>
+    <string name="rides_title_section2">Drivers</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="action_rides_generate">Generate</string>
     <string name="hello_world">Hello world!</string>
     <string name="upyoumentext">Up, you men, and sing to AZA!\n\
 Time will pass, and we\'ll be on our way.\n\
@@ -202,5 +206,6 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
     <string name="title_activity_event_page">EventPageActivity</string>
     <string name="CallButton">Call</string>
     <string name="TextButton">Text</string>
+    <string name="title_activity_rides">RidesActivity</string>
 
 </resources>

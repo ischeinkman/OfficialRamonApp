@@ -1,0 +1,21 @@
+<resources>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+
+    <string name="pref_title_rides">Rides Mode</string>
+    <string-array name="pref_rides_titles">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="pref_rides_values">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+
+
+</resources>

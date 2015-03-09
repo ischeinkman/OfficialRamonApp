@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.uifragments;
+package org.ramonaza.officialramonapp.uifragments.frontal_activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -114,7 +114,7 @@ public class LoadingEventPageFragment extends Fragment {
             try {
                 getFragmentManager().beginTransaction().replace(R.id.container, EventListFragment.newInstance(events)).commit();
             }catch (NullPointerException e){
-                ;
+                System.out.print(e.toString());
             }
         }
     }

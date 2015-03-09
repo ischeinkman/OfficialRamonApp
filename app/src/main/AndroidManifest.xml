@@ -37,6 +37,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.activities.FrontalActivity" />
         </activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".activities.RidesActivity"
+            android:label="@string/title_activity_rides"
+            android:parentActivityName=".activities.FrontalActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ramonaza.officialramonapp.activities.FrontalActivity" />
+        </activity>
     </application>
 
 </manifest>

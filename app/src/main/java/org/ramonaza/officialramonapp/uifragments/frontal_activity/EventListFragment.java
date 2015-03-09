@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.uifragments;
+package org.ramonaza.officialramonapp.uifragments.frontal_activity;
 
 import android.app.Activity;
 import android.app.Fragment;

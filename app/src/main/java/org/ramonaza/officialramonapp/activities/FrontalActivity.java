@@ -4,16 +4,18 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.uifragments.ContactListFragment;
-import org.ramonaza.officialramonapp.uifragments.LoadingEventPageFragment;
-import org.ramonaza.officialramonapp.uifragments.NavigationDrawerFragment;
-import org.ramonaza.officialramonapp.uifragments.SongListFragment;
+import org.ramonaza.officialramonapp.uifragments.frontal_activity.ContactListFragment;
+import org.ramonaza.officialramonapp.uifragments.frontal_activity.LoadingEventPageFragment;
+import org.ramonaza.officialramonapp.uifragments.frontal_activity.NavigationDrawerFragment;
+import org.ramonaza.officialramonapp.uifragments.frontal_activity.SongListFragment;
 
 
 public class FrontalActivity extends Activity
@@ -29,10 +31,12 @@ public class FrontalActivity extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private SharedPreferences sharedPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPrefs=PreferenceManager.getDefaultSharedPreferences(this);
         setContentView(R.layout.activity_front_page);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -58,8 +62,26 @@ public class FrontalActivity extends Activity
     }
 
     @Override
+    protected void onResume(){
+        super.onResume();
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+
+    }
+
+
+
+    @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+        int posModRides;
+        posModRides=Integer.parseInt(sharedPrefs.getString("rides","0"));
         FragmentManager fragmentManager = getFragmentManager();
         if (position == 0) {
             fragmentManager.beginTransaction()
@@ -73,6 +95,9 @@ public class FrontalActivity extends Activity
             fragmentManager.beginTransaction()
                     .replace(R.id.container, ContactListFragment.newInstance(position + 1))
                     .commit();
+        } else if(position ==3 &&sharedPrefs.getString("rides","0").equals("1")){
+            Intent ridesIntent=new Intent(this,RidesActivity.class);
+            startActivity(ridesIntent);
         }
     }
 
