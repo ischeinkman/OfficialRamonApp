@@ -108,7 +108,7 @@ public class ContactInfoWrapper {
             DF = new SimpleDateFormat("MM");                        // get the current month
             int currentMonth = Integer.parseInt(DF.format(date));
 
-            if (currentMonth > 6)
+            if (currentMonth > 8)
                 currentYear++;                  // the school year passes through the real year, this should fix that
 
             return gradYearInt - currentYear;
