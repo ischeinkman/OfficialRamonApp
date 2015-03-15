@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.datafiles.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.uifragments.GeneralContactFragment;
 
 public class ContactDataActivity extends Activity {

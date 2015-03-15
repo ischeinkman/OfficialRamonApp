@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.datafiles.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
 
 /**
  * Created by Ilan Scheinkman on 1/13/15.

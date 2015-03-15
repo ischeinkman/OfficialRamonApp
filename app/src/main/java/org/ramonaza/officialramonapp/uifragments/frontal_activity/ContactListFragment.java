@@ -4,28 +4,21 @@ import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.opencsv.CSVReader;
-
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.activities.ContactDataActivity;
 import org.ramonaza.officialramonapp.activities.FrontalActivity;
-import org.ramonaza.officialramonapp.datafiles.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapperGenerator;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +53,7 @@ public class ContactListFragment  extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_contact_list_page, container, false);
         LinearLayout cLayout=(LinearLayout) rootView.findViewById(R.id.cListLinearList);
         List<Button> contactButtons=new ArrayList<Button>();
-        List<ContactInfoWrapper> alephs=getContactInfoList(this.getActivity());
+        List<ContactInfoWrapper> alephs= ContactInfoWrapperGenerator.getCtactInfoListFromCSV(this.getActivity());
         for(ContactInfoWrapper aleph: alephs){
             Button temp=new Button(this.getActivity());
             temp.setBackground(getResources().getDrawable(R.drawable.songbuttonlayout));
@@ -84,34 +77,7 @@ public class ContactListFragment  extends Fragment{
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
-    public static final List<String[]> readAlephInfoCsv(Context context) {
-        List<String[]> questionList = new ArrayList<String[]>();
-        AssetManager assetManager = context.getAssets();
 
-        try {
-            String CSV_PATH="AlephNameSchYAddMailNum.csv";
-            InputStream csvStream = assetManager.open(CSV_PATH);
-            InputStreamReader csvStreamReader = new InputStreamReader(csvStream);
-            CSVReader csvReader = new CSVReader(csvStreamReader);
-            String[] line;
-
-            while ((line = csvReader.readNext()) != null) {
-                questionList.add(line);
-            }
-        } catch (IOException e) {
-            Log.d("DEBUG",e.getMessage());
-        }
-        Log.d("DEBUG","List size: "+questionList.size());
-        return questionList;
-    }
-    public static final List<ContactInfoWrapper> getContactInfoList(Context context){
-        List<String[]>cInfo=readAlephInfoCsv(context);
-        List<ContactInfoWrapper> rval=new ArrayList<ContactInfoWrapper>();
-        for(String[] argumentss:cInfo){
-            rval.add(new ContactInfoWrapper(argumentss));
-        }
-        return rval;
-    }
 
     public class ButtonClickListener implements View.OnClickListener{
         ContactInfoWrapper buttonContactInfoWrapper;

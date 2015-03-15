@@ -1,4 +1,4 @@
-package org.ramonaza.officialramonapp.datafiles;
+package org.ramonaza.officialramonapp.datafiles.condrive_database;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,6 +15,49 @@ public class ContactInfoWrapper {
     private String address;
     private String gradYear;
     private String[] argArray;
+    private int idNum;
+    private int area;
+    private boolean present;
+
+    public boolean isPresent() {
+        return present;
+    }
+    public int getArea(){
+        return area;
+    }
+    public void setArea(int inArea){
+        this.area=inArea;
+    }
+
+    public void setPresent(boolean present) {
+        this.present = present;
+    }
+
+    public ContactInfoWrapper(){}
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setGradYear(String gradYear) {
+        this.gradYear = gradYear;
+    }
 
     public ContactInfoWrapper(String[] args) {
         this.name = args[0];
@@ -97,6 +140,13 @@ public class ContactInfoWrapper {
         return yearString;
     }
 
+    public int getId(){
+        return idNum;
+    }
+    public void setId(int inputId){
+        this.idNum=inputId;
+    }
+
     private int getDifference() {
         Date date = new Date();
         int gradYearInt;
@@ -121,6 +171,18 @@ public class ContactInfoWrapper {
             }
         }
     }
+
+    @Override
+    public boolean equals(Object inObj){
+        if (inObj instanceof ContactInfoWrapper){
+            if(((ContactInfoWrapper) inObj).getName().equals(this.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
         
 
