@@ -20,7 +20,7 @@ public final class ConDriveDatabaseContract {
         public static final String COLUMN_AREA="alephareanumber";
         public static final String COLUMN_PRESENT="alephatevent";
         public static final String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"("+
-                ContactListTable._ID + " INTEGER PRIMARY KEY "+
+                ContactListTable._ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_CONTACT_ID+" "+ VTYPE_INT+","+
                 COLUMN_NAME+" "+ VTYPE_TEXT+","+
                 COLUMN_PHONE+" "+ VTYPE_TEXT+","+
@@ -28,7 +28,7 @@ public final class ConDriveDatabaseContract {
                 COLUMN_SCHOOL+" "+ VTYPE_TEXT+","+
                 COLUMN_GRADYEAR+" "+ VTYPE_INT+","+
                 COLUMN_ADDRESS+" "+ VTYPE_TEXT+","+
-                COLUMN_AREA+" "+VTYPE_INT+
+                COLUMN_AREA+" "+VTYPE_INT+","+
                 COLUMN_PRESENT+" "+VTYPE_INT+")";
         public static final String DELETE_TABLE="DROP TABLE IF EXISTS "+TABLE_NAME;
     }
@@ -40,9 +40,9 @@ public final class ConDriveDatabaseContract {
         public static final String COLUMN_AREA="driverareanumber";
         public static final String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"("+
                 DriverListTable._ID + " INTEGER PRIMARY KEY "+
-                COLUMN_DRIVER_ID+" "+ VTYPE_INT+","+
-                COLUMN_NAME+" "+ VTYPE_TEXT+","+
-                COLUMN_AREA+" "+ VTYPE_INT+","+
+                COLUMN_DRIVER_ID+" "+ VTYPE_INT+", "+
+                COLUMN_NAME+" "+ VTYPE_TEXT+", "+
+                COLUMN_AREA+" "+ VTYPE_INT+", "+
                 COLUMN_SPACE+" "+VTYPE_INT+")";
         public static final String DELETE_TABLE="DROP TABLE IF EXISTS "+TABLE_NAME;
     }
@@ -51,13 +51,13 @@ public final class ConDriveDatabaseContract {
         public static final String COLUMN_ALEPH="aleph_id";
         public static final String COLUMN_CAR="driver_id";
         public static final String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"("+
-                RidesListTable._ID + " INTEGER PRIMARY KEY "+
+                RidesListTable._ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_ALEPH+" "+ VTYPE_INT+","+
                 COLUMN_CAR+" "+ VTYPE_TEXT+",";
         public static final String DELETE_TABLE="DROP TABLE IF EXISTS "+TABLE_NAME;
     }
-    public static final String VTYPE_TEXT="text";
-    public static final String VTYPE_INT="integer";
+    public static final String VTYPE_TEXT="TEXT";
+    public static final String VTYPE_INT="INTEGER";
     public static final String CREATE_TABLES= ContactListTable.CREATE_TABLE+";"+ DriverListTable.CREATE_TABLE+";"+ RidesListTable.CREATE_TABLE;
     public static final String DELETE_TABLES=ContactListTable.DELETE_TABLE+";"+DriverListTable.DELETE_TABLE+";"+RidesListTable.DELETE_TABLE;
 

@@ -5,17 +5,24 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.activities.ContactDataActivity;
 import org.ramonaza.officialramonapp.activities.FrontalActivity;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseContract;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapperGenerator;
 
@@ -27,7 +34,7 @@ import java.util.List;
  */
 public class ContactListFragment  extends Fragment{
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
+    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
     private static final String PAGE_NAME="Contact List";
     public int fraglayer;
@@ -52,20 +59,8 @@ public class ContactListFragment  extends Fragment{
         actionBar.setTitle("Contact List");
         View rootView = inflater.inflate(R.layout.fragment_contact_list_page, container, false);
         LinearLayout cLayout=(LinearLayout) rootView.findViewById(R.id.cListLinearList);
-        List<Button> contactButtons=new ArrayList<Button>();
-        List<ContactInfoWrapper> alephs= ContactInfoWrapperGenerator.getCtactInfoListFromCSV(this.getActivity());
-        for(ContactInfoWrapper aleph: alephs){
-            Button temp=new Button(this.getActivity());
-            temp.setBackground(getResources().getDrawable(R.drawable.songbuttonlayout));
-            temp.setText(aleph.getName());
-            ButtonClickListener buttonClickListener=new ButtonClickListener();
-            buttonClickListener.setContact(aleph);
-            temp.setOnClickListener(buttonClickListener);
-            contactButtons.add(temp);
-        }
-        for(Button cButton:contactButtons){
-            cLayout.addView(cButton);
-        }
+        ProgressBar pBar=(ProgressBar) rootView.findViewById(R.id.ContactListProgress);
+        new getContactsTask(pBar,rootView,cLayout).execute();
         return rootView;
     }
 
@@ -79,21 +74,62 @@ public class ContactListFragment  extends Fragment{
 
 
 
-    public class ButtonClickListener implements View.OnClickListener{
+    public class ButtonClickListener implements View.OnClickListener {
         ContactInfoWrapper buttonContactInfoWrapper;
-        public ButtonClickListener setContact(ContactInfoWrapper inContactInfoWrapper){
+
+        public ButtonClickListener setContact(ContactInfoWrapper inContactInfoWrapper) {
             this.buttonContactInfoWrapper = inContactInfoWrapper;
             return this;
         }
 
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), ContactDataActivity.class);
-                intent.putExtra(EXTRA_LAYER,PAGE_NAME);
-                intent.putExtra(EXTRA_CONTRUCTION_INFO,this.buttonContactInfoWrapper.getArgArray());
-                startActivity(intent);
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), ContactDataActivity.class);
+            intent.putExtra(EXTRA_LAYER, PAGE_NAME);
+            intent.putExtra(EXTRA_CONTRUCTION_INFO, this.buttonContactInfoWrapper.getId());
+            Log.d("ContactListFrag",""+this.buttonContactInfoWrapper.getId());
+            startActivity(intent);
         }
+    }
+    public class getContactsTask extends AsyncTask<Void,Integer,List<ContactInfoWrapper>>{
+
+        private  ProgressBar bar;
+        private  View rootView;
+        private LinearLayout cLayout;
+
+        @Override
+        protected List<ContactInfoWrapper> doInBackground(Void... params) {
+            ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity().getApplicationContext());
+            SQLiteDatabase db=dbHelpter.getReadableDatabase();
+            Cursor cursor=db.query(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,null,null,null,null,null,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME+" ASC");
+            return ContactInfoWrapperGenerator.fromDataBase(cursor);
         }
 
+        @Override
+        protected void onPostExecute(List<ContactInfoWrapper> alephs) {
+            super.onPostExecute(alephs);
+            List<Button> contactButtons=new ArrayList<Button>();
+            for(ContactInfoWrapper aleph: alephs){
+                Button temp=new Button(getActivity());
+                temp.setBackground(getResources().getDrawable(R.drawable.songbuttonlayout));
+                temp.setText(aleph.getName());
+                ButtonClickListener buttonClickListener=new ButtonClickListener();
+                buttonClickListener.setContact(aleph);
+                temp.setOnClickListener(buttonClickListener);
+                contactButtons.add(temp);
+            }
+            for(Button cButton:contactButtons){
+                cLayout.addView(cButton);
+            }
+            bar.setVisibility(View.GONE);
+
+        }
+        public getContactsTask(ProgressBar progressBar, View inView, LinearLayout linearLayout){
+            bar=progressBar;
+            rootView=inView;
+            cLayout=linearLayout;
+        }
     }
+
+}
 
 

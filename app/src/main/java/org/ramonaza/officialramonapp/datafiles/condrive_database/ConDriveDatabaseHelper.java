@@ -24,6 +24,11 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(ConDriveDatabaseContract.CREATE_TABLES);
+        try {
+            genDatabaseFromCSV(db);
+        } catch (ContactCSVReadError contactCSVReadError) {
+            contactCSVReadError.printStackTrace();
+        }
     }
 
     @Override
@@ -46,6 +51,7 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
             if(rowId==-1l){
                 throw new ContactCSVReadError("Null Contact Read", cAleph);
             }
+            id++;
         }
     }
     public class ContactCSVReadError extends Exception{

@@ -4,18 +4,27 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseContract;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.uifragments.GeneralContactFragment;
+
+import java.util.List;
 
 public class ContactDataActivity extends Activity {
 
-    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
+    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
     private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
 
@@ -24,11 +33,11 @@ public class ContactDataActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         Intent intent=getIntent();
-        FragmentManager fragmentManager = getFragmentManager();
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        ContactInfoWrapper contactInfoWrapper=new ContactInfoWrapper(intent.getStringArrayExtra(EXTRA_CONTRUCTION_INFO));
-        FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralContactFragment.newInstance(1,contactInfoWrapper));
-        transaction.commit();
+        getActionBar().setTitle("Blank Contact Data");
+        int id=intent.getIntExtra(EXTRA_CONTRUCTION_INFO,0);
+        Log.d("ContactListFrag",""+id);
+        new intentToFrag().execute(id);
 
 
 
@@ -64,5 +73,24 @@ public class ContactDataActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public class intentToFrag extends AsyncTask<Integer,Void,ContactInfoWrapper>{
+
+        @Override
+        protected ContactInfoWrapper doInBackground(Integer... params) {
+            ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(getApplicationContext());
+            SQLiteDatabase db=dbHelper.getReadableDatabase();
+            Cursor c=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=%d;",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID,params[0]),null);
+            List<ContactInfoWrapper> falseList= ContactInfoWrapperGenerator.fromDataBase(c);
+            return falseList.get(0);
+        }
+
+        @Override
+        protected void onPostExecute(ContactInfoWrapper contactInfoWrapper) {
+            super.onPostExecute(contactInfoWrapper);
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralContactFragment.newInstance(1,contactInfoWrapper));
+            transaction.commit();
+        }
     }
 }
