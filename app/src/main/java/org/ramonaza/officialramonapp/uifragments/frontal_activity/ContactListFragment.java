@@ -57,7 +57,7 @@ public class ContactListFragment  extends Fragment{
                              Bundle savedInstanceState) {
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setTitle("Contact List");
-        View rootView = inflater.inflate(R.layout.fragment_contact_list_page, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_contact_list, container, false);
         LinearLayout cLayout=(LinearLayout) rootView.findViewById(R.id.cListLinearList);
         ProgressBar pBar=(ProgressBar) rootView.findViewById(R.id.ContactListProgress);
         new getContactsTask(pBar,rootView,cLayout).execute();

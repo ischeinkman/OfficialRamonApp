@@ -40,7 +40,7 @@ public class GeneralEventFragment extends Fragment{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
             ActionBar actionBar=getActivity().getActionBar();
-            View rootView = inflater.inflate(R.layout.fragment_event_page, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_event_data, container, false);
             TextView tView=(TextView) rootView.findViewById(R.id.EventPageTextView);
             LinearLayout layout=(LinearLayout) rootView.findViewById(R.id.EventPageScrollLayout);
             final EventInfoWrapper myEvent=getArguments().getParcelable(EVENT_DATA);

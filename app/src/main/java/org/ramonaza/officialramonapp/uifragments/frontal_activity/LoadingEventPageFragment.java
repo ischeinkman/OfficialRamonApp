@@ -56,7 +56,7 @@ public class LoadingEventPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setTitle("Frontpage");
-        View rootView = inflater.inflate(R.layout.fragment_front_loading_page, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_event_loading, container, false);
         LinearLayout myLayout;
         myLayout = (LinearLayout) rootView.findViewById(R.id.linearlayoutfront);
         new GetEventData().execute("http://69.195.124.114/~ramonaza/events/feed/");

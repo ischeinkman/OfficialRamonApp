@@ -45,7 +45,7 @@ public class GeneralContactFragment extends Fragment{
                              Bundle savedInstanceState) {
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setTitle(this.aleph.getName());
-        View rootView=inflater.inflate(R.layout.fragment_contact_page,container,false);
+        View rootView=inflater.inflate(R.layout.fragment_contact_data,container,false);
         LinearLayout rootLayout=(LinearLayout) rootView.findViewById(R.id.cPageLayout);
         TextView information=(TextView) rootView.findViewById(R.id.ContactInfoView);
         information.setTextSize(22);

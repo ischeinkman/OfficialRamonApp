@@ -57,7 +57,7 @@ public class SongListFragment extends Fragment {
                              Bundle savedInstanceState) {
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setTitle("Songs");
-        View rootView = inflater.inflate(R.layout.fragment_song_page, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_song_list, container, false);
         Button upYouMenButton = (Button) rootView.findViewById(R.id.upYouMenButton);
         upYouMenButton.setOnClickListener(new View.OnClickListener() { //Confused by this syntax? So am I.
             public void onClick(View v) {  //We appear to be defining an instance method for a nameless OnClickListener

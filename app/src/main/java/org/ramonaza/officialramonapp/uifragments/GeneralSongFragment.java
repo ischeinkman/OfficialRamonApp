@@ -37,7 +37,7 @@ public class GeneralSongFragment extends Fragment {
         ActionBar actionBar = getActivity().getActionBar();
         String songName = getArguments().getString("songTitle");
         actionBar.setTitle(songName);
-        View rootView = inflater.inflate(R.layout.fragment_general_song_page, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_song_data, container, false);
         TextView songText = (TextView) rootView.findViewById(R.id.songTextView);
         songText.setText(getStringResourceByName(songName.toLowerCase().replace(" ", "") + "text"));
         return rootView;
