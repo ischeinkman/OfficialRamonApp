@@ -9,5 +9,9 @@
         android:entryValues="@array/pref_rides_values"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"/>
+    <Preference
+        android:key="databaserefresh"
+        android:title="@string/pref_refdata_button_title"
+        android:summary="@string/pref_refdata_button_summary"/>
 
 </PreferenceScreen>

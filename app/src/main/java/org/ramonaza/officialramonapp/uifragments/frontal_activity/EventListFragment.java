@@ -56,7 +56,7 @@ public class EventListFragment extends Fragment {
         for(EventInfoWrapper event: events){
             Log.d("DEBUG",event.getName());
             Button temp=new Button(this.getActivity());
-            temp.setBackground(getResources().getDrawable(R.drawable.songbuttonlayout));
+            temp.setBackground(getResources().getDrawable(R.drawable.general_textbutton_layout));
             temp.setText(event.getDate());
             EventButtonListener buttonClickListener=new EventButtonListener();
             buttonClickListener.setEventInfoWrapper(event);

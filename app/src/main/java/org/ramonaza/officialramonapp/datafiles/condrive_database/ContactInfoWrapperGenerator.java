@@ -21,6 +21,9 @@ public abstract class ContactInfoWrapperGenerator {
     public static List<ContactInfoWrapper> fromDataBase(Cursor queryResults){
         List<ContactInfoWrapper> rval=new ArrayList<ContactInfoWrapper>();
         queryResults.moveToFirst();
+        if (queryResults.getCount()==0){
+            return rval;
+        }
         do {
             ContactInfoWrapper temp=new ContactInfoWrapper();
             temp.setId(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID)));

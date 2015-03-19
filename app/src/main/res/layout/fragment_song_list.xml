@@ -17,7 +17,7 @@
         android:text="Up You Men"
         android:id="@+id/upYouMenButton"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/songbuttonlayout"
+        android:background="@drawable/general_textbutton_layout"
         android:focusable="true" />
 
     <Button
@@ -26,7 +26,7 @@
         android:text="For Tommorow And Today"
         android:id="@+id/forTommorowAndTodayButton"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/songbuttonlayout"
+        android:background="@drawable/general_textbutton_layout"
         android:focusable="true" />
 
     <Button
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="World of AZA"
         android:id="@+id/worldOfAZAButton"
-        android:background="@drawable/songbuttonlayout"
+        android:background="@drawable/general_textbutton_layout"
         android:layout_gravity="center_horizontal"
         android:focusable="true" />
 
@@ -43,34 +43,34 @@
         android:layout_height="wrap_content"
         android:text="AZA All The Way"
         android:id="@+id/azaAllTheWayButton"
-        android:background="@drawable/songbuttonlayout"
+        android:background="@drawable/general_textbutton_layout"
         android:focusable="true" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Gentlemen"
         android:id="@+id/gentlemenButton"
-        android:background="@drawable/songbuttonlayout"
+        android:background="@drawable/general_textbutton_layout"
         android:focusable="true"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="El HaMaayan"
         android:id="@+id/elHaMaayanButton"
-        android:background="@drawable/songbuttonlayout"
+        android:background="@drawable/general_textbutton_layout"
         android:focusable="true" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Proud To Be An Aleph"
         android:id="@+id/proudToBeAnAlephButton"
-        android:background="@drawable/songbuttonlayout"
+        android:background="@drawable/general_textbutton_layout"
         android:focusable="true" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Never Too Many"
         android:id="@+id/neverTooManyButton"
-        android:background="@drawable/songbuttonlayout"
+        android:background="@drawable/general_textbutton_layout"
         android:focusable="true" />
 </LinearLayout>

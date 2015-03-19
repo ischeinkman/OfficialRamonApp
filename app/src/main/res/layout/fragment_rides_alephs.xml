@@ -8,12 +8,21 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TODO:\nImplement Alephs Frag">
-            </TextView></LinearLayout></ScrollView>
+                android:orientation="vertical"
+                android:id="@+id/PresentAlephList"></LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/general_textbutton_layout"
+                android:text="@string/AddAlephsButton"
+                android:id="@+id/AddPresentAlephButton"/>
+        </LinearLayout>
+    </ScrollView>
 
 
 </FrameLayout>

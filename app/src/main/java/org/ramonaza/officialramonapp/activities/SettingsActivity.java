@@ -3,6 +3,8 @@ package org.ramonaza.officialramonapp.activities;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -12,6 +14,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseContract;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
 
 import java.util.List;
 
@@ -64,7 +68,15 @@ public class SettingsActivity extends PreferenceActivity {
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
         bindPreferenceSummaryToValue(findPreference("rides"));
-
+        Preference refDataButton=(Preference) findPreference("databaserefresh");
+        bindPreferenceSummaryToValue(refDataButton);
+        refDataButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                new refreshDatabase(getApplicationContext()).execute();
+                return false;
+            }
+        });
     }
 
     /**
@@ -179,6 +191,25 @@ public class SettingsActivity extends PreferenceActivity {
         }
     }
 
+     public class refreshDatabase extends AsyncTask<Void,Void,Void>{
+
+         Context context;
+         @Override
+         protected Void doInBackground(Void... params) {
+             ConDriveDatabaseHelper dbH=new ConDriveDatabaseHelper(context);
+             SQLiteDatabase db=dbH.getWritableDatabase();
+             db.execSQL(ConDriveDatabaseContract.DELETE_TABLES);
+             db.execSQL(ConDriveDatabaseContract.CREATE_TABLES);
+             try {
+                 dbH.genDatabaseFromCSV(db);
+             } catch (ConDriveDatabaseHelper.ContactCSVReadError contactCSVReadError) {
+             }
+             return null;
+         }
+         public refreshDatabase(Context context1){
+             this.context=context1;
+         }
+     }
 
 
 

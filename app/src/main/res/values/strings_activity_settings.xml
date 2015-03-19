@@ -16,6 +16,7 @@
         <item>1</item>
         <item>0</item>
     </string-array>
-
+    <string name="pref_refdata_button_title">Refresh Database</string>
+    <string name="pref_refdata_button_summary">Refreshes the contact list and rides databases.</string>
 
 </resources>

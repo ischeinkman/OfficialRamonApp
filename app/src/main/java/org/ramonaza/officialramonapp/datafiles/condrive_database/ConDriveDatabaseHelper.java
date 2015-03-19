@@ -33,7 +33,12 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL(ConDriveDatabaseContract.DELETE_TABLES);
+        db.execSQL(ConDriveDatabaseContract.CREATE_TABLES);
+        try {
+            genDatabaseFromCSV(db);
+        } catch (ContactCSVReadError contactCSVReadError) {
+        }
     }
     public void genDatabaseFromCSV(SQLiteDatabase db) throws ContactCSVReadError{
         List<ContactInfoWrapper> csvContacts= ContactInfoWrapperGenerator.getCtactInfoListFromCSV(context);

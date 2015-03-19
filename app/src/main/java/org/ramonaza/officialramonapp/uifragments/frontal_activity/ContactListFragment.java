@@ -110,7 +110,7 @@ public class ContactListFragment  extends Fragment{
             List<Button> contactButtons=new ArrayList<Button>();
             for(ContactInfoWrapper aleph: alephs){
                 Button temp=new Button(getActivity());
-                temp.setBackground(getResources().getDrawable(R.drawable.songbuttonlayout));
+                temp.setBackground(getResources().getDrawable(R.drawable.general_textbutton_layout));
                 temp.setText(aleph.getName());
                 ButtonClickListener buttonClickListener=new ButtonClickListener();
                 buttonClickListener.setContact(aleph);

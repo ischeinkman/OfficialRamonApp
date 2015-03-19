@@ -4,9 +4,13 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ActivityNotFoundException;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseContract;
+import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
 
 /**
@@ -27,6 +33,7 @@ public class GeneralContactFragment extends Fragment{
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private ContactInfoWrapper aleph;
+    private SharedPreferences sp;
 
     public static GeneralContactFragment newInstance(int sectionNumber, ContactInfoWrapper aleph) {
         GeneralContactFragment fragment = new GeneralContactFragment();
@@ -39,6 +46,20 @@ public class GeneralContactFragment extends Fragment{
     public void setAlpeh(ContactInfoWrapper aleph){
         this.aleph=aleph;
     }
+    protected void refreshInfoView(TextView inView){
+        String infoDump=String.format("N" +
+                "ame:   %s\nGrade:   %s\nSchool:  %s\nAddress:   %s\nEmail:  %s\nPhone:   %s\n",aleph.getName(), aleph.getYear(), aleph.getSchool(),aleph.getAddress(),aleph.getEmail(),aleph.getPhoneNumber());
+        String ridesOn=sp.getString("rides", "0");
+        if(ridesOn.equals("1")){
+            if(aleph.isPresent()){
+                infoDump+="RIDES: PRESENT";
+            }
+            else{
+                infoDump+="RIDES: ABSENT";
+            }
+        }
+        inView.setText(infoDump);
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -47,10 +68,10 @@ public class GeneralContactFragment extends Fragment{
         actionBar.setTitle(this.aleph.getName());
         View rootView=inflater.inflate(R.layout.fragment_contact_data,container,false);
         LinearLayout rootLayout=(LinearLayout) rootView.findViewById(R.id.cPageLayout);
-        TextView information=(TextView) rootView.findViewById(R.id.ContactInfoView);
+        final TextView information=(TextView) rootView.findViewById(R.id.ContactInfoView);
         information.setTextSize(22);
-        String infoDump=String.format("Name:   %s\nGrade:   %s\nSchool:  %s\nAddress:   %s\nEmail:  %s\nPhone:   %s\n",aleph.getName(), aleph.getYear(), aleph.getSchool(),aleph.getAddress(),aleph.getEmail(),aleph.getPhoneNumber());
-        information.setText(infoDump);
+        sp= PreferenceManager.getDefaultSharedPreferences(getActivity());
+        refreshInfoView(information);
 
 
         Button callButton=(Button) rootView.findViewById(R.id.ContactCallButton);
@@ -67,6 +88,31 @@ public class GeneralContactFragment extends Fragment{
 
         Button navButton=(Button) rootView.findViewById(R.id.ContactDirButton);
         navButton.setOnClickListener(new NavigatorButtonListener().setAleph(this.aleph));
+
+        if(sp.getString("rides","0").equals("1")){
+            Button presentSwitch=new Button(getActivity());
+            presentSwitch.setText("Set Present");
+            presentSwitch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ConDriveDatabaseHelper dbH=new ConDriveDatabaseHelper(getActivity());
+                    SQLiteDatabase db=dbH.getWritableDatabase();
+                    ContentValues cValues=new ContentValues();
+                    if (aleph.isPresent()) {
+                        aleph.setPresent(false);
+                        cValues.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT, 0);
+                    }
+                    else{
+                        aleph.setPresent(true);
+                        cValues.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT, 1);
+                    }
+                    refreshInfoView(information);
+                    db.update(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,cValues,ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID+"=?",new String[]{""+aleph.getId()});
+                }
+            });
+            rootLayout.addView(presentSwitch);
+
+        }
 
         return rootView;
     }

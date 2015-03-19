@@ -27,6 +27,7 @@ public class ContactDataActivity extends Activity {
     private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
     private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
+    private int inputId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,9 @@ public class ContactDataActivity extends Activity {
         Intent intent=getIntent();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle("Blank Contact Data");
-        int id=intent.getIntExtra(EXTRA_CONTRUCTION_INFO,0);
-        Log.d("ContactListFrag",""+id);
-        new intentToFrag().execute(id);
+        inputId=intent.getIntExtra(EXTRA_CONTRUCTION_INFO,0);
+        Log.d("ContactListFrag",""+inputId);
+        new intentToFrag().execute(inputId);
 
 
 
@@ -92,5 +93,8 @@ public class ContactDataActivity extends Activity {
             FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, GeneralContactFragment.newInstance(1,contactInfoWrapper));
             transaction.commit();
         }
+    }
+    public void refreshFrag(){
+        new intentToFrag().execute(inputId);
     }
 }
