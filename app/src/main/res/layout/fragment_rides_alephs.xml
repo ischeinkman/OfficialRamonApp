@@ -20,7 +20,13 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/general_textbutton_layout"
                 android:text="@string/AddAlephsButton"
-                android:id="@+id/AddPresentAlephButton"/>
+                android:id="@+id/AddPresetAlephButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/general_textbutton_layout"
+                android:text="@string/AddCustomAlephButton"
+                android:id="@+id/AddCustomAlephButton"/>
         </LinearLayout>
     </ScrollView>
 

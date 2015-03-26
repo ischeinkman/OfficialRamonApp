@@ -14,7 +14,6 @@ public class ContactInfoWrapper {
     private String phoneNumber;
     private String address;
     private String gradYear;
-    private String[] argArray;
     private int idNum;
     private int area;
     private boolean present;
@@ -26,48 +25,42 @@ public class ContactInfoWrapper {
         return area;
     }
     public void setArea(int inArea){
-        this.area=inArea;
+        if(this.area==-1)this.area=inArea;
     }
 
     public void setPresent(boolean present) {
         this.present = present;
     }
 
-    public ContactInfoWrapper(){}
+    public ContactInfoWrapper(){
+        this.setPresent(false);
+        this.setArea(-1);
+    }
 
     public void setName(String name) {
-        this.name = name;
+        if(this.name==null) this.name = name;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if(this.email==null) this.email = email;
     }
 
     public void setSchool(String school) {
-        this.school = school;
+        if(this.school==null)this.school = school;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        if(this.phoneNumber==null) this.phoneNumber = phoneNumber;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        if(this.address==null) this.address = address;
     }
 
     public void setGradYear(String gradYear) {
-        this.gradYear = gradYear;
+        if(this.gradYear==null) this.gradYear = gradYear;
     }
 
-    public ContactInfoWrapper(String[] args) {
-        this.name = args[0];
-        this.school = args[1];
-        this.gradYear = args[2];
-        this.address = args[3];
-        this.email = args[4];
-        this.phoneNumber = args[5];
-        this.argArray = args;
-    }
 
     public String getName() {
         return this.name;
@@ -87,10 +80,6 @@ public class ContactInfoWrapper {
 
     public String getAddress() {
         return this.address;
-    }
-
-    public String[] getArgArray() {
-        return this.argArray;
     }
 
     public String getGradYear() {
@@ -133,6 +122,7 @@ public class ContactInfoWrapper {
 
             case 99:
                 yearString += "Advisor";
+                break;
 
             default:
                 yearString += "Alumnus";

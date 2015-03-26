@@ -21,8 +21,9 @@
     <string name="title_activity_event_page">EventPageActivity</string>
     <string name="CallButton">Call</string>
     <string name="TextButton">Text</string>
-    <string name="AddAlephsButton">Add Aleph...</string>
-    <string name="AddCustomButton">Add Custom Aleph...</string>
+    <string name="AddAlephsButton">Add Aleph From List...</string>
+    <string name="AddCustomAlephButton">Add Custom Aleph...</string>
+    <string name="AddCustomDriverButton">Add Custom Driver...</string>
     <string name="AddDriverButton">Add Driver...</string>
     <string name="title_activity_rides">RidesActivity</string>
     <string name="upyoumentext">Up, you men, and sing to AZA!\n\
