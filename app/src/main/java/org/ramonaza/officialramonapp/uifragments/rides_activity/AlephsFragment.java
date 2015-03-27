@@ -30,7 +30,7 @@ import java.util.List;
 public class AlephsFragment extends Fragment {
 
 
-
+    private LinearLayout presentAlpehLayout;
 
     public static AlephsFragment newInstance() {
         AlephsFragment fragment = new AlephsFragment();
@@ -54,13 +54,13 @@ public class AlephsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_rides_alephs, container, false);
-        LinearLayout mLayout=(LinearLayout)rootView.findViewById(R.id.PresentAlephList);
-        refreshData(mLayout);
+        this.presentAlpehLayout=(LinearLayout)rootView.findViewById(R.id.PresentAlephList);
+        refreshData();
         return rootView;
     }
 
-    public void refreshData(LinearLayout inLayout){
-        new getPresentAlephs(inLayout).execute(); //Because refresh looks better.
+    public void refreshData(){
+        new getPresentAlephs(presentAlpehLayout).execute(); //Because refresh looks better.
     }
 
     public class AlephButtonListener implements View.OnClickListener{
@@ -82,7 +82,7 @@ public class AlephsFragment extends Fragment {
                     updateVals,
                     ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID + "=?",
                     idArg);
-            refreshData(parentLayout);
+            refreshData();
         }
     }
 

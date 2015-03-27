@@ -211,6 +211,8 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
         Never too many!\n\
         Never too strong!\n\
         Always AZA! (Clap)\n\</string>
+    <string name="title_activity_add_custom_aleph">AddCustomAlephActivity</string>
+    <string name="DefaultNameValue">Email</string>
 
 
 </resources>

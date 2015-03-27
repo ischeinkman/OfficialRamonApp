@@ -39,9 +39,6 @@ public class ContactDataActivity extends Activity {
         inputId=intent.getIntExtra(EXTRA_CONTRUCTION_INFO,0);
         Log.d("ContactListFrag",""+inputId);
         new intentToFrag().execute(inputId);
-
-
-
     }
 
 
@@ -60,15 +57,14 @@ public class ContactDataActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            Intent intent=new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
         switch (id){
+            case R.id.action_settings:
+                Intent intent=new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
             case android.R.id.home:
                 Intent bacIntent=NavUtils.getParentActivityIntent(this);
-                bacIntent.putExtra(EXTRA_OPENEDPAGE,3);
+                bacIntent.putExtra(EXTRA_OPENEDPAGE,2);
                 startActivity(bacIntent);
                 return true;
         }

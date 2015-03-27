@@ -48,16 +48,16 @@ public class FrontalActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         Intent intent=getIntent();
-        switch (intent.getIntExtra(EXTRA_OPENEDPAGE,0)){
+        int pgVal=intent.getIntExtra(EXTRA_OPENEDPAGE,0);
+        switch (pgVal){
             case 0:
-                getFragmentManager().beginTransaction().replace(R.id.container, LoadingEventPageFragment.newInstance(0));
+                getFragmentManager().beginTransaction().replace(R.id.container, LoadingEventPageFragment.newInstance(0)).commit();
             case 1:
-                getFragmentManager().beginTransaction().replace(R.id.container,SongListFragment.newInstance(1));
+                getFragmentManager().beginTransaction().replace(R.id.container,SongListFragment.newInstance(1)).commit();
             case 2:
-                getFragmentManager().beginTransaction().replace(R.id.container,ContactListFragment.newInstance(2));
+                getFragmentManager().beginTransaction().replace(R.id.container,ContactListFragment.newInstance(2)).commit();
 
         }
-
 
     }
 
