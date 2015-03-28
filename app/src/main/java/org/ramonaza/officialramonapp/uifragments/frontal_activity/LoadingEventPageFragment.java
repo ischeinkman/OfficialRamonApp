@@ -3,6 +3,7 @@ package org.ramonaza.officialramonapp.uifragments.frontal_activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,7 +60,7 @@ public class LoadingEventPageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_event_loading, container, false);
         LinearLayout myLayout;
         myLayout = (LinearLayout) rootView.findViewById(R.id.linearlayoutfront);
-        new GetEventData().execute("http://69.195.124.114/~ramonaza/events/feed/");
+        new GetEventData(getFragmentManager()).execute("http://69.195.124.114/~ramonaza/events/feed/");
         return rootView;
     }
 
@@ -72,6 +73,9 @@ public class LoadingEventPageFragment extends Fragment {
     }
 
     public class GetEventData extends AsyncTask<String, Void, String> {
+
+        FragmentManager fragmentManager;
+
         @Override
         protected String doInBackground(String... urls) {
             StringBuilder builder = new StringBuilder(100000);
@@ -100,6 +104,7 @@ public class LoadingEventPageFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+            if(!isAdded()) return;
             Log.d("DEBUG","Begin frag trans\n"+result);
             ArrayList<EventInfoWrapper> events=new ArrayList<EventInfoWrapper>();
             String[] itemmedRSS=result.split("<item>");
@@ -112,10 +117,13 @@ public class LoadingEventPageFragment extends Fragment {
                 events.add(new EventInfoWrapper(eventRSS));
             }
             try {
-                getFragmentManager().beginTransaction().replace(R.id.container, EventListFragment.newInstance(events)).commit();
-            }catch (NullPointerException e){
-                System.out.print(e.toString());
+                fragmentManager.beginTransaction().replace(R.id.container, EventListFragment.newInstance(events)).commit();
+            }catch (Exception e){
+                Log.e("LoadingEvPgFrag","GetEventData onPost",e);
             }
+        }
+        public GetEventData(FragmentManager inFragMan){
+            this.fragmentManager=inFragMan;
         }
     }
 

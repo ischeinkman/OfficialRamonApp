@@ -75,19 +75,19 @@ public class GeneralContactFragment extends Fragment{
 
 
         Button callButton=(Button) rootView.findViewById(R.id.ContactCallButton);
-        callButton.setOnClickListener(new CallButtonListener().setAleph(this.aleph));
+        callButton.setOnClickListener(new CallButtonListener(this.aleph));
 
         Button textButton=(Button) rootView.findViewById(R.id.ContactTextButton);
-        textButton.setOnClickListener(new TextButtonListener().setAleph(this.aleph));
+        textButton.setOnClickListener(new TextButtonListener(this.aleph));
 
         Button emailButton=(Button) rootView.findViewById(R.id.ContactEmailButton);
-        emailButton.setOnClickListener(new EmailButtonListener().setAleph(this.aleph));
+        emailButton.setOnClickListener(new EmailButtonListener(this.aleph));
 
         Button addContactButton=(Button) rootView.findViewById(R.id.ContactAddButton);
-        addContactButton.setOnClickListener(new AddContactButtonListener().setAleph(this.aleph));
+        addContactButton.setOnClickListener(new AddContactButtonListener(this.aleph));
 
         Button navButton=(Button) rootView.findViewById(R.id.ContactDirButton);
-        navButton.setOnClickListener(new NavigatorButtonListener().setAleph(this.aleph));
+        navButton.setOnClickListener(new NavigatorButtonListener(this.aleph));
 
         if(sp.getString("rides","0").equals("1")){
             Button presentSwitch=new Button(getActivity());
@@ -125,9 +125,8 @@ public class GeneralContactFragment extends Fragment{
 
     public class CallButtonListener implements View.OnClickListener{
         ContactInfoWrapper contactInfoWrapperAleph;
-        public CallButtonListener setAleph(ContactInfoWrapper inAleph){
+        public CallButtonListener(ContactInfoWrapper inAleph){
             this.contactInfoWrapperAleph =inAleph;
-            return this;
         }
         public void onClick(View v){
             try {
@@ -142,9 +141,8 @@ public class GeneralContactFragment extends Fragment{
 
     public class EmailButtonListener implements View.OnClickListener{
         ContactInfoWrapper contactInfoWrapperAleph;
-        public EmailButtonListener setAleph(ContactInfoWrapper inAleph){
+        public EmailButtonListener(ContactInfoWrapper inAleph){
             this.contactInfoWrapperAleph =inAleph;
-            return this;
         }
         public void onClick(View v){
             try {
@@ -160,9 +158,8 @@ public class GeneralContactFragment extends Fragment{
 
     public class AddContactButtonListener implements View.OnClickListener{
         ContactInfoWrapper contactInfoWrapperAleph;
-        public AddContactButtonListener setAleph(ContactInfoWrapper inAleph){
+        public AddContactButtonListener(ContactInfoWrapper inAleph){
             this.contactInfoWrapperAleph =inAleph;
-            return this;
         }
         public void onClick(View v){
             try {
@@ -181,9 +178,8 @@ public class GeneralContactFragment extends Fragment{
 
     public class NavigatorButtonListener implements View.OnClickListener{
         ContactInfoWrapper contactInfoWrapperAleph;
-        public NavigatorButtonListener setAleph(ContactInfoWrapper inAleph){
+        public NavigatorButtonListener(ContactInfoWrapper inAleph){
             this.contactInfoWrapperAleph =inAleph;
-            return this;
         }
         public void onClick(View v){
             try {
@@ -203,9 +199,8 @@ public class GeneralContactFragment extends Fragment{
 
     public class TextButtonListener implements View.OnClickListener{
         ContactInfoWrapper contactInfoWrapperAleph;
-        public TextButtonListener setAleph(ContactInfoWrapper inAleph){
+        public TextButtonListener(ContactInfoWrapper inAleph){
             this.contactInfoWrapperAleph =inAleph;
-            return this;
         }
         public void onClick(View v){
             try {

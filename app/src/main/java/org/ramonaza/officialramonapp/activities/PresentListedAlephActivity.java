@@ -7,19 +7,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.uifragments.AddCustomAlephFragment;
+import org.ramonaza.officialramonapp.uifragments.PresentAlephFromListFragment;
 
-public class AddCustomAlephActivity extends Activity {
+public class PresentListedAlephActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_custom_aleph);
+        setContentView(R.layout.activity_present_listed_aleph);
         ActionBar actionBar=getActionBar();
-        actionBar.setTitle("Add Aleph...");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Add Alephs...");
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, AddCustomAlephFragment.newInstance())
+                    .add(R.id.container, PresentAlephFromListFragment.newInstance())
                     .commit();
         }
     }
@@ -28,7 +29,7 @@ public class AddCustomAlephActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_custom_aleph, menu);
+        getMenuInflater().inflate(R.menu.menu_present_listed_aleph, menu);
         return true;
     }
 
@@ -47,8 +48,5 @@ public class AddCustomAlephActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
 
 }

@@ -213,6 +213,7 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
         Always AZA! (Clap)\n\</string>
     <string name="title_activity_add_custom_aleph">AddCustomAlephActivity</string>
     <string name="DefaultNameValue">Email</string>
-
+    <string name="title_activity_present_listed_aleph">PresentListedAlephActivity</string>
+    <string name="action_submit">Submit</string>
 
 </resources>

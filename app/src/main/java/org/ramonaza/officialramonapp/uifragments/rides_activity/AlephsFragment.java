@@ -3,10 +3,12 @@ package org.ramonaza.officialramonapp.uifragments.rides_activity;
 
 import android.app.Fragment;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.activities.AddCustomAlephActivity;
+import org.ramonaza.officialramonapp.activities.PresentListedAlephActivity;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseContract;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
@@ -56,7 +60,29 @@ public class AlephsFragment extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_rides_alephs, container, false);
         this.presentAlpehLayout=(LinearLayout)rootView.findViewById(R.id.PresentAlephList);
         refreshData();
+        Button listAdd=(Button) rootView.findViewById(R.id.AddPresetAlephButton);
+        listAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent presListIntent=new Intent(getActivity(), PresentListedAlephActivity.class);
+                startActivity(presListIntent);
+            }
+        });
+        Button customAdd=(Button) rootView.findViewById(R.id.AddCustomAlephButton);
+        customAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent customAlephIntent=new Intent(getActivity(), AddCustomAlephActivity.class);
+                startActivity(customAlephIntent);
+            }
+        });
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
     }
 
     public void refreshData(){
@@ -65,13 +91,6 @@ public class AlephsFragment extends Fragment {
 
     public class AlephButtonListener implements View.OnClickListener{
         ContactInfoWrapper mContact;
-        LinearLayout parentLayout;
-        public void setContact(ContactInfoWrapper inContact){
-            this.mContact=inContact;
-        }
-        public void setParentLayout(LinearLayout linearLayout){
-            this.parentLayout=linearLayout;
-        }
         public void onClick(View v){
             ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(getActivity());
             SQLiteDatabase db=dbHelper.getWritableDatabase();
@@ -84,7 +103,11 @@ public class AlephsFragment extends Fragment {
                     idArg);
             refreshData();
         }
+        public AlephButtonListener(ContactInfoWrapper inAleph){
+            mContact=inAleph;
+        }
     }
+
 
 
 
@@ -104,6 +127,8 @@ public class AlephsFragment extends Fragment {
         protected void onPostExecute(List<ContactInfoWrapper> alephs) {
             super.onPostExecute(alephs);
             List<Button> contactButtons=new ArrayList<Button>();
+            Log.d("AlephsFrag",String.format("Present alephs list size:%d",alephs.size()));
+            cLayout.removeAllViewsInLayout();
             if(alephs.size()==0){
                 return;
             }
@@ -111,9 +136,7 @@ public class AlephsFragment extends Fragment {
                 Button temp=new Button(getActivity());
                 temp.setBackground(getResources().getDrawable(R.drawable.general_textbutton_layout));
                 temp.setText(aleph.getName());
-                AlephButtonListener deleteButtonListener=new AlephButtonListener();
-                deleteButtonListener.setContact(aleph);
-                deleteButtonListener.setParentLayout(cLayout);
+                AlephButtonListener deleteButtonListener=new AlephButtonListener(aleph);
                 temp.setOnClickListener(deleteButtonListener);
                 contactButtons.add(temp);
             }
@@ -124,7 +147,6 @@ public class AlephsFragment extends Fragment {
         }
         public getPresentAlephs(LinearLayout linearLayout){
             cLayout=linearLayout;
-            cLayout.removeAllViewsInLayout();
         }
     }
 

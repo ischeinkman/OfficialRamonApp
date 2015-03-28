@@ -52,6 +52,7 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
             value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_GRADYEAR,cAleph.getGradYear());
             value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PHONE,cAleph.getPhoneNumber());
             value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_SCHOOL,cAleph.getSchool());
+            value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT,0);
             long rowId=db.insert(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,null,value);
             if(rowId==-1l){
                 throw new ContactCSVReadError("Null Contact Read", cAleph);

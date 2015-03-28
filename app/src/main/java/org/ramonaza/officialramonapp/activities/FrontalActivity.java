@@ -52,10 +52,13 @@ public class FrontalActivity extends Activity
         switch (pgVal){
             case 0:
                 getFragmentManager().beginTransaction().replace(R.id.container, LoadingEventPageFragment.newInstance(0)).commit();
+                break;
             case 1:
                 getFragmentManager().beginTransaction().replace(R.id.container,SongListFragment.newInstance(1)).commit();
+                break;
             case 2:
                 getFragmentManager().beginTransaction().replace(R.id.container,ContactListFragment.newInstance(2)).commit();
+                break;
 
         }
 
@@ -142,9 +145,6 @@ public class FrontalActivity extends Activity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        /**if (id == R.id.action_settings) {
-         return true;
-         }**/
         return super.onOptionsItemSelected(item);
     }
 

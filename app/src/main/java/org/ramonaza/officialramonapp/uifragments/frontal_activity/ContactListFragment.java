@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -60,7 +61,7 @@ public class ContactListFragment  extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_contact_list, container, false);
         LinearLayout cLayout=(LinearLayout) rootView.findViewById(R.id.cListLinearList);
         ProgressBar pBar=(ProgressBar) rootView.findViewById(R.id.ContactListProgress);
-        new getContactsTask(pBar,rootView,cLayout).execute();
+        new getContactsTask(pBar,rootView,cLayout,getActivity()).execute();
         return rootView;
     }
 
@@ -95,10 +96,11 @@ public class ContactListFragment  extends Fragment{
         private  ProgressBar bar;
         private  View rootView;
         private LinearLayout cLayout;
+        private Context context;
 
         @Override
         protected List<ContactInfoWrapper> doInBackground(Void... params) {
-            ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity().getApplicationContext());
+            ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(context);
             SQLiteDatabase db=dbHelpter.getReadableDatabase();
             Cursor cursor=db.query(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,null,null,null,null,null,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME+" ASC");
             return ContactInfoWrapperGenerator.fromDataBase(cursor);
@@ -107,9 +109,12 @@ public class ContactListFragment  extends Fragment{
         @Override
         protected void onPostExecute(List<ContactInfoWrapper> alephs) {
             super.onPostExecute(alephs);
+            if(!isAdded()){
+                return;
+            }
             List<Button> contactButtons=new ArrayList<Button>();
             for(ContactInfoWrapper aleph: alephs){
-                Button temp=new Button(getActivity());
+                Button temp=new Button(context);
                 temp.setBackground(getResources().getDrawable(R.drawable.general_textbutton_layout));
                 temp.setText(aleph.getName());
                 ButtonClickListener buttonClickListener=new ButtonClickListener();
@@ -123,10 +128,11 @@ public class ContactListFragment  extends Fragment{
             bar.setVisibility(View.GONE);
 
         }
-        public getContactsTask(ProgressBar progressBar, View inView, LinearLayout linearLayout){
+        public getContactsTask(ProgressBar progressBar, View inView, LinearLayout linearLayout, Context context){
             bar=progressBar;
             rootView=inView;
             cLayout=linearLayout;
+            this.context=context;
         }
     }
 

@@ -68,19 +68,19 @@ public class SongListFragment extends Fragment {
             }
         });
         Button forTommorowAndTodayButton = (Button) rootView.findViewById(R.id.forTommorowAndTodayButton);
-        forTommorowAndTodayButton.setOnClickListener(new SongButtonListener().setSong("For Tomorow And Today"));
+        forTommorowAndTodayButton.setOnClickListener(new SongButtonListener("For Tomorow And Today"));
         Button worldOfAZAButton = (Button) rootView.findViewById(R.id.worldOfAZAButton);
-        worldOfAZAButton.setOnClickListener(new SongButtonListener().setSong("World of AZA"));
+        worldOfAZAButton.setOnClickListener(new SongButtonListener("World of AZA"));
         Button azaAllTheWayButton=(Button) rootView.findViewById(R.id.azaAllTheWayButton);
-        azaAllTheWayButton.setOnClickListener(new SongButtonListener().setSong("AZA All The Way"));
+        azaAllTheWayButton.setOnClickListener(new SongButtonListener("AZA All The Way"));
         Button proudToBeAlephButton=(Button) rootView.findViewById(R.id.proudToBeAnAlephButton);
-        proudToBeAlephButton.setOnClickListener(new SongButtonListener().setSong("Proud To Be An Aleph"));
+        proudToBeAlephButton.setOnClickListener(new SongButtonListener("Proud To Be An Aleph"));
         Button elHamaayanButton=(Button) rootView.findViewById(R.id.elHaMaayanButton);
-        elHamaayanButton.setOnClickListener(new SongButtonListener().setSong("El HaMaayan"));
+        elHamaayanButton.setOnClickListener(new SongButtonListener("El HaMaayan"));
         Button neverTooManyButton=(Button) rootView.findViewById(R.id.neverTooManyButton);
-        neverTooManyButton.setOnClickListener(new SongButtonListener().setSong("Never Too Many"));
+        neverTooManyButton.setOnClickListener(new SongButtonListener("Never Too Many"));
         Button gentlemenButton=(Button) rootView.findViewById(R.id.gentlemenButton);
-        gentlemenButton.setOnClickListener(new SongButtonListener().setSong("Gentlemen"));
+        gentlemenButton.setOnClickListener(new SongButtonListener("Gentlemen"));
         return rootView;
     }
 
@@ -93,9 +93,8 @@ public class SongListFragment extends Fragment {
     }
     public class SongButtonListener implements View.OnClickListener{
         String songName;
-        public SongButtonListener setSong(String song){
+        public SongButtonListener(String song){
             this.songName=song;
-            return this;
         }
         public void onClick(View v) {
             Intent intent=new Intent(getActivity(), SongDataActivity.class);

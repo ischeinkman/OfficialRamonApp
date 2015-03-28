@@ -58,8 +58,7 @@ public class EventListFragment extends Fragment {
             Button temp=new Button(this.getActivity());
             temp.setBackground(getResources().getDrawable(R.drawable.general_textbutton_layout));
             temp.setText(event.getDate());
-            EventButtonListener buttonClickListener=new EventButtonListener();
-            buttonClickListener.setEventInfoWrapper(event);
+            EventButtonListener buttonClickListener=new EventButtonListener(event);
             temp.setOnClickListener(buttonClickListener);
             eventButtons.add(temp);
         }
@@ -85,9 +84,8 @@ public class EventListFragment extends Fragment {
 
     public class EventButtonListener implements View.OnClickListener{
         EventInfoWrapper eventInfoWrapper;
-        public EventButtonListener setEventInfoWrapper(EventInfoWrapper input){
+        public EventButtonListener(EventInfoWrapper input){
             this.eventInfoWrapper=input;
-            return this;
         }
         public void onClick(View v){
             Intent intent=new Intent(getActivity(), EventPageActivity.class);

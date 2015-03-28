@@ -53,6 +53,17 @@
         <activity
             android:name=".activities.AddCustomAlephActivity"
             android:label="@string/title_activity_add_custom_aleph" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
+        </activity>
+        <activity
+            android:name=".activities.PresentListedAlephActivity"
+            android:label="@string/title_activity_present_listed_aleph"
+            android:parentActivityName=".activities.RidesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
         </activity>
     </application>
 
