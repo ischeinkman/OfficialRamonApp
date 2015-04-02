@@ -13,7 +13,7 @@ import java.util.List;
 public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME="ContactDriverDatabase";
-    public static final int DATABASE_VERSION=1;
+    public static final int DATABASE_VERSION=2;
     Context context;
 
     public ConDriveDatabaseHelper(Context context){
@@ -42,10 +42,8 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
     }
     public void genDatabaseFromCSV(SQLiteDatabase db) throws ContactCSVReadError{
         List<ContactInfoWrapper> csvContacts= ContactInfoWrapperGenerator.getCtactInfoListFromCSV(context);
-        int id=1;
         for(ContactInfoWrapper cAleph: csvContacts){
             ContentValues value=new ContentValues();
-            value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID,id);
             value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_NAME, cAleph.getName());
             value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_ADDRESS,cAleph.getAddress());
             value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_EMAIL,cAleph.getEmail());
@@ -57,7 +55,6 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
             if(rowId==-1l){
                 throw new ContactCSVReadError("Null Contact Read", cAleph);
             }
-            id++;
         }
     }
     public class ContactCSVReadError extends Exception{

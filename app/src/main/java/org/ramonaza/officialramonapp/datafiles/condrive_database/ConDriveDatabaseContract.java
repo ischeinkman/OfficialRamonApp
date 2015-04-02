@@ -10,7 +10,6 @@ public final class ConDriveDatabaseContract {
 
     public static abstract class ContactListTable implements BaseColumns{
         public static final String TABLE_NAME="alephs";
-        public static final String COLUMN_CONTACT_ID="aleph_id";
         public static final String COLUMN_NAME="alephname";
         public static final String COLUMN_EMAIL="alephemail";
         public static final String COLUMN_PHONE="alephphonenumber";
@@ -21,7 +20,6 @@ public final class ConDriveDatabaseContract {
         public static final String COLUMN_PRESENT="alephatevent";
         public static final String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"("+
                 ContactListTable._ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_CONTACT_ID+" "+ VTYPE_INT+","+
                 COLUMN_NAME+" "+ VTYPE_TEXT+","+
                 COLUMN_PHONE+" "+ VTYPE_TEXT+","+
                 COLUMN_EMAIL+" "+ VTYPE_TEXT+","+
@@ -34,13 +32,11 @@ public final class ConDriveDatabaseContract {
     }
     public static abstract class DriverListTable implements BaseColumns{
         public static final String TABLE_NAME="drivers";
-        public static final String COLUMN_DRIVER_ID="driver_id";
         public static final String COLUMN_NAME="drivername";
         public static final String COLUMN_SPACE="driverspots";
         public static final String COLUMN_AREA="driverareanumber";
         public static final String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"("+
                 DriverListTable._ID + " INTEGER PRIMARY KEY "+
-                COLUMN_DRIVER_ID+" "+ VTYPE_INT+", "+
                 COLUMN_NAME+" "+ VTYPE_TEXT+", "+
                 COLUMN_AREA+" "+ VTYPE_INT+", "+
                 COLUMN_SPACE+" "+VTYPE_INT+")";

@@ -29,7 +29,7 @@ public abstract class ContactInfoWrapperGenerator {
         }
         do {
             ContactInfoWrapper temp=new ContactInfoWrapper();
-            temp.setId(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID)));
+            temp.setId(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable._ID)));
             temp.setName(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_NAME)));
             temp.setSchool(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_SCHOOL)));
             temp.setPhoneNumber(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_PHONE)));
