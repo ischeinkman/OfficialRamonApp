@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Submit"
-                    android:id="@+id/button"
+                    android:id="@+id/SubmitButton"
                     android:layout_column="0"
                     android:layout_gravity="left"
                     android:gravity="left|center_vertical|center_horizontal" />

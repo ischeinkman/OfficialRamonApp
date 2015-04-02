@@ -39,6 +39,9 @@ public class ContactListFragment  extends Fragment{
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
     private static final String PAGE_NAME="Contact List";
     public int fraglayer;
+    private View rootView;
+    private LinearLayout cLayout;
+    private ProgressBar progressBar;
 
     public static ContactListFragment newInstance(int sectionNumber) {
         ContactListFragment fragment = new ContactListFragment();
@@ -52,16 +55,20 @@ public class ContactListFragment  extends Fragment{
     public ContactListFragment() {
     }
 
+    public void refreshData(){
+        new getContactsTask(progressBar,rootView,cLayout,getActivity()).execute();
+    }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setTitle("Contact List");
-        View rootView = inflater.inflate(R.layout.fragment_contact_list, container, false);
-        LinearLayout cLayout=(LinearLayout) rootView.findViewById(R.id.cListLinearList);
-        ProgressBar pBar=(ProgressBar) rootView.findViewById(R.id.ContactListProgress);
-        new getContactsTask(pBar,rootView,cLayout,getActivity()).execute();
+        rootView = inflater.inflate(R.layout.fragment_contact_list, container, false);
+        cLayout=(LinearLayout) rootView.findViewById(R.id.cListLinearList);
+        progressBar=(ProgressBar) rootView.findViewById(R.id.ContactListProgress);
+        refreshData();
         return rootView;
     }
 
@@ -73,7 +80,11 @@ public class ContactListFragment  extends Fragment{
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
+    }
 
     public class ButtonClickListener implements View.OnClickListener {
         ContactInfoWrapper buttonContactInfoWrapper;
@@ -94,7 +105,6 @@ public class ContactListFragment  extends Fragment{
     public class getContactsTask extends AsyncTask<Void,Integer,List<ContactInfoWrapper>>{
 
         private  ProgressBar bar;
-        private  View rootView;
         private LinearLayout cLayout;
         private Context context;
 
@@ -129,9 +139,8 @@ public class ContactListFragment  extends Fragment{
 
         }
         public getContactsTask(ProgressBar progressBar, View inView, LinearLayout linearLayout, Context context){
-            bar=progressBar;
-            rootView=inView;
-            cLayout=linearLayout;
+            this.bar=progressBar;
+            this.cLayout=linearLayout;
             this.context=context;
         }
     }

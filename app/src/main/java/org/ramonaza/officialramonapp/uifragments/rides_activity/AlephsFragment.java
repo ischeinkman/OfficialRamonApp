@@ -86,7 +86,7 @@ public class AlephsFragment extends Fragment {
     }
 
     public void refreshData(){
-        new getPresentAlephs(presentAlpehLayout).execute(); //Because refresh looks better.
+        new GetPresentAlephs(presentAlpehLayout).execute(); //Because refresh looks better.
     }
 
     public class AlephButtonListener implements View.OnClickListener{
@@ -111,13 +111,13 @@ public class AlephsFragment extends Fragment {
 
 
 
-    public class getPresentAlephs extends AsyncTask<Void,Integer,List<ContactInfoWrapper>> {
+    public class GetPresentAlephs extends AsyncTask<Void,Integer,List<ContactInfoWrapper>> {
 
         private LinearLayout cLayout;
 
         @Override
         protected List<ContactInfoWrapper> doInBackground(Void... params) {
-            ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity().getApplicationContext());
+            ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity());
             SQLiteDatabase db=dbHelpter.getReadableDatabase();
             Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=1 ORDER BY %s DESC",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME),null);
             return ContactInfoWrapperGenerator.fromDataBase(cursor);
@@ -145,7 +145,7 @@ public class AlephsFragment extends Fragment {
             }
 
         }
-        public getPresentAlephs(LinearLayout linearLayout){
+        public GetPresentAlephs(LinearLayout linearLayout){
             cLayout=linearLayout;
         }
     }

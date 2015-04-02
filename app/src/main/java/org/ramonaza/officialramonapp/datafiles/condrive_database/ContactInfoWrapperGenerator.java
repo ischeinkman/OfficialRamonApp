@@ -36,6 +36,7 @@ public abstract class ContactInfoWrapperGenerator {
             temp.setGradYear(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_GRADYEAR)));
             temp.setEmail(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_EMAIL)));
             temp.setAddress(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_ADDRESS)));
+            temp.setArea(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_AREA)));
             if(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT))==1){
                 temp.setPresent(true);
             }else if(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT))==0){
