@@ -77,7 +77,7 @@ public class ContactDataActivity extends Activity {
         protected ContactInfoWrapper doInBackground(Integer... params) {
             ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(getApplicationContext());
             SQLiteDatabase db=dbHelper.getReadableDatabase();
-            Cursor c=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=%d;",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID,params[0]),null);
+            Cursor c=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=%d;",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable._ID,params[0]),null);
             List<ContactInfoWrapper> falseList= ContactInfoWrapperGenerator.fromDataBase(c);
             return falseList.get(0);
         }

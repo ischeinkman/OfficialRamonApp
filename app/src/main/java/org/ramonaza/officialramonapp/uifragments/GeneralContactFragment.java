@@ -107,7 +107,7 @@ public class GeneralContactFragment extends Fragment{
                         cValues.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT, 1);
                     }
                     refreshInfoView(information);
-                    db.update(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,cValues,ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID+"=?",new String[]{""+aleph.getId()});
+                    db.update(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,cValues,ConDriveDatabaseContract.ContactListTable._ID+"=?",new String[]{""+aleph.getId()});
                 }
             });
             rootLayout.addView(presentSwitch);

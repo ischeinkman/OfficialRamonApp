@@ -99,7 +99,7 @@ public class AlephsFragment extends Fragment {
             String[] idArg=new String[]{""+mContact.getId()};
             db.update(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,
                     updateVals,
-                    ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID + "=?",
+                    ConDriveDatabaseContract.ContactListTable._ID + "=?",
                     idArg);
             refreshData();
         }
