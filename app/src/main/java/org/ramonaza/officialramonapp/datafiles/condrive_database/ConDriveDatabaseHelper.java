@@ -76,6 +76,12 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
             throw new ContactCSVReadError("Null Contact Read", toAdd);
         }
     }
+    public void addDriver(DriverInfoWrapper toAdd, SQLiteDatabase db){
+        ContentValues value=new ContentValues();
+        value.put(ConDriveDatabaseContract.DriverListTable.COLUMN_NAME,toAdd.getName());
+        value.put(ConDriveDatabaseContract.DriverListTable.COLUMN_SPACE,toAdd.getSpots());
+        long rowId=db.insert(ConDriveDatabaseContract.DriverListTable.TABLE_NAME,null,value);
+    }
     public class ContactCSVReadError extends Exception{
         public ContactCSVReadError(String errorMessage, ContactInfoWrapper erroredAleph){
             super(String.format("%s ON %s",errorMessage,erroredAleph));

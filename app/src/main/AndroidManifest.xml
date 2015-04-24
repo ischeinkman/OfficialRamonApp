@@ -65,6 +65,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
         </activity>
+        <activity
+            android:name=".activities.AddCustomDriverActivity"
+            android:label="@string/title_activity_add_custom_driver" >
+        </activity>
     </application>
 
 </manifest>

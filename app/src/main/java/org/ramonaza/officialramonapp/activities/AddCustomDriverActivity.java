@@ -1,25 +1,22 @@
 package org.ramonaza.officialramonapp.activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.uifragments.AddCustomAlephFragment;
+import org.ramonaza.officialramonapp.uifragments.AddCustomDriverFragment;
 
-public class AddCustomAlephActivity extends Activity {
+public class AddCustomDriverActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_custom_aleph);
-        ActionBar actionBar=getActionBar();
-        actionBar.setTitle("Add Aleph...");
+        setContentView(R.layout.activity_add_custom_driver);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, AddCustomAlephFragment.newInstance())
+                    .add(R.id.container, AddCustomDriverFragment.newInstance())
                     .commit();
         }
     }
@@ -28,7 +25,7 @@ public class AddCustomAlephActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_custom_aleph, menu);
+        getMenuInflater().inflate(R.menu.menu_add_custom_driver, menu);
         return true;
     }
 
@@ -46,5 +43,4 @@ public class AddCustomAlephActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }
