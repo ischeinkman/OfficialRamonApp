@@ -153,6 +153,7 @@ public class ContactInfoWrapper {
 
             return gradYearInt - currentYear;
         } catch (NumberFormatException e) {
+            if(gradYear==null) return 6;
             if (gradYear.equals("Advisor")) {
                 return 99;
             }

@@ -141,7 +141,7 @@ public class PresentAlephFromListFragment extends Fragment {
                     ContentValues cValues=new ContentValues();
                     cValues.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT, 1);
                     Log.d("PrAlList.Submit",String.format("Submitting id: %d",cBox.getId()));
-                    db.update(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,cValues,ConDriveDatabaseContract.ContactListTable.COLUMN_CONTACT_ID+"=?",new String[]{""+cBox.getId()});
+                    db.update(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,cValues,ConDriveDatabaseContract.ContactListTable._ID+"=?",new String[]{""+cBox.getId()});
                 }
             }
             return null;

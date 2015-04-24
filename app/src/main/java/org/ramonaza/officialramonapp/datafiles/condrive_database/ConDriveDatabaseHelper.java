@@ -13,7 +13,7 @@ import java.util.List;
 public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME="ContactDriverDatabase";
-    public static final int DATABASE_VERSION=2;
+    public static final int DATABASE_VERSION=3;
     Context context;
 
     public ConDriveDatabaseHelper(Context context){
@@ -23,7 +23,9 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ConDriveDatabaseContract.CREATE_TABLES);
+        db.execSQL(ConDriveDatabaseContract.DriverListTable.CREATE_TABLE);
+        db.execSQL(ConDriveDatabaseContract.ContactListTable.CREATE_TABLE);
+        db.execSQL(ConDriveDatabaseContract.RidesListTable.CREATE_TABLE);
         try {
             genDatabaseFromCSV(db);
         } catch (ContactCSVReadError contactCSVReadError) {
@@ -34,7 +36,9 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(ConDriveDatabaseContract.DELETE_TABLES);
-        db.execSQL(ConDriveDatabaseContract.CREATE_TABLES);
+        db.execSQL(ConDriveDatabaseContract.DriverListTable.CREATE_TABLE);
+        db.execSQL(ConDriveDatabaseContract.ContactListTable.CREATE_TABLE);
+        db.execSQL(ConDriveDatabaseContract.RidesListTable.CREATE_TABLE);
         try {
             genDatabaseFromCSV(db);
         } catch (ContactCSVReadError contactCSVReadError) {
@@ -55,6 +59,21 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
             if(rowId==-1l){
                 throw new ContactCSVReadError("Null Contact Read", cAleph);
             }
+        }
+    }
+
+    public void addContact(ContactInfoWrapper toAdd, SQLiteDatabase db) throws ContactCSVReadError{
+        ContentValues value=new ContentValues();
+        value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_NAME, toAdd.getName());
+        value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_ADDRESS,toAdd.getAddress());
+        value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_EMAIL,toAdd.getEmail());
+        value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_GRADYEAR,toAdd.getGradYear());
+        value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PHONE,toAdd.getPhoneNumber());
+        value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_SCHOOL,toAdd.getSchool());
+        value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT,toAdd.isPresent());
+        long rowId=db.insert(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,null,value);
+        if(rowId==-1l){
+            throw new ContactCSVReadError("Null Contact Read", toAdd);
         }
     }
     public class ContactCSVReadError extends Exception{

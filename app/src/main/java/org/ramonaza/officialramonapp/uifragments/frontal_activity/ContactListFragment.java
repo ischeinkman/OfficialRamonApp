@@ -112,12 +112,13 @@ public class ContactListFragment  extends Fragment{
         protected List<ContactInfoWrapper> doInBackground(Void... params) {
             ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(context);
             SQLiteDatabase db=dbHelpter.getReadableDatabase();
-            Cursor cursor=db.query(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,null,null,null,null,null,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME+" ASC");
+            Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s ORDER BY %s ASC",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME),null);
             return ContactInfoWrapperGenerator.fromDataBase(cursor);
         }
 
         @Override
         protected void onPostExecute(List<ContactInfoWrapper> alephs) {
+            cLayout.removeAllViewsInLayout();
             super.onPostExecute(alephs);
             if(!isAdded()){
                 return;

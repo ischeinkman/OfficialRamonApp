@@ -33,7 +33,28 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText"
+                    android:id="@+id/AddAlephName"
+                    android:layout_column="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Grade:"
+                    android:id="@+id/textView66"
+                    android:layout_column="0" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/AddAlephGrade"
                     android:layout_column="1" />
             </TableRow>
 
@@ -53,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPostalAddress"
                     android:ems="10"
-                    android:id="@+id/editText2" />
+                    android:id="@+id/AddAlephAddress" />
 
             </TableRow>
 
@@ -71,9 +92,9 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="phone"
                     android:ems="10"
-                    android:id="@+id/editText3"
+                    android:id="@+id/AddAlephPhone"
                     android:layout_span="2" />
             </TableRow>
 
@@ -93,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:ems="10"
-                    android:id="@+id/editText4" />
+                    android:id="@+id/AddAlephEmail" />
 
             </TableRow>
 
@@ -111,7 +132,8 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/editText5" />
+                    android:inputType="textAutoComplete"
+                    android:id="@+id/AddAlephSchool" />
 
             </TableRow>
 
@@ -119,15 +141,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
-                <CheckBox
+                <!--<CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Request global update"
-                    android:id="@+id/checkBox"
+                    android:id="@+id/AddAlephReqUpdate"
                     android:enabled="true"
                     android:layout_column="0"
                     android:layout_span="2"
-                    android:checked="true"/>
+                    android:checked="true"/>-->
 
             </TableRow>
 

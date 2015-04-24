@@ -36,7 +36,7 @@ public final class ConDriveDatabaseContract {
         public static final String COLUMN_SPACE="driverspots";
         public static final String COLUMN_AREA="driverareanumber";
         public static final String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"("+
-                DriverListTable._ID + " INTEGER PRIMARY KEY "+
+                DriverListTable._ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME+" "+ VTYPE_TEXT+", "+
                 COLUMN_AREA+" "+ VTYPE_INT+", "+
                 COLUMN_SPACE+" "+VTYPE_INT+")";
@@ -49,13 +49,13 @@ public final class ConDriveDatabaseContract {
         public static final String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"("+
                 RidesListTable._ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_ALEPH+" "+ VTYPE_INT+","+
-                COLUMN_CAR+" "+ VTYPE_TEXT+",";
+                COLUMN_CAR+" "+ VTYPE_TEXT+")";
         public static final String DELETE_TABLE="DROP TABLE IF EXISTS "+TABLE_NAME;
     }
     public static final String VTYPE_TEXT="TEXT";
     public static final String VTYPE_INT="INTEGER";
-    public static final String CREATE_TABLES= ContactListTable.CREATE_TABLE+";"+ DriverListTable.CREATE_TABLE+";"+ RidesListTable.CREATE_TABLE;
-    public static final String DELETE_TABLES=ContactListTable.DELETE_TABLE+";"+DriverListTable.DELETE_TABLE+";"+RidesListTable.DELETE_TABLE;
+    public static final String CREATE_TABLES= ContactListTable.CREATE_TABLE+"; "+ DriverListTable.CREATE_TABLE+"; "+ RidesListTable.CREATE_TABLE;
+    public static final String DELETE_TABLES=ContactListTable.DELETE_TABLE+"; "+DriverListTable.DELETE_TABLE+"; "+RidesListTable.DELETE_TABLE;
 
 
 
