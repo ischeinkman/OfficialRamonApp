@@ -10,12 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,12 +98,24 @@ public class AddCustomAlephFragment extends Fragment {
             EditText emailField=(EditText) myView.findViewById(R.id.AddAlephEmail);
             EditText gradeField= (EditText) myView.findViewById(R.id.AddAlephGrade);
 
-            mContact.setName(nameField.getText().toString());
-            mContact.setAddress(addressField.getText().toString());
-            mContact.setPhoneNumber(phoneField.getText().toString());
-            mContact.setSchool(schoolField.getText().toString());
-            mContact.setEmail(emailField.getText().toString());
-            int grade=Integer.parseInt(gradeField.getText().toString());
+            String nameVal=nameField.getText().toString();
+            String addressVal=addressField.getText().toString();
+            String phoneVal=phoneField.getText().toString();
+            String schoolVal=schoolField.getText().toString();
+            String emailVal=emailField.getText().toString();
+            String gradeVal=gradeField.getText().toString();
+            Set<String> valArray=new HashSet<String>(Arrays.asList(nameVal,addressVal,phoneVal,schoolVal,emailVal,gradeVal));
+            if(valArray.contains(null)|| valArray.contains("")){
+                Toast.makeText(context,R.string.error_blank_responce,Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mContact.setName(nameVal);
+            mContact.setAddress(addressVal);
+            mContact.setPhoneNumber(phoneVal);
+            mContact.setSchool(schoolVal);
+            mContact.setEmail(emailVal);
+            int grade=Integer.parseInt(gradeVal);
             Calendar c=Calendar.getInstance();
             int year=c.get(Calendar.YEAR);
             int month=c.get(Calendar.MONTH);

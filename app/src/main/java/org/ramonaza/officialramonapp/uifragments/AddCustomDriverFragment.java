@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
@@ -73,9 +74,14 @@ public class AddCustomDriverFragment extends Fragment {
 
             EditText nameField=(EditText) myView.findViewById(R.id.AddDriverName);
             EditText addressField=(EditText) myView.findViewById(R.id.AddDriverSpots);
-
-            mDriver.setName(nameField.getText().toString());
-            mDriver.setSpots(Integer.parseInt(addressField.getText().toString()));
+            String tryName=nameField.getText().toString();
+            String trySpots=addressField.getText().toString();
+            if (tryName.equals("") || trySpots.equals("")){
+                Toast.makeText(context,R.string.error_blank_responce,Toast.LENGTH_SHORT).show();
+                return;
+            }
+            mDriver.setName(tryName);
+            mDriver.setSpots(Integer.parseInt(trySpots));
 
             try {
                 dbHelper.addDriver(mDriver,db);
