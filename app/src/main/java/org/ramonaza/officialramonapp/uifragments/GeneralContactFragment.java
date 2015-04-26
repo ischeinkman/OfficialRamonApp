@@ -49,8 +49,8 @@ public class GeneralContactFragment extends Fragment{
     protected void refreshInfoView(TextView inView){
         String infoDump=String.format("N" +
                 "ame:   %s\nGrade:   %s\nSchool:  %s\nAddress:   %s\nEmail:  %s\nPhone:   %s\n",aleph.getName(), aleph.getYear(), aleph.getSchool(),aleph.getAddress(),aleph.getEmail(),aleph.getPhoneNumber());
-        String ridesOn=sp.getString("rides", "0");
-        if(ridesOn.equals("1")){
+
+        if(sp.getBoolean("rides",false)){
             if(aleph.isPresent()){
                 infoDump+="RIDES: PRESENT";
             }
@@ -89,7 +89,7 @@ public class GeneralContactFragment extends Fragment{
         Button navButton=(Button) rootView.findViewById(R.id.ContactDirButton);
         navButton.setOnClickListener(new NavigatorButtonListener(this.aleph));
 
-        if(sp.getString("rides","0").equals("1")){
+        if(sp.getBoolean("rides",false)){
             Button presentSwitch=new Button(getActivity());
             presentSwitch.setText("Set Present");
             presentSwitch.setOnClickListener(new View.OnClickListener() {

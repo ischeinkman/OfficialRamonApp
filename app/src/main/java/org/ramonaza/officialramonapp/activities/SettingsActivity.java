@@ -14,7 +14,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseContract;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
 
 import java.util.List;
@@ -67,7 +66,7 @@ public class SettingsActivity extends PreferenceActivity {
         // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
-        bindPreferenceSummaryToValue(findPreference("rides"));
+
         Preference refDataButton=(Preference) findPreference("databaserefresh");
         bindPreferenceSummaryToValue(refDataButton);
         refDataButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -186,8 +185,8 @@ public class SettingsActivity extends PreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"));
-            bindPreferenceSummaryToValue(findPreference("example_list"));
+            //bindPreferenceSummaryToValue(findPreference("example_text"));
+
         }
     }
 
@@ -198,8 +197,8 @@ public class SettingsActivity extends PreferenceActivity {
          protected Void doInBackground(Void... params) {
              ConDriveDatabaseHelper dbH=new ConDriveDatabaseHelper(context);
              SQLiteDatabase db=dbH.getWritableDatabase();
-             db.execSQL(ConDriveDatabaseContract.DELETE_TABLES);
-             db.execSQL(ConDriveDatabaseContract.CREATE_TABLES);
+             dbH.onDelete(db);
+             dbH.onCreate(db);
              try {
                  dbH.genDatabaseFromCSV(db);
              } catch (ConDriveDatabaseHelper.ContactCSVReadError contactCSVReadError) {

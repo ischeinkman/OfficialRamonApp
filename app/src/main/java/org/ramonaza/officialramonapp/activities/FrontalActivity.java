@@ -83,8 +83,6 @@ public class FrontalActivity extends Activity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        int posModRides;
-        posModRides=Integer.parseInt(sharedPrefs.getString("rides","0"));
         FragmentManager fragmentManager = getFragmentManager();
         if (position == 0) {
             fragmentManager.beginTransaction()
@@ -98,7 +96,7 @@ public class FrontalActivity extends Activity
             fragmentManager.beginTransaction()
                     .replace(R.id.container, ContactListFragment.newInstance(position + 1))
                     .commit();
-        } else if(position ==3 &&sharedPrefs.getString("rides","0").equals("1")){
+        } else if(position ==3 &&sharedPrefs.getBoolean("rides",false)){
             Intent ridesIntent=new Intent(this,RidesActivity.class);
             startActivity(ridesIntent);
         }

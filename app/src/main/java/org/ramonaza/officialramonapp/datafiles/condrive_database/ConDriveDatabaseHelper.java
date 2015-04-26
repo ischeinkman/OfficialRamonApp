@@ -32,6 +32,11 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
             contactCSVReadError.printStackTrace();
         }
     }
+    public void onDelete(SQLiteDatabase db){
+        db.execSQL(ConDriveDatabaseContract.DriverListTable.DELETE_TABLE);
+        db.execSQL(ConDriveDatabaseContract.ContactListTable.DELETE_TABLE);
+        db.execSQL(ConDriveDatabaseContract.RidesListTable.DELETE_TABLE);
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

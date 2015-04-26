@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The fragment for the front page. TODO: Add event data.
+ * The fragment for the front page.
  * Created by ilanscheinkman on 1/9/15.
  */
 public class LoadingEventPageFragment extends Fragment {

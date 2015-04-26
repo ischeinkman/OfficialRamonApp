@@ -8,14 +8,6 @@
 
 
     <string name="pref_title_rides">Rides Mode</string>
-    <string-array name="pref_rides_titles">
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
-    <string-array name="pref_rides_values">
-        <item>1</item>
-        <item>0</item>
-    </string-array>
     <string name="pref_refdata_button_title">Refresh Database</string>
     <string name="pref_refdata_button_summary">Refreshes the contact list and rides databases.</string>
 

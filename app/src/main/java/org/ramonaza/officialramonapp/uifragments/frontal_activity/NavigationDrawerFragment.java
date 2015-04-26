@@ -97,7 +97,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onResume(){
         Log.d("NavDrawer","onResume");
-        Log.d("NavDrawer",sharedPref.getString("rides","0"));
         super.onResume();
         String[] drawerlist=getDrawerTitles();
 
@@ -140,7 +139,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     public String[] getDrawerTitles(){
         String[] drawerlist;
-        if (sharedPref.getString("rides","0").equals("0")){
+        if (!sharedPref.getBoolean("rides",false)){
             drawerlist=new String[]{
                     getString(R.string.title_section1), //Strings n main/res/values/strings.xml
                     getString(R.string.title_section2),
@@ -148,17 +147,12 @@ public class NavigationDrawerFragment extends Fragment {
 
             };
         }
-        else if (sharedPref.getString("rides","0").equals("1")){
+        else{
             drawerlist=new String[]{
                     getString(R.string.title_section1), //Strings n main/res/values/strings.xml
                     getString(R.string.title_section2),
                     getString(R.string.title_section4),
                     getString(R.string.title_section5)
-            };
-        }
-        else{
-            drawerlist=new String[]{
-                    "ERROR"
             };
         }
         return drawerlist;
