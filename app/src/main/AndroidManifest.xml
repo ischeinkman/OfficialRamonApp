@@ -52,7 +52,8 @@
         </activity>
         <activity
             android:name=".activities.AddCustomAlephActivity"
-            android:label="@string/title_activity_add_custom_aleph" >
+            android:label="@string/title_activity_add_custom_aleph"
+            android:parentActivityName=".activities.RidesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
@@ -67,7 +68,11 @@
         </activity>
         <activity
             android:name=".activities.AddCustomDriverActivity"
-            android:label="@string/title_activity_add_custom_driver" >
+            android:label="@string/title_activity_add_custom_driver" 
+            android:parentActivityName=".activities.RidesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
         </activity>
     </application>
 
