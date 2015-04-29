@@ -82,7 +82,7 @@ public abstract class ContactInfoWrapperGenerator {
             File dFile=ddFiles[0];
             rval=new FileInputStream(dFile);
         }else{
-            rval = context.getAssets().open(CSV_NAME);
+            rval = context.getAssets().open("DefaultContactFileTemplate.csv");
         }
         return rval;
     }

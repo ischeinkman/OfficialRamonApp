@@ -158,7 +158,7 @@ public class ContactInfoWrapper {
                 return 99;
             }
             else{
-                return 33;
+                return 6;
             }
         }
     }
