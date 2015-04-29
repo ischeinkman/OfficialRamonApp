@@ -7,7 +7,7 @@
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ContactListProgress"/>
+        android:id="@+id/cProgressBar"/>
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

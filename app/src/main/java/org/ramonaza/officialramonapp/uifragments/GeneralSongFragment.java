@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.datafiles.SongInfoWrapper;
 
 /**
  * General Song Text Class.
@@ -19,11 +20,17 @@ public class GeneralSongFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public static GeneralSongFragment newInstance(int sectionNumber, String songTitle) {
+    private SongInfoWrapper mySong;
+
+    public void setSong(SongInfoWrapper songInfoWrapper){
+        this.mySong=songInfoWrapper;
+    }
+
+    public static GeneralSongFragment newInstance(int sectionNumber, SongInfoWrapper song) {
         GeneralSongFragment fragment = new GeneralSongFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        args.putString("songTitle", songTitle);
+        fragment.setSong(song);
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,11 +42,10 @@ public class GeneralSongFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         ActionBar actionBar = getActivity().getActionBar();
-        String songName = getArguments().getString("songTitle");
-        actionBar.setTitle(songName);
+        actionBar.setTitle(mySong.getName());
         View rootView = inflater.inflate(R.layout.fragment_song_data, container, false);
         TextView songText = (TextView) rootView.findViewById(R.id.songTextView);
-        songText.setText(getStringResourceByName(songName.toLowerCase().replace(" ", "") + "text"));
+        songText.setText(mySong.getLyrics());
         return rootView;
     }
 
@@ -48,12 +54,6 @@ public class GeneralSongFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-    }
-
-    private String getStringResourceByName(String aString) {
-        String packageName = "org.ramonaza.officialramonapp";
-        int resId = getResources().getIdentifier(aString, "string", packageName);
-        return getString(resId);
     }
 
 }
