@@ -1,12 +1,14 @@
 package org.ramonaza.officialramonapp.datafiles.condrive_database;
 
+import org.ramonaza.officialramonapp.datafiles.InfoWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by ilanscheinkman on 3/14/15.
  */
-public class DriverInfoWrapper {
+public class DriverInfoWrapper implements InfoWrapper{
     private int spots;
     private String name;
     private int area;
@@ -69,4 +71,5 @@ public class DriverInfoWrapper {
         }
         return rval; //returning the added alephs allows easy removal from the external present pool
     }
+
 }

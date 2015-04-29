@@ -1,98 +1,83 @@
 package org.ramonaza.officialramonapp.uifragments.frontal_activity;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
-import org.ramonaza.officialramonapp.R;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.ramonaza.officialramonapp.activities.EventPageActivity;
 import org.ramonaza.officialramonapp.datafiles.EventInfoWrapper;
+import org.ramonaza.officialramonapp.datafiles.InfoWrapper;
+import org.ramonaza.officialramonapp.uifragments.InfoWrapperButtonListFragment;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /*
  * Created by Ilan Scheinkman
  */
-public class EventListFragment extends Fragment {
+public class EventListFragment extends InfoWrapperButtonListFragment {
+    private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String EVENT_DATA = "org.ramonaza.officialramonapp.EVENT_DATA";
 
-    private List<EventInfoWrapper> events;
 
 
-    public static EventListFragment newInstance(ArrayList<EventInfoWrapper> events) {
+
+    public static EventListFragment newInstance(int sectionNumber) {
         EventListFragment fragment = new EventListFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(EVENT_DATA, events);
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public EventListFragment() {
-        // Required empty public constructor
+    @Override
+    public void onButtonClick(InfoWrapper mWrapper) {
+        Intent intent=new Intent(getActivity(), EventPageActivity.class);
+        intent.putExtra(EVENT_DATA,(EventInfoWrapper) mWrapper);
+        startActivity(intent);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            events = getArguments().getParcelableArrayList(EVENT_DATA);
+    public List<? extends InfoWrapper> generateInfo() {
+        StringBuilder builder = new StringBuilder(100000);
+
+        String url = "http://69.195.124.114/~ramonaza/events/feed/";
+        DefaultHttpClient client = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(url);
+        try {
+            HttpResponse execute = client.execute(httpGet);
+            InputStream content = execute.getEntity().getContent();
+            Log.d("DEBUG", "RESPONCE GET");
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+            String s = "";
+            while ((s = buffer.readLine()) != null) {
+                builder.append(s);
+                Log.d("DEBUG", "Line Got\n" + s);
+            }
+
+        } catch (Exception e) {
+            Log.d("DEBUG", e.getMessage());
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView= inflater.inflate(R.layout.fragment_event_list, container, false);
-        List<Button> eventButtons=new ArrayList<Button>();
-        LinearLayout layout=(LinearLayout) rootView.findViewById(R.id.EventDisplayScrollLayout);
-        for(EventInfoWrapper event: events){
-            Log.d("DEBUG",event.getName());
-            Button temp=new Button(this.getActivity());
-            temp.setBackground(getResources().getDrawable(R.drawable.general_textbutton_layout));
-            temp.setText(event.getDate());
-            EventButtonListener buttonClickListener=new EventButtonListener(event);
-            temp.setOnClickListener(buttonClickListener);
-            eventButtons.add(temp);
+        String html = builder.toString();
+        Log.d("DEBUG", "Begin frag trans\n" + html);
+        ArrayList<EventInfoWrapper> events = new ArrayList<EventInfoWrapper>();
+        String[] itemmedRSS = html.split("<item>");
+        List<String> aListRSS = new ArrayList<String>();
+        Collections.addAll(aListRSS, itemmedRSS);
+        aListRSS.remove(0);
+        Log.d("DEBUG", "" + itemmedRSS.length);
+        for (String eventRSS : aListRSS) {
+            Log.d("DEBUG", eventRSS);
+            events.add(new EventInfoWrapper(eventRSS));
         }
-        for(Button eventButton:eventButtons){
-            layout.addView(eventButton);
-        }
-        Log.d("DEBUG","Returning eventview");
-        return rootView;
+        return events;
     }
-
-
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    public class EventButtonListener implements View.OnClickListener{
-        EventInfoWrapper eventInfoWrapper;
-        public EventButtonListener(EventInfoWrapper input){
-            this.eventInfoWrapper=input;
-        }
-        public void onClick(View v){
-            Intent intent=new Intent(getActivity(), EventPageActivity.class);
-            intent.putExtra(EVENT_DATA,eventInfoWrapper);
-            startActivity(intent);
-        }
-    }
-
-
 }

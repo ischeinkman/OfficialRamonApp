@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.uifragments.frontal_activity.ContactListFragment;
-import org.ramonaza.officialramonapp.uifragments.frontal_activity.LoadingEventPageFragment;
+import org.ramonaza.officialramonapp.uifragments.frontal_activity.EventListFragment;
 import org.ramonaza.officialramonapp.uifragments.frontal_activity.NavigationDrawerFragment;
 import org.ramonaza.officialramonapp.uifragments.frontal_activity.SongListFragment;
 
@@ -51,7 +51,7 @@ public class FrontalActivity extends Activity
         int pgVal=intent.getIntExtra(EXTRA_OPENEDPAGE,0);
         switch (pgVal){
             case 0:
-                getFragmentManager().beginTransaction().replace(R.id.container, LoadingEventPageFragment.newInstance(0)).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container, EventListFragment.newInstance(0)).commit();
                 break;
             case 1:
                 getFragmentManager().beginTransaction().replace(R.id.container,SongListFragment.newInstance(1)).commit();
@@ -86,7 +86,7 @@ public class FrontalActivity extends Activity
         FragmentManager fragmentManager = getFragmentManager();
         if (position == 0) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, LoadingEventPageFragment.newInstance(position + 1))
+                    .replace(R.id.container, EventListFragment.newInstance(position + 1))
                     .commit();
         } else if (position == 1) {
             fragmentManager.beginTransaction()

@@ -1,5 +1,7 @@
 package org.ramonaza.officialramonapp.datafiles.condrive_database;
 
+import org.ramonaza.officialramonapp.datafiles.InfoWrapper;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +9,7 @@ import java.util.Date;
 /**
  * Created by Ilan Scheinkman on 1/12/15.
  */
-public class ContactInfoWrapper {
+public class ContactInfoWrapper implements InfoWrapper{
     private String name;
     private String email;
     private String school;
@@ -172,8 +174,6 @@ public class ContactInfoWrapper {
         }
         return false;
     }
-
-
 }
         
 

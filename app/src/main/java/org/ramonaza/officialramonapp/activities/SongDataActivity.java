@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.datafiles.SongInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.uifragments.GeneralSongFragment;
 
 public class SongDataActivity extends Activity {
@@ -25,7 +26,7 @@ public class SongDataActivity extends Activity {
         Intent intent=getIntent();
         String songName=intent.getStringExtra(EXTRA_CONTRUCTION_INFO);
         FragmentManager fragmentManager=getFragmentManager();
-        FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFragment.newInstance(0,songName));
+        FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFragment.newInstance(0, SongInfoWrapperGenerator.fromName(songName,this)));
         transaction.commit();
     }
 

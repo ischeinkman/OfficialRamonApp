@@ -7,7 +7,7 @@ import android.util.Log;
 /**
  * Created by ilanscheinkman on 1/29/15.
  */
-public class EventInfoWrapper  implements Parcelable{
+public class EventInfoWrapper  implements Parcelable, InfoWrapper{
     private String name;
     private String desc;
     private String planner;
@@ -15,6 +15,7 @@ public class EventInfoWrapper  implements Parcelable{
     private String mapsLocation;
     private String bring;
     private String date;
+    private int Id;
 
 
     public EventInfoWrapper(String[] argArray){
@@ -25,6 +26,7 @@ public class EventInfoWrapper  implements Parcelable{
         this.mapsLocation=argArray[4];
         this.bring=argArray[5];
         this.date=argArray[6];
+        this.Id=-1;
     }
     public EventInfoWrapper(String unParsedRSS){
         String[] splitFeed=unParsedRSS.split(" <br/> ");
@@ -40,6 +42,7 @@ public class EventInfoWrapper  implements Parcelable{
         this.date=splitFeed[1];
 
     }
+
 
     public String getName() {
         return name;
@@ -73,11 +76,11 @@ public class EventInfoWrapper  implements Parcelable{
         return new String[]{this.name,this.desc,this.planner,this.meet,this.mapsLocation,this.bring,this.date};
     }
 
-
     @Override
     public int describeContents() {
-        return this.hashCode();
+        return hashCode();
     }
+
     @Override
     public void writeToParcel(Parcel out, int flags){
         out.writeStringArray(this.generateArgs());
@@ -91,4 +94,14 @@ public class EventInfoWrapper  implements Parcelable{
             return new EventInfoWrapper[size];
         }
     };
+
+    @Override
+    public int hashCode(){
+        return name.hashCode();
+    }
+
+    @Override
+    public int getId() {
+        return Id;
+    }
 }

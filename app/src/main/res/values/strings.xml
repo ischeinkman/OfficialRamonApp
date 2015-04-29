@@ -26,6 +26,7 @@
     <string name="AddCustomDriverButton">Add Custom Driver...</string>
     <string name="AddDriverButton">Add Driver...</string>
     <string name="title_activity_rides">RidesActivity</string>
+    <string name="empty_info_wrapper_list">--NO DATA CURRENTLY FOUND--</string>
     <string name="upyoumentext">Up, you men, and sing to AZA!\n\
 Time will pass, and we\'ll be on our way.\n\
 As the years go by there will be\n\
