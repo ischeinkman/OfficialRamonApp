@@ -1,7 +1,6 @@
 package org.ramonaza.officialramonapp.activities;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -19,7 +18,7 @@ import org.ramonaza.officialramonapp.uifragments.rides_activity.DriversFragment;
 
 import java.util.Locale;
 
-public class RidesActivity extends Activity implements ActionBar.TabListener {
+public class RidesActivity extends BaseActivity implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -93,13 +92,6 @@ public class RidesActivity extends Activity implements ActionBar.TabListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent=new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
         switch (id){
             case android.R.id.home:
                 Intent bacIntent= NavUtils.getParentActivityIntent(this);

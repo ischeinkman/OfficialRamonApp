@@ -1,6 +1,5 @@
 package org.ramonaza.officialramonapp.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +9,7 @@ import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.datafiles.EventInfoWrapper;
 import org.ramonaza.officialramonapp.uifragments.GeneralEventFragment;
 
-public class EventPageActivity extends Activity {
+public class EventPageActivity extends BaseActivity {
     private static final String EVENT_DATA = "org.ramonaza.officialramonapp.EVENT_DATA";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +37,6 @@ public class EventPageActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            Intent intent=new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

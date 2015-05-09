@@ -1,6 +1,5 @@
 package org.ramonaza.officialramonapp.activities;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -22,7 +21,7 @@ import org.ramonaza.officialramonapp.uifragments.GeneralContactFragment;
 
 import java.util.List;
 
-public class ContactDataActivity extends Activity {
+public class ContactDataActivity extends BaseActivity {
 
     private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
@@ -58,10 +57,6 @@ public class ContactDataActivity extends Activity {
         int id = item.getItemId();
 
         switch (id){
-            case R.id.action_settings:
-                Intent intent=new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
             case android.R.id.home:
                 Intent bacIntent=NavUtils.getParentActivityIntent(this);
                 bacIntent.putExtra(EXTRA_OPENEDPAGE,2);

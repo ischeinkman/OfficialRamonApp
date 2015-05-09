@@ -1,7 +1,6 @@
 package org.ramonaza.officialramonapp.activities;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +8,7 @@ import android.view.MenuItem;
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.uifragments.PresentAlephFromListFragment;
 
-public class PresentListedAlephActivity extends Activity {
+public class PresentListedAlephActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +37,6 @@ public class PresentListedAlephActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

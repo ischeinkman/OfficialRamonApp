@@ -1,7 +1,6 @@
 package org.ramonaza.officialramonapp.activities;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +17,7 @@ import org.ramonaza.officialramonapp.uifragments.frontal_activity.NavigationDraw
 import org.ramonaza.officialramonapp.uifragments.frontal_activity.SongListFragment;
 
 
-public class FrontalActivity extends Activity
+public class FrontalActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -142,7 +141,6 @@ public class FrontalActivity extends Activity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 

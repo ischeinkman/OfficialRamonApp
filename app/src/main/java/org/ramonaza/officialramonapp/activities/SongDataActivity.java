@@ -1,6 +1,5 @@
 package org.ramonaza.officialramonapp.activities;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -13,7 +12,7 @@ import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.datafiles.SongInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.uifragments.GeneralSongFragment;
 
-public class SongDataActivity extends Activity {
+public class SongDataActivity extends BaseActivity {
 
     private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
@@ -44,13 +43,6 @@ public class SongDataActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent=new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
         switch (id){
             case android.R.id.home:
                 Intent bacIntent= NavUtils.getParentActivityIntent(this);
