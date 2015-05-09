@@ -59,7 +59,7 @@ public class DriversFragment extends InfoWrapperButtonListFragment {
 
     @Override
     public void onButtonClick(InfoWrapper mWrapper) {
-
+        //TODO: Create an activity for the manipulation of drivers
     }
 
     @Override

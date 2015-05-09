@@ -98,6 +98,8 @@ public class RidesActivity extends BaseActivity implements ActionBar.TabListener
                 bacIntent.putExtra(EXTRA_OPENEDPAGE,1);
                 startActivity(bacIntent);
                 return true;
+            case R.id.action_generate:
+                ; //TODO: Implement a rides screen
         }
 
         return super.onOptionsItemSelected(item);

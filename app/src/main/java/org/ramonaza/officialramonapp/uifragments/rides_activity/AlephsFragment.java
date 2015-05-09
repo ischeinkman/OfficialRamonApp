@@ -68,6 +68,7 @@ public class AlephsFragment extends InfoWrapperButtonListFragment {
 
     @Override
     public void onButtonClick(InfoWrapper mWrapper) {
+        //TODO: Create an activity for manipulation of present alephs
         ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(getActivity());
         SQLiteDatabase db=dbHelper.getWritableDatabase();
         ContentValues updateVals=new ContentValues();
