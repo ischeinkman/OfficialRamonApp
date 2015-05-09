@@ -73,7 +73,7 @@ public class ContactInfoWrapper implements InfoWrapper{
         int year=c.get(Calendar.YEAR);
         int month=c.get(Calendar.MONTH);
         if(month>8) year++;
-        return gradYear-year;
+        return 12-(gradYear-year);
     }
 
     public boolean isPresent() {
