@@ -17,7 +17,6 @@ import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabas
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -116,12 +115,7 @@ public class AddCustomAlephFragment extends Fragment {
             mContact.setSchool(schoolVal);
             mContact.setEmail(emailVal);
             int grade=Integer.parseInt(gradeVal);
-            Calendar c=Calendar.getInstance();
-            int year=c.get(Calendar.YEAR);
-            int month=c.get(Calendar.MONTH);
-            if(month>8) year--;
-            int gradYear=year+(12-grade);
-            mContact.setGradYear(""+gradYear);
+            mContact.setGrade(grade);
             mContact.setPresent(true);
 
             try {

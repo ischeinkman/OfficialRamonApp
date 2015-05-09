@@ -2,9 +2,7 @@ package org.ramonaza.officialramonapp.datafiles.condrive_database;
 
 import org.ramonaza.officialramonapp.datafiles.InfoWrapper;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Created by Ilan Scheinkman on 1/12/15.
@@ -16,120 +14,165 @@ public class ContactInfoWrapper implements InfoWrapper{
     private String phoneNumber;
     private String address;
     private String gradYear;
+    private int grade;
+    private String year;
     private int idNum;
     private int area;
     private boolean present;
-
-    public boolean isPresent() {
-        return present;
-    }
-    public int getArea(){
-        return area;
-    }
-    public void setArea(int inArea){
-        if(this.area==-1)this.area=inArea;
-    }
-
-    public void setPresent(boolean present) {
-        this.present = present;
-    }
 
     public ContactInfoWrapper(){
         this.setPresent(false);
         this.setArea(-1);
     }
 
-    public void setName(String name) {
-        if(this.name==null) this.name = name;
+    /**
+     * Returns the year string (Freshman, Sophomore, etc) from a given grade;
+     * @param grade the grade integer;
+     * @return the year string
+     */
+    private static String yearStringFromGrade(int grade){
+        switch (grade){
+            case -1:
+                return "Advisor";
+            case 6:
+                return "6th Grader";
+            case 7:
+                return "7th Grader";
+            case 8:
+                return "8th Grader";
+            case 9:
+                return "Freshman";
+            case 10:
+                return "Sophomore";
+            case 11:
+                return "Junior";
+            case 12:
+                return "Senior";
+            default:
+                return "College";
+
+        }
     }
 
-    public void setEmail(String email) {
-        if(this.email==null) this.email = email;
+    /**
+     * Gets a graduation year from a given grade;
+     * @param grade the grade integer
+     * @return the graduation year;
+     */
+
+    private static int gradYearFromGrade(int grade){
+        Calendar c=Calendar.getInstance();
+        int year=c.get(Calendar.YEAR);
+        int month=c.get(Calendar.MONTH);
+        if(month>8) year--;
+        return year+(12-grade);
     }
 
-    public void setSchool(String school) {
-        if(this.school==null)this.school = school;
+    private static int gradeFromGradYear(int gradYear){
+        Calendar c=Calendar.getInstance();
+        int year=c.get(Calendar.YEAR);
+        int month=c.get(Calendar.MONTH);
+        if(month>8) year++;
+        return gradYear-year;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        if(this.phoneNumber==null) this.phoneNumber = phoneNumber;
+    public boolean isPresent() {
+        return present;
     }
 
-    public void setAddress(String address) {
-        if(this.address==null) this.address = address;
+    public void setPresent(boolean present) {
+        this.present = present;
     }
 
-    public void setGradYear(String gradYear) {
-        if(this.gradYear==null) this.gradYear = gradYear;
+    public int getArea(){
+        return area;
     }
 
+    public void setArea(int inArea){
+        if(this.area==-1)this.area=inArea;
+    }
 
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        if(this.name==null) this.name = name;
     }
 
     public String getEmail() {
         return this.email;
     }
 
+    public void setEmail(String email) {
+        if(this.email==null) this.email = email;
+    }
+
     public String getSchool() {
         return this.school;
+    }
+
+    public void setSchool(String school) {
+        if(this.school==null)this.school = school;
     }
 
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        if(this.phoneNumber==null)this.phoneNumber = phoneNumber;
+    }
+
     public String getAddress() {
         return this.address;
+    }
+
+    public void setAddress(String address) {
+        if(this.address==null) this.address = address;
     }
 
     public String getGradYear() {
         return this.gradYear;
     }
 
-    public String getYear() {
-        String yearString = "";
-        switch (getDifference()) {
-            case -1:
-                yearString += "College ";
-            case 3:
-                yearString += "Freshman";
-                break;
-            case -2:
-                yearString += "College ";
-            case 2:
-                yearString += "Sophomore";
-                break;
-            case -3:
-                yearString += "College ";
-            case 1:
-                yearString += "Junior";
-                break;
-            case -4:
-                yearString += "College ";
-            case 0:
-                yearString += "Senior";
-                break;
-
-            case 4:
-                yearString += "8th Grader";
-                break;
-            case 5:
-                yearString += "7th Grader";
-                break;
-            case 6:
-                yearString += "Invalid";
-                break;
-
-            case 99:
-                yearString += "Advisor";
-                break;
-
-            default:
-                yearString += "Alumnus";
+    /**
+     * Sets graduation year, year string, and grade from graduation year
+     * @param gradYear the graduation year to calculate from
+     */
+    public void setGradYear(String gradYear) {
+        if(this.gradYear==null) {
+            this.gradYear = gradYear;
+            try {
+                int gYear=Integer.parseInt(gradYear);
+                this.grade=gradeFromGradYear(gYear);
+            } catch (NumberFormatException e){
+                if (gradYear.equals("Advisor")){
+                    grade=-1;
+                }
+            }
+            this.year=yearStringFromGrade(grade);
         }
-        return yearString;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    /**
+     * Sets graduation year, year string, and grade from grade integer
+     * @param grade the grade to calculate from
+     */
+    public void setGrade(int grade) {
+        if(this.grade==0){
+            this.grade = grade;
+            this.gradYear=""+gradYearFromGrade(grade);
+            this.year=yearStringFromGrade(grade);
+        }
+    }
+
+    public String getYear() {
+        return year;
     }
 
     public int getId(){
@@ -137,32 +180,6 @@ public class ContactInfoWrapper implements InfoWrapper{
     }
     public void setId(int inputId){
         this.idNum=inputId;
-    }
-
-    private int getDifference() {
-        Date date = new Date();
-        int gradYearInt;
-        try {
-            gradYearInt = Integer.parseInt(gradYear);// Graduation year of contact (month would be june or 6)
-            DateFormat DF = new SimpleDateFormat("yyyy");           // get the current year
-            int currentYear = Integer.parseInt(DF.format(date));
-
-            DF = new SimpleDateFormat("MM");                        // get the current month
-            int currentMonth = Integer.parseInt(DF.format(date));
-
-            if (currentMonth > 8)
-                currentYear++;                  // the school year passes through the real year, this should fix that
-
-            return gradYearInt - currentYear;
-        } catch (NumberFormatException e) {
-            if(gradYear==null) return 6;
-            if (gradYear.equals("Advisor")) {
-                return 99;
-            }
-            else{
-                return 6;
-            }
-        }
     }
 
     @Override
@@ -173,6 +190,10 @@ public class ContactInfoWrapper implements InfoWrapper{
             }
         }
         return false;
+    }
+
+    @Override public int hashCode(){
+        return idNum*name.hashCode()+idNum;
     }
 }
         
