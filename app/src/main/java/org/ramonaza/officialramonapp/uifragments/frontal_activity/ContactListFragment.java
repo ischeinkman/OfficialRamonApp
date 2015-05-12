@@ -6,7 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.activities.AddCustomAlephActivity;
 import org.ramonaza.officialramonapp.activities.ContactDataActivity;
 import org.ramonaza.officialramonapp.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.datafiles.InfoWrapper;
@@ -26,6 +31,7 @@ public class ContactListFragment  extends InfoWrapperButtonListFragment {
     private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
     private static final String PAGE_NAME="Contact List";
+    private static final String EXTRA_PARENT_ACTIVITY="parent activity";
     public int fraglayer;
 
     public static ContactListFragment newInstance(int sectionNumber) {
@@ -40,7 +46,27 @@ public class ContactListFragment  extends InfoWrapperButtonListFragment {
     public ContactListFragment() {
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_contact_list,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_add_custom_aleph:
+                Intent intent=new Intent(getActivity(), AddCustomAlephActivity.class);
+                intent.putExtra(EXTRA_PARENT_ACTIVITY,getActivity().getClass());
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onAttach(Activity activity) {

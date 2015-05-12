@@ -45,7 +45,8 @@
         <activity
             android:name=".activities.RidesActivity"
             android:label="@string/title_activity_rides"
-            android:parentActivityName=".activities.FrontalActivity" >
+            android:parentActivityName=".activities.FrontalActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.activities.FrontalActivity" />
@@ -61,7 +62,8 @@
         <activity
             android:name=".activities.PresentListedAlephActivity"
             android:label="@string/title_activity_present_listed_aleph"
-            android:parentActivityName=".activities.RidesActivity" >
+            android:parentActivityName=".activities.RidesActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />

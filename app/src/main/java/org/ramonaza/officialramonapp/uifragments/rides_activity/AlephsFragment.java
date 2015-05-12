@@ -30,6 +30,7 @@ import java.util.List;
  */
 public class AlephsFragment extends InfoWrapperButtonListFragment {
 
+    private static final String EXTRA_PARENT_ACTIVITY="parent activity";
 
     public static AlephsFragment newInstance() {
         AlephsFragment fragment = new AlephsFragment();
@@ -60,6 +61,7 @@ public class AlephsFragment extends InfoWrapperButtonListFragment {
             @Override
             public void onClick(View v) {
                 Intent customAlephIntent = new Intent(getActivity(), AddCustomAlephActivity.class);
+                customAlephIntent.putExtra(EXTRA_PARENT_ACTIVITY,getActivity().getClass());
                 startActivity(customAlephIntent);
             }
         });
