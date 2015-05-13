@@ -200,10 +200,6 @@ public class SettingsActivity extends PreferenceActivity {
              SQLiteDatabase db=dbH.getWritableDatabase();
              dbH.onDelete(db);
              dbH.onCreate(db);
-             try {
-                 dbH.genDatabaseFromCSV(db);
-             } catch (ConDriveDatabaseHelper.ContactCSVReadError contactCSVReadError) {
-             }
              return null;
          }
          public refreshDatabase(Context context1){
