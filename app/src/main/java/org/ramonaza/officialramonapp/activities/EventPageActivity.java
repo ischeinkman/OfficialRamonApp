@@ -2,7 +2,6 @@ package org.ramonaza.officialramonapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
@@ -22,14 +21,6 @@ public class EventPageActivity extends BaseActivity {
                     .add(R.id.container, GeneralEventFragment.newInstance(event))
                     .commit();
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_event_page, menu);
-        return true;
     }
 
     @Override

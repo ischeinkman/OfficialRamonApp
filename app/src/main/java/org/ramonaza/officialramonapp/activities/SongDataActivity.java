@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
@@ -27,14 +26,6 @@ public class SongDataActivity extends BaseActivity {
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFragment.newInstance(0, SongInfoWrapperGenerator.fromName(songName,this)));
         transaction.commit();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_song_data, menu);
-        return true;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package org.ramonaza.officialramonapp.activities;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
@@ -20,13 +19,6 @@ public class AddCustomDriverActivity extends BaseActivity {
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_custom_driver, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

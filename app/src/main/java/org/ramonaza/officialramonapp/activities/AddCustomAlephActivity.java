@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
@@ -29,16 +28,6 @@ public class AddCustomAlephActivity extends BaseActivity {
                     .add(R.id.container, AddCustomAlephFragment.newInstance())
                     .commit();
         }
-    }
-
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_custom_aleph, menu);
-        return true;
     }
 
     @Override

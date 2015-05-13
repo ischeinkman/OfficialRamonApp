@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
@@ -40,14 +39,6 @@ public class ContactDataActivity extends BaseActivity {
         new intentToFrag().execute(inputId);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_layer2, menu);
-
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -2,7 +2,6 @@ package org.ramonaza.officialramonapp.activities;
 
 import android.app.ActionBar;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
@@ -22,14 +21,6 @@ public class PresentListedAlephActivity extends BaseActivity {
                     .add(R.id.container, PresentAlephFromListFragment.newInstance())
                     .commit();
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_present_listed_aleph, menu);
-        return true;
     }
 
     @Override
