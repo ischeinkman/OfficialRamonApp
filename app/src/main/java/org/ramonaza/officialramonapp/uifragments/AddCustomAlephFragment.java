@@ -3,12 +3,14 @@ package org.ramonaza.officialramonapp.uifragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,6 +28,9 @@ import java.util.Set;
  * create an instance of this fragment.
  */
 public class AddCustomAlephFragment extends Fragment {
+
+    //The email to send new aleph information to
+    private static final String UPDATE_EMAIL="";
 
 
 
@@ -96,6 +101,7 @@ public class AddCustomAlephFragment extends Fragment {
             EditText schoolField=(EditText) myView.findViewById(R.id.AddAlephSchool);
             EditText emailField=(EditText) myView.findViewById(R.id.AddAlephEmail);
             EditText gradeField= (EditText) myView.findViewById(R.id.AddAlephGrade);
+            CheckBox globalUpdate=(CheckBox) myView.findViewById(R.id.AddAlephReqUpdate);
 
             String nameVal=nameField.getText().toString();
             String addressVal=addressField.getText().toString();
@@ -120,10 +126,19 @@ public class AddCustomAlephFragment extends Fragment {
 
             try {
                 dbHelper.addContact(mContact, db);
-                getActivity().finish();
             } catch (ConDriveDatabaseHelper.ContactCSVReadError contactCSVReadError) {
                 contactCSVReadError.printStackTrace();
             }
+            if(globalUpdate.isChecked()){
+                Intent updateEmailIntent=new Intent(Intent.ACTION_SEND);
+                updateEmailIntent.setType("text/html");
+                updateEmailIntent.putExtra(Intent.EXTRA_EMAIL, UPDATE_EMAIL);
+                updateEmailIntent.putExtra(Intent.EXTRA_SUBJECT,"NEW CONTANT:"+mContact.getName());
+                String message=String.format("Name: %s\nSchool: %s\nGraduation year: %s\nAddress: %s\nEmail: %s\n Phone: %s\n",mContact.getName(),mContact.getSchool(),mContact.getGradYear(),mContact.getAddress(),mContact.getEmail(),mContact.getPhoneNumber());
+                updateEmailIntent.putExtra(Intent.EXTRA_TEXT, message);
+                startActivity(Intent.createChooser(updateEmailIntent,"Request update using..."));
+            }
+            getActivity().finish();
         }
     }
 
