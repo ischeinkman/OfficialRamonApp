@@ -30,7 +30,7 @@ import java.util.Set;
 public class AddCustomAlephFragment extends Fragment {
 
     //The email to send new aleph information to
-    private static final String UPDATE_EMAIL="";
+    private static final String[] UPDATE_EMAIL={"ramon195aza@gmail.com"};
 
 
 
@@ -133,7 +133,7 @@ public class AddCustomAlephFragment extends Fragment {
                 Intent updateEmailIntent=new Intent(Intent.ACTION_SEND);
                 updateEmailIntent.setType("text/html");
                 updateEmailIntent.putExtra(Intent.EXTRA_EMAIL, UPDATE_EMAIL);
-                updateEmailIntent.putExtra(Intent.EXTRA_SUBJECT,"NEW CONTANT:"+mContact.getName());
+                updateEmailIntent.putExtra(Intent.EXTRA_SUBJECT,"NEW CONTACT:"+mContact.getName());
                 String message=String.format("Name: %s\nSchool: %s\nGraduation year: %s\nAddress: %s\nEmail: %s\n Phone: %s\n",mContact.getName(),mContact.getSchool(),mContact.getGradYear(),mContact.getAddress(),mContact.getEmail(),mContact.getPhoneNumber());
                 updateEmailIntent.putExtra(Intent.EXTRA_TEXT, message);
                 startActivity(Intent.createChooser(updateEmailIntent,"Request update using..."));
