@@ -48,8 +48,10 @@ public class ContactInfoWrapper implements InfoWrapper{
                 return "Junior";
             case 12:
                 return "Senior";
-            default:
+            case 13: case 14: case 15: case 16:
                 return "College";
+            default:
+                return "After College";
 
         }
     }
