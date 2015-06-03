@@ -10,8 +10,6 @@ import org.ramonaza.officialramonapp.datafiles.InfoWrapper;
 import org.ramonaza.officialramonapp.datafiles.SongInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.uifragments.InfoWrapperButtonListFragment;
 
-import java.util.List;
-
 /**
  * The fragment containing the list of songs.
  * Created by ilanscheinkman on 1/9/15.
@@ -60,7 +58,7 @@ public class SongListFragment extends InfoWrapperButtonListFragment {
     }
 
     @Override
-    public List<? extends InfoWrapper> generateInfo() {
+    public InfoWrapper[] generateInfo() {
         return SongInfoWrapperGenerator.allSongs(getActivity());
     }
 

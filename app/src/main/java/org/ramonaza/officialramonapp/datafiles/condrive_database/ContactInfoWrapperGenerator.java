@@ -21,11 +21,11 @@ import java.util.List;
  */
 public abstract class ContactInfoWrapperGenerator {
     private static final String CSV_NAME="AlephNameSchYAddMailNum.csv";
-    public static List<ContactInfoWrapper> fromDataBase(Cursor queryResults){
-        List<ContactInfoWrapper> rval=new ArrayList<ContactInfoWrapper>();
+    public static ContactInfoWrapper[] fromDataBase(Cursor queryResults){
+        List<ContactInfoWrapper> rvalList=new ArrayList<ContactInfoWrapper>();
         queryResults.moveToFirst();
         if (queryResults.getCount()==0){
-            return rval;
+            return null;
         }
         do {
             ContactInfoWrapper temp=new ContactInfoWrapper();
@@ -42,16 +42,13 @@ public abstract class ContactInfoWrapperGenerator {
             }else if(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT))==0){
                 temp.setPresent(false);
             }
-            rval.add(temp);
+            rvalList.add(temp);
         }while(queryResults.moveToNext());
-        return rval;
+        return rvalList.toArray(new ContactInfoWrapper[rvalList.size()]);
     }
 
     public static List<String[]> readAlephInfoCsv(Context context) {
         List<String[]> alephCSVline = new ArrayList<String[]>();
-
-
-
         try {
             InputStream csvStream = getCSVStream(context);
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream);
@@ -66,6 +63,7 @@ public abstract class ContactInfoWrapperGenerator {
         }
         return alephCSVline;
     }
+
     private static InputStream getCSVStream(Context context) throws IOException{
         InputStream rval;
 
@@ -86,12 +84,11 @@ public abstract class ContactInfoWrapperGenerator {
         return rval;
     }
 
-
-    public static List<ContactInfoWrapper> getCtactInfoListFromCSV(Context context){
+    public static ContactInfoWrapper[] getCtactInfoListFromCSV(Context context){
         List<String[]>cInfo=readAlephInfoCsv(context);
-        List<ContactInfoWrapper> rval=new ArrayList<ContactInfoWrapper>();
-        for(String[] argumentss:cInfo){
-            rval.add(createContactInfoWrapperFromCSVargs(argumentss));
+        ContactInfoWrapper[] rval=new ContactInfoWrapper[cInfo.size()];
+        for(int i=0; i<cInfo.size();i++){
+            rval[i]=createContactInfoWrapperFromCSVargs(cInfo.get(i));
         }
         return rval;
     }

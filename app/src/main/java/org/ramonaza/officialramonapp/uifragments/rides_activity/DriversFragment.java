@@ -20,8 +20,6 @@ import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabas
 import org.ramonaza.officialramonapp.datafiles.condrive_database.DriverInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.uifragments.InfoWrapperButtonListFragment;
 
-import java.util.List;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DriversFragment#newInstance} factory method to
@@ -66,7 +64,7 @@ public class DriversFragment extends InfoWrapperButtonListFragment {
     }
 
     @Override
-    public List<? extends InfoWrapper> generateInfo() {
+    public InfoWrapper[] generateInfo() {
         ConDriveDatabaseHelper dbHelpter = new ConDriveDatabaseHelper(getActivity());
         SQLiteDatabase db = dbHelpter.getReadableDatabase();
         Cursor cursor = db.rawQuery(String.format("SELECT * FROM %s ORDER BY %s DESC", ConDriveDatabaseContract.DriverListTable.TABLE_NAME, ConDriveDatabaseContract.DriverListTable.COLUMN_NAME), null);

@@ -43,7 +43,7 @@ public class PresentAlephFromListFragment extends InfoWrapperCheckBoxesFragment 
     }
 
     @Override
-    public List<? extends InfoWrapper> generateInfo() {
+    public ContactInfoWrapper[] generateInfo() {
         ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity());
         SQLiteDatabase db=dbHelpter.getReadableDatabase();
         Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=0 ORDER BY %s ASC", ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME),null);

@@ -15,9 +15,6 @@ import org.ramonaza.officialramonapp.uifragments.InfoWrapperButtonListFragment;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /*
  * Created by Ilan Scheinkman
@@ -45,7 +42,7 @@ public class EventListFragment extends InfoWrapperButtonListFragment {
     }
 
     @Override
-    public List<? extends InfoWrapper> generateInfo() {
+    public InfoWrapper[] generateInfo() {
         StringBuilder builder = new StringBuilder(100000);
 
         String url = "http://69.195.124.114/~ramonaza/events/feed/";
@@ -55,7 +52,7 @@ public class EventListFragment extends InfoWrapperButtonListFragment {
             HttpResponse execute = client.execute(httpGet);
             InputStream content = execute.getEntity().getContent();
             BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-            String s = "";
+            String s;
             while ((s = buffer.readLine()) != null) {
                 builder.append(s);
             }
@@ -65,13 +62,11 @@ public class EventListFragment extends InfoWrapperButtonListFragment {
         }
 
         String html = builder.toString();
-        ArrayList<EventInfoWrapper> events = new ArrayList<EventInfoWrapper>();
         String[] itemmedRSS = html.split("<item>");
-        List<String> aListRSS = new ArrayList<String>();
-        Collections.addAll(aListRSS, itemmedRSS);
-        aListRSS.remove(0);
-        for (String eventRSS : aListRSS) {
-            events.add(new EventInfoWrapper(eventRSS));
+        int itemmedLength=itemmedRSS.length-1;
+        EventInfoWrapper[] events = new EventInfoWrapper[itemmedLength];
+        for(int i=0;i<itemmedLength;i++){
+            events[i]=new EventInfoWrapper(itemmedRSS[i+1]);
         }
         return events;
     }

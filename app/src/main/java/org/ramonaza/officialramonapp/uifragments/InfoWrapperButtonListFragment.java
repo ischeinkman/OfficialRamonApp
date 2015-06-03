@@ -15,9 +15,6 @@ import android.widget.ProgressBar;
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.datafiles.InfoWrapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Parent fragment class for all InfoWrapper top level
  * lists that then lead to detail pages.
@@ -86,14 +83,14 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
      *
      * @return the list of InfoWrappers
      */
-    public abstract List<? extends InfoWrapper> generateInfo();
+    public abstract InfoWrapper[] generateInfo();
 
 
 
     /**
      * The class for retrieving the InfoWrappers.
      */
-    protected class GetInfoWrappers extends AsyncTask<Void, Integer, List<? extends InfoWrapper>> {
+    protected class GetInfoWrappers extends AsyncTask<Void, Integer, InfoWrapper[]> {
         protected LinearLayout mLayout;
         protected Context mContext;
         protected ProgressBar mBar;
@@ -113,26 +110,29 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
 
 
         @Override
-        protected List<? extends InfoWrapper> doInBackground(Void... params) {
+        protected InfoWrapper[] doInBackground(Void... params) {
             return generateInfo();
         }
 
         @Override
-        protected void onPostExecute(List<? extends InfoWrapper> infoWrappers) {
+        protected void onPostExecute(InfoWrapper[] infoWrappers) {
             super.onPostExecute(infoWrappers);
             if (!isAdded() || isDetached()) {
                 return; //In case the calling activity is no longer attached
             }
             mLayout.removeAllViewsInLayout(); //In case this is not the first time running .refreshData()
             mBar.setVisibility(View.GONE);
-            List<Button> contactButtons = new ArrayList<Button>();
-            for (InfoWrapper info : infoWrappers) {
+            if(infoWrappers==null) return;
+            int infoLen=infoWrappers.length;
+            Button[] contactButtons = new Button[infoLen];
+            for (int i=0;i<infoLen;i++) {
+                InfoWrapper info=infoWrappers[i];
                 Button temp = new Button(mContext);
                 temp.setBackground(getResources().getDrawable(R.drawable.general_textbutton_layout));
                 temp.setText(info.getName());
                 InfoWrapperButtonListener buttonClickListener = new InfoWrapperButtonListener(info);
                 temp.setOnClickListener(buttonClickListener);
-                contactButtons.add(temp);
+                contactButtons[i]=temp;
             }
             for (Button cButton : contactButtons) {
                 mLayout.addView(cButton);

@@ -32,7 +32,7 @@ public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
     protected int mLayoutId; //For children to override as necessary.
     protected ProgressBar progressBar;
     protected GetInfoWrappers currentAsync;
-    protected List<InfoWrapperCheckbox> allBoxes;
+    protected InfoWrapperCheckbox[] allBoxes;
 
 
     @Override
@@ -49,7 +49,7 @@ public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_info_wrapper_checkboxes, container, false);
         mLayout = (LinearLayout) rootView.findViewById(R.id.CheckBoxView);
         progressBar = (ProgressBar) rootView.findViewById(R.id.cProgressBar);
-        allBoxes = new ArrayList<InfoWrapperCheckbox>();
+        //allBoxes = new ArrayList<InfoWrapperCheckbox>();
         refreshData();
         return rootView;
     }
@@ -105,10 +105,10 @@ public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
     }
 
 
-    public abstract List<? extends InfoWrapper> generateInfo();
+    public abstract InfoWrapper[] generateInfo();
 
 
-    protected class GetInfoWrappers extends AsyncTask<Void, Integer, List<? extends InfoWrapper>> {
+    protected class GetInfoWrappers extends AsyncTask<Void, Integer, InfoWrapper[]> {
         private LinearLayout cLayout;
         private Context context;
 
@@ -118,16 +118,19 @@ public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
         }
 
         @Override
-        protected List<? extends InfoWrapper> doInBackground(Void... params) {
+        protected InfoWrapper[] doInBackground(Void... params) {
             return generateInfo();
         }
 
         @Override
-        protected void onPostExecute(List<? extends InfoWrapper> infoWrappers) {
+        protected void onPostExecute(InfoWrapper[] infoWrappers) {
             if(!isAdded() ||isDetached()) return; //In case calling activity is no longer attached
             progressBar.setVisibility(View.INVISIBLE);
-            for (InfoWrapper info : infoWrappers) {
-                allBoxes.add(new InfoWrapperCheckbox(context, info));
+            if (infoWrappers==null) return;
+            int infoLen=infoWrappers.length;
+            allBoxes=new InfoWrapperCheckbox[infoLen];
+            for (int i=0;i<infoLen;i++) {
+               allBoxes[i]=new InfoWrapperCheckbox(context,infoWrappers[i]);
             }
             for (CheckBox box : allBoxes) {
                 cLayout.addView(box);

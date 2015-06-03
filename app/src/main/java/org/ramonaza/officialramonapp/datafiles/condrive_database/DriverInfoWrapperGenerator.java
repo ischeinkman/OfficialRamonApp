@@ -9,11 +9,11 @@ import java.util.List;
  * Created by ilanscheinkman on 3/30/15.
  */
 public abstract class DriverInfoWrapperGenerator {
-    public static List<DriverInfoWrapper> fromDataBase(Cursor queryResults){
-        List<DriverInfoWrapper> rval=new ArrayList<DriverInfoWrapper>();
+    public static DriverInfoWrapper[] fromDataBase(Cursor queryResults){
+        List<DriverInfoWrapper> rvalList=new ArrayList<DriverInfoWrapper>();
         queryResults.moveToFirst();
         if (queryResults.getCount()==0){
-            return rval;
+            return null;
         }
         do {
             DriverInfoWrapper temp=new DriverInfoWrapper();
@@ -21,8 +21,8 @@ public abstract class DriverInfoWrapperGenerator {
             temp.setName(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.DriverListTable.COLUMN_NAME)));
             temp.setSpots(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.DriverListTable.COLUMN_SPACE)));
             temp.setArea(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.DriverListTable.COLUMN_AREA)));
-            rval.add(temp);
+            rvalList.add(temp);
         }while(queryResults.moveToNext());
-        return rval;
+        return rvalList.toArray(new DriverInfoWrapper[rvalList.size()]);
     }
 }

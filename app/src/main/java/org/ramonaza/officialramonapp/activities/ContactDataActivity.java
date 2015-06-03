@@ -17,8 +17,6 @@ import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrap
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.uifragments.GeneralContactFragment;
 
-import java.util.List;
-
 public class ContactDataActivity extends BaseActivity {
 
     private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
@@ -62,8 +60,7 @@ public class ContactDataActivity extends BaseActivity {
             ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(getApplicationContext());
             SQLiteDatabase db=dbHelper.getReadableDatabase();
             Cursor c=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=%d;",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable._ID,params[0]),null);
-            List<ContactInfoWrapper> falseList= ContactInfoWrapperGenerator.fromDataBase(c);
-            return falseList.get(0);
+            return ContactInfoWrapperGenerator.fromDataBase(c)[0];
         }
 
         @Override

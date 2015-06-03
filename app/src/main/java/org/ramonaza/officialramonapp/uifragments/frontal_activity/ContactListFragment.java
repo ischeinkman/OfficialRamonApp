@@ -16,11 +16,8 @@ import org.ramonaza.officialramonapp.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.datafiles.InfoWrapper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseContract;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
-import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.uifragments.InfoWrapperButtonListFragment;
-
-import java.util.List;
 
 /**
  * Created by Ilan Scheinkman on 1/12/15.
@@ -83,7 +80,7 @@ public class ContactListFragment  extends InfoWrapperButtonListFragment {
     }
 
     @Override
-    public List<ContactInfoWrapper> generateInfo() {
+    public InfoWrapper[] generateInfo() {
         ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity());
         SQLiteDatabase db=dbHelpter.getReadableDatabase();
         Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s ORDER BY %s ASC", ConDriveDatabaseContract.ContactListTable.TABLE_NAME, ConDriveDatabaseContract.ContactListTable.COLUMN_NAME), null);

@@ -2,9 +2,6 @@ package org.ramonaza.officialramonapp.datafiles;
 
 import android.content.Context;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by ilanscheinkman on 4/28/15.
  */
@@ -17,10 +14,11 @@ public abstract class SongInfoWrapperGenerator {
         return new SongInfoWrapper(name,lyrics);
     }
 
-    public static List<SongInfoWrapper> allSongs(Context context){
-        List<SongInfoWrapper> songs=new ArrayList<SongInfoWrapper>();
-        for(String songName:allSongNames){
-            songs.add(fromName(songName,context));
+    public static SongInfoWrapper[] allSongs(Context context){
+        int totalSongs=allSongNames.length;
+        SongInfoWrapper[] songs=new SongInfoWrapper[totalSongs];
+        for(int i=0; i<totalSongs;i++){
+            songs[i]=fromName(allSongNames[i],context);
         }
         return songs;
     }

@@ -21,8 +21,6 @@ import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabas
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.uifragments.InfoWrapperButtonListFragment;
 
-import java.util.List;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AlephsFragment#newInstance} factory method to
@@ -84,7 +82,7 @@ public class AlephsFragment extends InfoWrapperButtonListFragment {
     }
 
     @Override
-    public List<? extends InfoWrapper> generateInfo() {
+    public InfoWrapper[] generateInfo() {
         ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity());
         SQLiteDatabase db=dbHelpter.getReadableDatabase();
         Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=1 ORDER BY %s ASC",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME),null);

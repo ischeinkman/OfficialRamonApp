@@ -23,8 +23,6 @@ import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrap
 import org.ramonaza.officialramonapp.datafiles.condrive_database.DriverInfoWrapper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.DriverInfoWrapperGenerator;
 
-import java.util.List;
-
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -87,7 +85,7 @@ public class RidesDriverManipFragment extends Fragment {
         new PopulateView(this.driverId,this.rootView).execute();
     }
 
-    private class PopulateView extends AsyncTask<Void,Void,List<ContactInfoWrapper>>{
+    private class PopulateView extends AsyncTask<Void,Void,ContactInfoWrapper[]>{
 
         int driverId;
         View view;
@@ -97,7 +95,7 @@ public class RidesDriverManipFragment extends Fragment {
         }
 
         @Override
-        protected List<ContactInfoWrapper> doInBackground(Void... params) {
+        protected ContactInfoWrapper[] doInBackground(Void... params) {
             SQLiteDatabase db=new ConDriveDatabaseHelper(getActivity()).getReadableDatabase();
             String query="SELECT * FROM "+ConDriveDatabaseContract.RidesListTable.TABLE_NAME +" JOIN "+ConDriveDatabaseContract.ContactListTable.TABLE_NAME +
                     " ON "+ConDriveDatabaseContract.RidesListTable.TABLE_NAME+"."+ConDriveDatabaseContract.RidesListTable.COLUMN_ALEPH +"="+ConDriveDatabaseContract.ContactListTable.TABLE_NAME+"."+ConDriveDatabaseContract.ContactListTable._ID+
@@ -108,12 +106,12 @@ public class RidesDriverManipFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<ContactInfoWrapper> contactInfoWrappers) {
+        protected void onPostExecute(ContactInfoWrapper[] contactInfoWrappers) {
             super.onPostExecute(contactInfoWrappers);
             SQLiteDatabase db=new ConDriveDatabaseHelper(getActivity()).getReadableDatabase();
             String query=String.format("SELECT * FROM %s WHERE %s=%d LIMIT 1", ConDriveDatabaseContract.DriverListTable.TABLE_NAME, ConDriveDatabaseContract.DriverListTable._ID, driverId);
             Cursor cursor=db.rawQuery(query, null);
-            mDriver=DriverInfoWrapperGenerator.fromDataBase(cursor).get(0);
+            mDriver=DriverInfoWrapperGenerator.fromDataBase(cursor)[0];
             for(ContactInfoWrapper inCar:contactInfoWrappers){
                 mDriver.addAlephToCar(inCar);
             }

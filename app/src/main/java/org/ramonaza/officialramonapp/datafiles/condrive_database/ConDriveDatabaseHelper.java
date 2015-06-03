@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.List;
-
 /**
  * Created by ilanscheinkman on 3/12/15.
  */
@@ -50,7 +48,7 @@ public class ConDriveDatabaseHelper extends SQLiteOpenHelper{
         }
     }
     public void genDatabaseFromCSV(SQLiteDatabase db) throws ContactCSVReadError{
-        List<ContactInfoWrapper> csvContacts= ContactInfoWrapperGenerator.getCtactInfoListFromCSV(context);
+        ContactInfoWrapper[] csvContacts= ContactInfoWrapperGenerator.getCtactInfoListFromCSV(context);
         for(ContactInfoWrapper cAleph: csvContacts){
             ContentValues value=new ContentValues();
             value.put(ConDriveDatabaseContract.ContactListTable.COLUMN_NAME, cAleph.getName());
