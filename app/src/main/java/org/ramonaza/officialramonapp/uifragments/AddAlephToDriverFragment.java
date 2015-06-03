@@ -41,7 +41,7 @@ public class AddAlephToDriverFragment extends InfoWrapperCheckBoxesFragment {
     }
 
     @Override
-    public List<? extends InfoWrapper> generateInfo() {
+    public InfoWrapper[] generateInfo() {
         ConDriveDatabaseHelper dbH=new ConDriveDatabaseHelper(getActivity());
         SQLiteDatabase db=dbH.getWritableDatabase();
         String query=("SELECT * FROM "+ ConDriveDatabaseContract.ContactListTable.TABLE_NAME+
