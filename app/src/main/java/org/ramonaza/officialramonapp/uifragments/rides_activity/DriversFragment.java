@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.activities.AddCustomDriverActivity;
+import org.ramonaza.officialramonapp.activities.RidesDriverManipActivity;
 import org.ramonaza.officialramonapp.datafiles.InfoWrapper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseContract;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
@@ -59,7 +60,9 @@ public class DriversFragment extends InfoWrapperButtonListFragment {
 
     @Override
     public void onButtonClick(InfoWrapper mWrapper) {
-        //TODO: Create an activity for the manipulation of drivers
+        Intent intent=new Intent(getActivity(), RidesDriverManipActivity.class);
+        intent.putExtra("DriverId",mWrapper.getId());
+        startActivity(intent);
     }
 
     @Override

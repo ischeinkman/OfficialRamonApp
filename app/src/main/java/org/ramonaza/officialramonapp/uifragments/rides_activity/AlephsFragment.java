@@ -87,7 +87,7 @@ public class AlephsFragment extends InfoWrapperButtonListFragment {
     public List<? extends InfoWrapper> generateInfo() {
         ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity());
         SQLiteDatabase db=dbHelpter.getReadableDatabase();
-        Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=1 ORDER BY %s DESC",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME),null);
+        Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=1 ORDER BY %s ASC",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME),null);
         return ContactInfoWrapperGenerator.fromDataBase(cursor);
     }
 }

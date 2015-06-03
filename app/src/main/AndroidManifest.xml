@@ -45,8 +45,8 @@
         <activity
             android:name=".activities.RidesActivity"
             android:label="@string/title_activity_rides"
-            android:parentActivityName=".activities.FrontalActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.FrontalActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.activities.FrontalActivity" />
@@ -62,19 +62,35 @@
         <activity
             android:name=".activities.PresentListedAlephActivity"
             android:label="@string/title_activity_present_listed_aleph"
-            android:parentActivityName=".activities.RidesActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.RidesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
         </activity>
         <activity
             android:name=".activities.AddCustomDriverActivity"
-            android:label="@string/title_activity_add_custom_driver" 
+            android:label="@string/title_activity_add_custom_driver"
             android:parentActivityName=".activities.RidesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
+        </activity>
+        <activity
+            android:name=".activities.RidesDriverManipActivity"
+            android:label="@string/title_activity_rides_driver_manip"
+            android:parentActivityName=".activities.RidesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AddAlephToDriverActivity"
+            android:label="@string/title_activity_add_aleph_to_driver"
+            android:parentActivityName=".activities.RidesDriverManipActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ramonaza.officialramonapp.activities.RidesDriverManipActivity" />
         </activity>
     </application>
 

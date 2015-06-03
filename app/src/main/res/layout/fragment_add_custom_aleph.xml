@@ -24,7 +24,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Name:"
+                    android:text="@string/Name"
                     android:id="@+id/textView"
                     android:layout_column="0" />
 
@@ -45,7 +45,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Grade:"
+                    android:text="@string/Grade"
                     android:id="@+id/textView66"
                     android:layout_column="0" />
 
@@ -66,7 +66,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Address:"
+                    android:text="@string/Address"
                     android:id="@+id/textView2" />
 
                 <EditText
@@ -86,7 +86,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Phone:"
+                    android:text="@string/Phone"
                     android:id="@+id/textView3" />
 
                 <EditText
@@ -106,7 +106,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="E-mail:"
+                    android:text="@string/Email"
                     android:id="@+id/textView4" />
 
                 <EditText
@@ -126,7 +126,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="School:"
+                    android:text="@string/School"
                     android:id="@+id/textView5" />
 
                 <EditText

@@ -220,5 +220,13 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
     <string name="error_blank_responce">Please fill in all values to continue.</string>
     <string name="AddCustomAlephMenuButton">Add Aleph</string>
     <string name="pref_title_dev">Debug Mode</string>
+    <string name="title_activity_rides_driver_manip">RidesDriverManipActivity</string>
+    <string name="Name">Name:</string>
+    <string name="Grade">Grade:</string>
+    <string name="Address">Address:</string>
+    <string name="Phone">Phone:</string>
+    <string name="Email">E-mail:</string>
+    <string name="School">School:</string>
+    <string name="title_activity_add_aleph_to_driver">AddAlephToDriverActivity</string>
 
 </resources>

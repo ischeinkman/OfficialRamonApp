@@ -15,6 +15,10 @@ public class DriverInfoWrapper implements InfoWrapper{
     private int id;
     private List<ContactInfoWrapper> alephsInCar;
 
+    public DriverInfoWrapper(){
+        this.alephsInCar=new ArrayList<ContactInfoWrapper>(spots+1);
+    }
+
     public int getFreeSpots(){
         return spots-alephsInCar.size();
     }
