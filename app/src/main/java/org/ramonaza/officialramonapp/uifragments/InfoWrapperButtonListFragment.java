@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,11 +46,8 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
         // Inflate the layout for this fragment
         if (mLayoutId == 0) mLayoutId = R.layout.fragment_info_wrapper_button_list;
         rootView = inflater.inflate(mLayoutId, container, false);
-        Log.d("FragParent", "RootView:" + rootView.toString());
         mLayout = (LinearLayout) rootView.findViewById(R.id.cListLinearList);
         progressBar = (ProgressBar) rootView.findViewById(R.id.cProgressBar);
-        Log.d("FragParent", "mLayout:" + mLayout.toString());
-        Log.d("FragParent", "progressBar:" + progressBar.toString());
         refreshData();
         return rootView;
     }
@@ -124,7 +120,6 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
         @Override
         protected void onPostExecute(List<? extends InfoWrapper> infoWrappers) {
             super.onPostExecute(infoWrappers);
-            Log.d("FragParent", "SIZE:" + infoWrappers.size() + "," + infoWrappers.toString());
             if (!isAdded() || isDetached()) {
                 return; //In case the calling activity is no longer attached
             }

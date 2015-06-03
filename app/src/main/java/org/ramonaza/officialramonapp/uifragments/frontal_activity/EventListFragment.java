@@ -54,12 +54,10 @@ public class EventListFragment extends InfoWrapperButtonListFragment {
         try {
             HttpResponse execute = client.execute(httpGet);
             InputStream content = execute.getEntity().getContent();
-            Log.d("DEBUG", "RESPONCE GET");
             BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
             String s = "";
             while ((s = buffer.readLine()) != null) {
                 builder.append(s);
-                Log.d("DEBUG", "Line Got\n" + s);
             }
 
         } catch (Exception e) {
@@ -67,15 +65,12 @@ public class EventListFragment extends InfoWrapperButtonListFragment {
         }
 
         String html = builder.toString();
-        Log.d("DEBUG", "Begin frag trans\n" + html);
         ArrayList<EventInfoWrapper> events = new ArrayList<EventInfoWrapper>();
         String[] itemmedRSS = html.split("<item>");
         List<String> aListRSS = new ArrayList<String>();
         Collections.addAll(aListRSS, itemmedRSS);
         aListRSS.remove(0);
-        Log.d("DEBUG", "" + itemmedRSS.length);
         for (String eventRSS : aListRSS) {
-            Log.d("DEBUG", eventRSS);
             events.add(new EventInfoWrapper(eventRSS));
         }
         return events;

@@ -60,15 +60,6 @@ public class RidesDriverManipFragment extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_rides_driver_manip, container, false);
         this.rootView=rootView;
         refreshData();
-        /*Button addAleph=(Button) rootView.findViewById(R.id.AddAleph);
-        addAleph.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),AddAlephToDriverActivity.class);
-                intent.putExtra("DriverId", mDriver.getId());
-                startActivity(intent);
-            }
-        });*/
         return rootView;
     }
 

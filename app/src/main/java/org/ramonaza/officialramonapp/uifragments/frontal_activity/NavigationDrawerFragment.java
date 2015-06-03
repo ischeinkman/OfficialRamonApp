@@ -12,7 +12,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -69,8 +68,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Log.d("NavDrawer","onCreate");
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -88,15 +85,11 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // Indicate that this fragment would like to influence the set of actions in the action bar.
-
-        Log.d("NavDrawer","onActivityCreated");
         setHasOptionsMenu(true);
     }
 
     @Override
     public void onResume(){
-        Log.d("NavDrawer","onResume");
         super.onResume();
         String[] drawerlist=getDrawerTitles();
 
@@ -129,7 +122,6 @@ public class NavigationDrawerFragment extends Fragment {
                 drawerlist
         ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-        Log.d("NavDrawer","onCreateView");
         return mDrawerListView;
     }
 

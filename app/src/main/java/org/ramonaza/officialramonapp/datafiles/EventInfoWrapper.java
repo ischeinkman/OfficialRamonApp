@@ -2,7 +2,6 @@ package org.ramonaza.officialramonapp.datafiles;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 /**
  * Created by ilanscheinkman on 1/29/15.
@@ -30,9 +29,6 @@ public class EventInfoWrapper  implements Parcelable, InfoWrapper{
     }
     public EventInfoWrapper(String unParsedRSS){
         String[] splitFeed=unParsedRSS.split(" <br/> ");
-        for (String s:splitFeed){
-            Log.d("DEBUG",s);
-        }
         this.name=splitFeed[2];
         this.desc=splitFeed[3];
         this.planner=splitFeed[7];

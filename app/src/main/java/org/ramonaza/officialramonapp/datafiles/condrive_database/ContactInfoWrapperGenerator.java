@@ -64,7 +64,6 @@ public abstract class ContactInfoWrapperGenerator {
         } catch (Exception e) {
             Log.d("DEBUG", e.getMessage());
         }
-        Log.d("DEBUG", "List size: " + alephCSVline.size());
         return alephCSVline;
     }
     private static InputStream getCSVStream(Context context) throws IOException{

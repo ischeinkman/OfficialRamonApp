@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -80,7 +79,6 @@ public class ContactListFragment  extends InfoWrapperButtonListFragment {
         Intent intent = new Intent(getActivity(), ContactDataActivity.class);
         intent.putExtra(EXTRA_LAYER, PAGE_NAME);
         intent.putExtra(EXTRA_CONTRUCTION_INFO, mWrapper.getId());
-        Log.d("ContactListFrag",""+mWrapper.getId());
         startActivity(intent);
     }
 

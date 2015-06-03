@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
@@ -35,7 +34,6 @@ public class ContactDataActivity extends BaseActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle("Blank Contact Data");
         inputId=intent.getIntExtra(EXTRA_CONTRUCTION_INFO,0);
-        Log.d("ContactListFrag",""+inputId);
         new intentToFrag().execute(inputId);
     }
 
