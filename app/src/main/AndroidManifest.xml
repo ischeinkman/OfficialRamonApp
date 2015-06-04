@@ -92,6 +92,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.activities.RidesDriverManipActivity" />
         </activity>
+        <activity
+            android:name=".activities.RemoveAlephFromDriverActivity"
+            android:label="@string/title_activity_remove_aleph_from_car"
+            android:parentActivityName=".activities.RidesDriverManipActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ramonaza.officialramonapp.activities.RidesDriverManipActivity" />
+        </activity>
     </application>
 
 </manifest>

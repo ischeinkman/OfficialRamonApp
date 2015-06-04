@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.activities.AddAlephToDriverActivity;
+import org.ramonaza.officialramonapp.activities.RemoveAlephFromDriverActivity;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseContract;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ConDriveDatabaseHelper;
 import org.ramonaza.officialramonapp.datafiles.condrive_database.ContactInfoWrapper;
@@ -71,12 +72,15 @@ public class RidesDriverManipFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add_aleph:
-                Intent intent=new Intent(getActivity(),AddAlephToDriverActivity.class);
-                intent.putExtra("DriverId", mDriver.getId());
-                startActivity(intent);
+                Intent intentAdd=new Intent(getActivity(),AddAlephToDriverActivity.class);
+                intentAdd.putExtra("DriverId", mDriver.getId());
+                startActivity(intentAdd);
                 break;
             case R.id.action_remove_aleph:
-                //TODO:Implement Aleph deletion
+                Intent intentRemove=new Intent(getActivity(), RemoveAlephFromDriverActivity.class);
+                intentRemove.putExtra("DriverId",mDriver.getId());
+                startActivity(intentRemove);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

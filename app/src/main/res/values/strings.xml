@@ -228,6 +228,7 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
     <string name="Email">E-mail:</string>
     <string name="School">School:</string>
     <string name="title_activity_add_aleph_to_driver">Add Aleph To Car</string>
+    <string name="title_activity_remove_aleph_from_car">Remove Aleph From Car</string>
     <string name="RemoveAlephMenuButton">Remove Aleph</string>
 
 </resources>
