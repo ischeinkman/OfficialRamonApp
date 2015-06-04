@@ -13,7 +13,7 @@ public abstract class DriverInfoWrapperGenerator {
         List<DriverInfoWrapper> rvalList=new ArrayList<DriverInfoWrapper>();
         queryResults.moveToFirst();
         if (queryResults.getCount()==0){
-            return null;
+            return new DriverInfoWrapper[0];
         }
         do {
             DriverInfoWrapper temp=new DriverInfoWrapper();

@@ -122,7 +122,6 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
             }
             mLayout.removeAllViewsInLayout(); //In case this is not the first time running .refreshData()
             mBar.setVisibility(View.GONE);
-            if(infoWrappers==null) return;
             int infoLen=infoWrappers.length;
             Button[] contactButtons = new Button[infoLen];
             for (int i=0;i<infoLen;i++) {

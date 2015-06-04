@@ -126,7 +126,6 @@ public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
         protected void onPostExecute(InfoWrapper[] infoWrappers) {
             if(!isAdded() ||isDetached()) return; //In case calling activity is no longer attached
             progressBar.setVisibility(View.INVISIBLE);
-            if (infoWrappers==null) return;
             int infoLen=infoWrappers.length;
             allBoxes=new InfoWrapperCheckbox[infoLen];
             for (int i=0;i<infoLen;i++) {

@@ -25,7 +25,7 @@ public abstract class ContactInfoWrapperGenerator {
         List<ContactInfoWrapper> rvalList=new ArrayList<ContactInfoWrapper>();
         queryResults.moveToFirst();
         if (queryResults.getCount()==0){
-            return null;
+            return new ContactInfoWrapper[0];
         }
         do {
             ContactInfoWrapper temp=new ContactInfoWrapper();
