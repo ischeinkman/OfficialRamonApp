@@ -7,7 +7,7 @@ import android.content.Context;
  */
 public abstract class SongInfoWrapperGenerator {
 
-    public static final String[] allSongNames={"For Tomorow And Today", "World of AZA","AZA All The Way","Proud To Be An Aleph", "El HaMaayan", "Never Too Many", "Gentlemen"};
+    public static final String[] allSongNames={"Up You Men","For Tomorow And Today", "World of AZA","AZA All The Way","Proud To Be An Aleph", "El HaMaayan", "Never Too Many", "Gentlemen"};
 
     public static SongInfoWrapper fromName(String name,Context context){
         String lyrics=getStringResourceByName(name.toLowerCase().replace(" ", "") + "text",context);
