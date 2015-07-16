@@ -22,8 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 
 /**
@@ -96,19 +96,19 @@ public class GeneralContactFragment extends Fragment{
             presentSwitch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ConDriveDatabaseHelper dbH=new ConDriveDatabaseHelper(getActivity());
+                    ContactDatabaseHelper dbH=new ContactDatabaseHelper(getActivity());
                     SQLiteDatabase db=dbH.getWritableDatabase();
                     ContentValues cValues=new ContentValues();
                     if (aleph.isPresent()) {
                         aleph.setPresent(false);
-                        cValues.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT, 0);
+                        cValues.put(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, 0);
                     }
                     else{
                         aleph.setPresent(true);
-                        cValues.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT, 1);
+                        cValues.put(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, 1);
                     }
                     refreshInfoView(information);
-                    db.update(ConDriveDatabaseContract.ContactListTable.TABLE_NAME,cValues,ConDriveDatabaseContract.ContactListTable._ID+"=?",new String[]{""+aleph.getId()});
+                    db.update(ContactDatabaseContract.ContactListTable.TABLE_NAME,cValues, ContactDatabaseContract.ContactListTable._ID+"=?",new String[]{""+aleph.getId()});
                 }
             });
             rootLayout.addView(presentSwitch);

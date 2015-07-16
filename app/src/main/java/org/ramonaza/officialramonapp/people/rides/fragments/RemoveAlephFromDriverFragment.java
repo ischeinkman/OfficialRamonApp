@@ -7,8 +7,8 @@ import android.os.Bundle;
 
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.fragments.InfoWrapperCheckBoxesFragment;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
 
 import java.util.List;
@@ -42,12 +42,12 @@ public class RemoveAlephFromDriverFragment extends InfoWrapperCheckBoxesFragment
 
     @Override
     public InfoWrapper[] generateInfo() {
-        ConDriveDatabaseHelper dbH=new ConDriveDatabaseHelper(getActivity());
+        ContactDatabaseHelper dbH=new ContactDatabaseHelper(getActivity());
         SQLiteDatabase db=dbH.getWritableDatabase();
-        String query=("SELECT * FROM "+ ConDriveDatabaseContract.ContactListTable.TABLE_NAME+
-                " WHERE "+ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT+"=1 AND"+
-                " "+ConDriveDatabaseContract.ContactListTable._ID +" IN ("+
-                "SELECT "+ConDriveDatabaseContract.RidesListTable.COLUMN_ALEPH+" FROM "+ConDriveDatabaseContract.RidesListTable.TABLE_NAME+")");
+        String query=("SELECT * FROM "+ ContactDatabaseContract.ContactListTable.TABLE_NAME+
+                " WHERE "+ ContactDatabaseContract.ContactListTable.COLUMN_PRESENT+"=1 AND"+
+                " "+ ContactDatabaseContract.ContactListTable._ID +" IN ("+
+                "SELECT "+ ContactDatabaseContract.RidesListTable.COLUMN_ALEPH+" FROM "+ ContactDatabaseContract.RidesListTable.TABLE_NAME+")");
         Cursor cursor=db.rawQuery(query,null);
         return ContactInfoWrapperGenerator.fromDataBase(cursor);
     }
@@ -56,10 +56,10 @@ public class RemoveAlephFromDriverFragment extends InfoWrapperCheckBoxesFragment
 
         @Override
         protected Void doInBackground(InfoWrapper ... params) {
-            ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(getActivity());
+            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(getActivity());
             SQLiteDatabase db=dbHelper.getWritableDatabase();
             for (InfoWrapper aleph:params) {
-                db.delete(ConDriveDatabaseContract.RidesListTable.TABLE_NAME,ConDriveDatabaseContract.RidesListTable.COLUMN_ALEPH+"="+aleph.getId()+" and "+ConDriveDatabaseContract.RidesListTable.COLUMN_CAR+"="+driverId,null);
+                db.delete(ContactDatabaseContract.RidesListTable.TABLE_NAME, ContactDatabaseContract.RidesListTable.COLUMN_ALEPH+"="+aleph.getId()+" and "+ ContactDatabaseContract.RidesListTable.COLUMN_CAR+"="+driverId,null);
             }
             return null;
         }

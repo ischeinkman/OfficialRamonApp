@@ -14,7 +14,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 
 import java.util.List;
 
@@ -196,7 +196,7 @@ public class SettingsActivity extends PreferenceActivity {
          Context context;
          @Override
          protected Void doInBackground(Void... params) {
-             ConDriveDatabaseHelper dbH=new ConDriveDatabaseHelper(context);
+             ContactDatabaseHelper dbH=new ContactDatabaseHelper(context);
              SQLiteDatabase db=dbH.getWritableDatabase();
              dbH.onDelete(db);
              dbH.onCreate(db);

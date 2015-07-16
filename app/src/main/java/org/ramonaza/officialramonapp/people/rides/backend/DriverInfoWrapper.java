@@ -61,6 +61,9 @@ public class DriverInfoWrapper implements InfoWrapper{
     public void removeAlephFromCar(ContactInfoWrapper aleph){
         alephsInCar.remove(aleph);
     }
+    public List<ContactInfoWrapper> getAlephsInCar(){
+        return alephsInCar;
+    }
     public List<ContactInfoWrapper> attemptGenerate(List<ContactInfoWrapper> totalAlephPool){
         List<ContactInfoWrapper> rval=new ArrayList<ContactInfoWrapper>();
         boolean contIter=true;

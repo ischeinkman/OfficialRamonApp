@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapper;
 
 /**
@@ -69,7 +69,7 @@ public class AddCustomDriverFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(context);
+            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(context);
             SQLiteDatabase db=dbHelper.getWritableDatabase();
 
             EditText nameField=(EditText) myView.findViewById(R.id.AddDriverName);

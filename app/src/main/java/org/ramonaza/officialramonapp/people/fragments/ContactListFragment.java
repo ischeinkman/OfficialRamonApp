@@ -15,8 +15,8 @@ import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.fragments.InfoWrapperButtonListFragment;
 import org.ramonaza.officialramonapp.people.activities.AddCustomAlephActivity;
 import org.ramonaza.officialramonapp.people.activities.ContactDataActivity;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
 
 /**
@@ -81,9 +81,9 @@ public class ContactListFragment  extends InfoWrapperButtonListFragment {
 
     @Override
     public InfoWrapper[] generateInfo() {
-        ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity());
+        ContactDatabaseHelper dbHelpter=new ContactDatabaseHelper(getActivity());
         SQLiteDatabase db=dbHelpter.getReadableDatabase();
-        Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s ORDER BY %s ASC", ConDriveDatabaseContract.ContactListTable.TABLE_NAME, ConDriveDatabaseContract.ContactListTable.COLUMN_NAME), null);
+        Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s ORDER BY %s ASC", ContactDatabaseContract.ContactListTable.TABLE_NAME, ContactDatabaseContract.ContactListTable.COLUMN_NAME), null);
         return ContactInfoWrapperGenerator.fromDataBase(cursor);
     }
 

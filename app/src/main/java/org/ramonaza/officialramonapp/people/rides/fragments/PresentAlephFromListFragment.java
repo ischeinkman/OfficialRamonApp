@@ -9,8 +9,8 @@ import android.os.Bundle;
 
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.fragments.InfoWrapperCheckBoxesFragment;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
 
@@ -45,9 +45,9 @@ public class PresentAlephFromListFragment extends InfoWrapperCheckBoxesFragment 
 
     @Override
     public ContactInfoWrapper[] generateInfo() {
-        ConDriveDatabaseHelper dbHelpter=new ConDriveDatabaseHelper(getActivity());
+        ContactDatabaseHelper dbHelpter=new ContactDatabaseHelper(getActivity());
         SQLiteDatabase db=dbHelpter.getReadableDatabase();
-        Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=0 ORDER BY %s ASC", ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT,ConDriveDatabaseContract.ContactListTable.COLUMN_NAME),null);
+        Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=0 ORDER BY %s ASC", ContactDatabaseContract.ContactListTable.TABLE_NAME, ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, ContactDatabaseContract.ContactListTable.COLUMN_NAME),null);
         return ContactInfoWrapperGenerator.fromDataBase(cursor);
     }
 
@@ -56,13 +56,13 @@ public class PresentAlephFromListFragment extends InfoWrapperCheckBoxesFragment 
 
         @Override
         protected Void doInBackground(InfoWrapper ... params) {
-            ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(getActivity());
+            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(getActivity());
             SQLiteDatabase db=dbHelper.getWritableDatabase();
             for (InfoWrapper untypedContact:params) {
                 ContactInfoWrapper contact=(ContactInfoWrapper) untypedContact;
                 ContentValues cValues = new ContentValues();
-                cValues.put(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT, 1);
-                db.update(ConDriveDatabaseContract.ContactListTable.TABLE_NAME, cValues, ConDriveDatabaseContract.ContactListTable._ID + "=?", new String[]{"" + contact.getId()});
+                cValues.put(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, 1);
+                db.update(ContactDatabaseContract.ContactListTable.TABLE_NAME, cValues, ContactDatabaseContract.ContactListTable._ID + "=?", new String[]{"" + contact.getId()});
 
             }
             return null;

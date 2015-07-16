@@ -2,7 +2,7 @@ package org.ramonaza.officialramonapp.people.rides.backend;
 
 import android.database.Cursor;
 
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseContract;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +19,10 @@ public abstract class DriverInfoWrapperGenerator {
         }
         do {
             DriverInfoWrapper temp=new DriverInfoWrapper();
-            temp.setId(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.DriverListTable._ID)));
-            temp.setName(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.DriverListTable.COLUMN_NAME)));
-            temp.setSpots(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.DriverListTable.COLUMN_SPACE)));
-            temp.setArea(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.DriverListTable.COLUMN_AREA)));
+            temp.setId(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable._ID)));
+            temp.setName(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable.COLUMN_NAME)));
+            temp.setSpots(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable.COLUMN_SPACE)));
+            temp.setArea(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable.COLUMN_AREA)));
             rvalList.add(temp);
         }while(queryResults.moveToNext());
         return rvalList.toArray(new DriverInfoWrapper[rvalList.size()]);

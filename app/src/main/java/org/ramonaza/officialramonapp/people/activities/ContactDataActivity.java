@@ -12,8 +12,8 @@ import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.activities.BaseActivity;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.people.fragments.GeneralContactFragment;
@@ -58,9 +58,9 @@ public class ContactDataActivity extends BaseActivity {
 
         @Override
         protected ContactInfoWrapper doInBackground(Integer... params) {
-            ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(getApplicationContext());
+            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(getApplicationContext());
             SQLiteDatabase db=dbHelper.getReadableDatabase();
-            Cursor c=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=%d;",ConDriveDatabaseContract.ContactListTable.TABLE_NAME,ConDriveDatabaseContract.ContactListTable._ID,params[0]),null);
+            Cursor c=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=%d;", ContactDatabaseContract.ContactListTable.TABLE_NAME, ContactDatabaseContract.ContactListTable._ID,params[0]),null);
             return ContactInfoWrapperGenerator.fromDataBase(c)[0];
         }
 

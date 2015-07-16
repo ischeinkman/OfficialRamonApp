@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.people.backend.ConDriveDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 
 import java.util.Arrays;
@@ -92,7 +92,7 @@ public class AddCustomAlephFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            ConDriveDatabaseHelper dbHelper=new ConDriveDatabaseHelper(context);
+            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(context);
             SQLiteDatabase db=dbHelper.getWritableDatabase();
 
             EditText nameField=(EditText) myView.findViewById(R.id.AddAlephName);
@@ -126,7 +126,7 @@ public class AddCustomAlephFragment extends Fragment {
 
             try {
                 dbHelper.addContact(mContact, db);
-            } catch (ConDriveDatabaseHelper.ContactCSVReadError contactCSVReadError) {
+            } catch (ContactDatabaseHelper.ContactCSVReadError contactCSVReadError) {
                 contactCSVReadError.printStackTrace();
             }
             if(globalUpdate.isChecked()){

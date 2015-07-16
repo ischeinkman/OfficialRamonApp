@@ -29,17 +29,17 @@ public abstract class ContactInfoWrapperGenerator {
         }
         do {
             ContactInfoWrapper temp=new ContactInfoWrapper();
-            temp.setId(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable._ID)));
-            temp.setName(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_NAME)));
-            temp.setSchool(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_SCHOOL)));
-            temp.setPhoneNumber(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_PHONE)));
-            temp.setGradYear(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_GRADYEAR)));
-            temp.setEmail(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_EMAIL)));
-            temp.setAddress(queryResults.getString(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_ADDRESS)));
-            temp.setArea(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_AREA)));
-            if(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT))==1){
+            temp.setId(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable._ID)));
+            temp.setName(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_NAME)));
+            temp.setSchool(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_SCHOOL)));
+            temp.setPhoneNumber(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_PHONE)));
+            temp.setGradYear(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_GRADYEAR)));
+            temp.setEmail(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_EMAIL)));
+            temp.setAddress(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_ADDRESS)));
+            temp.setArea(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_AREA)));
+            if(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT))==1){
                 temp.setPresent(true);
-            }else if(queryResults.getInt(queryResults.getColumnIndexOrThrow(ConDriveDatabaseContract.ContactListTable.COLUMN_PRESENT))==0){
+            }else if(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT))==0){
                 temp.setPresent(false);
             }
             rvalList.add(temp);
