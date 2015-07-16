@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activities.FrontalActivity"
+            android:name=".frontpage.activities.FrontalActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,84 +21,84 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ContactDataActivity"
+            android:name=".people.activities.ContactDataActivity"
             android:label="@string/title_activity_layer2"
-            android:parentActivityName=".activities.FrontalActivity" >
+            android:parentActivityName=".frontpage.activities.FrontalActivity" >
         </activity>
         <activity
-            android:name=".activities.SongDataActivity"
+            android:name=".songs.activities.SongDataActivity"
             android:label="@string/title_activity_song_data"
-            android:parentActivityName=".activities.FrontalActivity" >
+            android:parentActivityName=".frontpage.activities.FrontalActivity" >
         </activity>
         <activity
-            android:name=".activities.EventPageActivity"
+            android:name=".events.activities.EventPageActivity"
             android:label="@string/title_activity_event_page"
-            android:parentActivityName=".activities.FrontalActivity" >
+            android:parentActivityName=".frontpage.activities.FrontalActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ramonaza.officialramonapp.activities.FrontalActivity" />
+                android:value=".frontpage.activities.FrontalActivity" />
         </activity>
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name=".settings.activities.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name=".activities.RidesActivity"
+            android:name=".people.rides.activities.RidesActivity"
             android:label="@string/title_activity_rides"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.FrontalActivity" >
+            android:parentActivityName=".frontpage.activities.FrontalActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ramonaza.officialramonapp.activities.FrontalActivity" />
+                android:value=".frontpage.activities.FrontalActivity" />
         </activity>
         <activity
-            android:name=".activities.AddCustomAlephActivity"
+            android:name=".people.activities.AddCustomAlephActivity"
             android:label="@string/title_activity_add_custom_aleph"
-            android:parentActivityName=".activities.RidesActivity" >
+            android:parentActivityName=".people.rides.activities.RidesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
+                android:value=".people.rides.activities.RidesActivity" />
         </activity>
         <activity
-            android:name=".activities.PresentListedAlephActivity"
+            android:name=".people.rides.activities.PresentListedAlephActivity"
             android:label="@string/title_activity_present_listed_aleph"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.RidesActivity" >
+            android:parentActivityName=".people.rides.activities.RidesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
+                android:value=".people.rides.activities.RidesActivity" />
         </activity>
         <activity
-            android:name=".activities.AddCustomDriverActivity"
+            android:name=".people.rides.activities.AddCustomDriverActivity"
             android:label="@string/title_activity_add_custom_driver"
-            android:parentActivityName=".activities.RidesActivity" >
+            android:parentActivityName=".people.rides.activities.RidesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
+                android:value=".people.rides.activities.RidesActivity" />
         </activity>
         <activity
-            android:name=".activities.RidesDriverManipActivity"
+            android:name=".people.rides.activities.RidesDriverManipActivity"
             android:label="@string/title_activity_rides_driver_manip"
-            android:parentActivityName=".activities.RidesActivity" >
+            android:parentActivityName=".people.rides.activities.RidesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ramonaza.officialramonapp.activities.RidesActivity" />
+                android:value=".people.rides.activities.RidesActivity" />
         </activity>
         <activity
-            android:name=".activities.AddAlephToDriverActivity"
+            android:name=".people.rides.activities.AddAlephToDriverActivity"
             android:label="@string/title_activity_add_aleph_to_driver"
-            android:parentActivityName=".activities.RidesDriverManipActivity" >
+            android:parentActivityName=".people.rides.activities.RidesDriverManipActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ramonaza.officialramonapp.activities.RidesDriverManipActivity" />
+                android:value=".people.rides.activities.RidesDriverManipActivity" />
         </activity>
         <activity
-            android:name=".activities.RemoveAlephFromDriverActivity"
+            android:name=".people.rides.activities.RemoveAlephFromDriverActivity"
             android:label="@string/title_activity_remove_aleph_from_car"
-            android:parentActivityName=".activities.RidesDriverManipActivity" >
+            android:parentActivityName=".people.rides.activities.RidesDriverManipActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ramonaza.officialramonapp.activities.RidesDriverManipActivity" />
+                android:value=".people.rides.activities.RidesDriverManipActivity" />
         </activity>
     </application>
 
