@@ -2,9 +2,7 @@ package org.ramonaza.officialramonapp.people.rides.fragments;
 
 
 import android.app.Fragment;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,9 +15,10 @@ import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.fragments.InfoWrapperButtonListFragment;
 import org.ramonaza.officialramonapp.people.activities.AddCustomAlephActivity;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
-import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.people.rides.activities.PresentListedAlephActivity;
+import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +29,8 @@ public class AlephsFragment extends InfoWrapperButtonListFragment {
 
     private static final String EXTRA_PARENT_ACTIVITY="parent activity";
 
+    private SQLiteDatabase db;
+
     public static AlephsFragment newInstance() {
         AlephsFragment fragment = new AlephsFragment();
         Bundle args = new Bundle();
@@ -38,7 +39,14 @@ public class AlephsFragment extends InfoWrapperButtonListFragment {
     }
 
     public AlephsFragment() {
-        // Required empty public constructor
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ContactDatabaseHelper dbh=new ContactDatabaseHelper(getActivity());
+        this.db=dbh.getWritableDatabase();
     }
 
     @Override
@@ -69,23 +77,29 @@ public class AlephsFragment extends InfoWrapperButtonListFragment {
     @Override
     public void onButtonClick(InfoWrapper mWrapper) {
         //TODO: Create an activity for manipulation of present alephs
-        ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(getActivity());
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
-        ContentValues updateVals=new ContentValues();
-        updateVals.put(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT,0); //Deletes the aleph from the present list on the button click, because there is no other functionality required for alephs other than add and delete.
-        String[] idArg=new String[]{""+mWrapper.getId()};
-        db.update(ContactDatabaseContract.ContactListTable.TABLE_NAME,
-                updateVals,
-                ContactDatabaseContract.ContactListTable._ID + "=?",
-                idArg);
+        RidesDatabaseHandler handler=new RidesDatabaseHandler(db);
+        handler.setAlephAbsent(mWrapper.getId());
         refreshData();
     }
 
     @Override
     public InfoWrapper[] generateInfo() {
-        ContactDatabaseHelper dbHelpter=new ContactDatabaseHelper(getActivity());
-        SQLiteDatabase db=dbHelpter.getReadableDatabase();
-        Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=1 ORDER BY %s ASC", ContactDatabaseContract.ContactListTable.TABLE_NAME, ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, ContactDatabaseContract.ContactListTable.COLUMN_NAME),null);
-        return ContactInfoWrapperGenerator.fromDataBase(cursor);
+        ContactDatabaseHandler handler=new ContactDatabaseHandler(db);
+        return handler.getContacts(new String[]{
+                ContactDatabaseContract.ContactListTable.COLUMN_PRESENT+"=1",
+        }, ContactDatabaseContract.ContactListTable.COLUMN_NAME+" ASC");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        db.close();
+    }
+
+    @Override
+    public void onResume() {
+        ContactDatabaseHelper databaseHelper=new ContactDatabaseHelper(getActivity());
+        db=databaseHelper.getWritableDatabase();
+        super.onResume();
     }
 }

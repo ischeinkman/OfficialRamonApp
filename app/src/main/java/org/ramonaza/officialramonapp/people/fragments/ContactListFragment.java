@@ -2,8 +2,6 @@ package org.ramonaza.officialramonapp.people.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,8 +14,7 @@ import org.ramonaza.officialramonapp.helpers.fragments.InfoWrapperButtonListFrag
 import org.ramonaza.officialramonapp.people.activities.AddCustomAlephActivity;
 import org.ramonaza.officialramonapp.people.activities.ContactDataActivity;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
-import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 
 /**
  * Created by Ilan Scheinkman on 1/12/15.
@@ -81,10 +78,8 @@ public class ContactListFragment  extends InfoWrapperButtonListFragment {
 
     @Override
     public InfoWrapper[] generateInfo() {
-        ContactDatabaseHelper dbHelpter=new ContactDatabaseHelper(getActivity());
-        SQLiteDatabase db=dbHelpter.getReadableDatabase();
-        Cursor cursor=db.rawQuery(String.format("SELECT * FROM %s ORDER BY %s ASC", ContactDatabaseContract.ContactListTable.TABLE_NAME, ContactDatabaseContract.ContactListTable.COLUMN_NAME), null);
-        return ContactInfoWrapperGenerator.fromDataBase(cursor);
+        ContactDatabaseHandler handler=new ContactDatabaseHandler(getActivity());
+        return handler.getContacts(null, ContactDatabaseContract.ContactListTable.COLUMN_NAME+" ASC");
     }
 
 

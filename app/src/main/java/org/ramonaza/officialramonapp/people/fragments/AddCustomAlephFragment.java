@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 
 import java.util.Arrays;
@@ -34,6 +33,10 @@ public class AddCustomAlephFragment extends Fragment {
 
 
 
+    public AddCustomAlephFragment() {
+        // Required empty public constructor
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -45,10 +48,6 @@ public class AddCustomAlephFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public AddCustomAlephFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -92,8 +91,7 @@ public class AddCustomAlephFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(context);
-            SQLiteDatabase db=dbHelper.getWritableDatabase();
+            ContactDatabaseHandler handler=new ContactDatabaseHandler(context);
 
             EditText nameField=(EditText) myView.findViewById(R.id.AddAlephName);
             EditText addressField=(EditText) myView.findViewById(R.id.AddAlephAddress);
@@ -125,9 +123,9 @@ public class AddCustomAlephFragment extends Fragment {
             mContact.setPresent(true);
 
             try {
-                dbHelper.addContact(mContact, db);
-            } catch (ContactDatabaseHelper.ContactCSVReadError contactCSVReadError) {
-                contactCSVReadError.printStackTrace();
+                handler.addContact(mContact);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             if(globalUpdate.isChecked()){
                 Intent updateEmailIntent=new Intent(Intent.ACTION_SEND);

@@ -1,7 +1,6 @@
 package org.ramonaza.officialramonapp.people.rides.fragments;
 
 import android.app.Fragment;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -10,10 +9,12 @@ import android.os.Bundle;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.fragments.InfoWrapperCheckBoxesFragment;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -56,15 +57,9 @@ public class PresentAlephFromListFragment extends InfoWrapperCheckBoxesFragment 
 
         @Override
         protected Void doInBackground(InfoWrapper ... params) {
-            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(getActivity());
-            SQLiteDatabase db=dbHelper.getWritableDatabase();
-            for (InfoWrapper untypedContact:params) {
-                ContactInfoWrapper contact=(ContactInfoWrapper) untypedContact;
-                ContentValues cValues = new ContentValues();
-                cValues.put(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, 1);
-                db.update(ContactDatabaseContract.ContactListTable.TABLE_NAME, cValues, ContactDatabaseContract.ContactListTable._ID + "=?", new String[]{"" + contact.getId()});
-
-            }
+            ContactDatabaseHandler handler=new ContactDatabaseHandler(getActivity());
+            ContactInfoWrapper[] alephs= Arrays.copyOf(params,params.length,ContactInfoWrapper[].class);
+            handler.updateField(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT,"1",alephs);
             return null;
         }
 

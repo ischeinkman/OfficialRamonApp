@@ -3,7 +3,6 @@ package org.ramonaza.officialramonapp.people.rides.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapper;
+import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,8 +68,7 @@ public class AddCustomDriverFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(context);
-            SQLiteDatabase db=dbHelper.getWritableDatabase();
+            RidesDatabaseHandler handler=new RidesDatabaseHandler(context);
 
             EditText nameField=(EditText) myView.findViewById(R.id.AddDriverName);
             EditText addressField=(EditText) myView.findViewById(R.id.AddDriverSpots);
@@ -84,7 +82,7 @@ public class AddCustomDriverFragment extends Fragment {
             mDriver.setSpots(Integer.parseInt(trySpots));
 
             try {
-                dbHelper.addDriver(mDriver,db);
+                handler.addDriver(mDriver);
                 getActivity().finish();
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,17 +1,16 @@
 package org.ramonaza.officialramonapp.people.rides.fragments;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.fragments.InfoWrapperCheckBoxesFragment;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
-import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
+import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class AddAlephToDriverFragment extends InfoWrapperCheckBoxesFragment {
@@ -43,28 +42,20 @@ public class AddAlephToDriverFragment extends InfoWrapperCheckBoxesFragment {
 
     @Override
     public InfoWrapper[] generateInfo() {
-        ContactDatabaseHelper dbH=new ContactDatabaseHelper(getActivity());
-        SQLiteDatabase db=dbH.getWritableDatabase();
-        String query=("SELECT * FROM "+ ContactDatabaseContract.ContactListTable.TABLE_NAME+
-                " WHERE "+ ContactDatabaseContract.ContactListTable.COLUMN_PRESENT+"=1 AND"+
-                " "+ ContactDatabaseContract.ContactListTable._ID +" NOT IN ("+
-                "SELECT "+ ContactDatabaseContract.RidesListTable.COLUMN_ALEPH+" FROM "+ ContactDatabaseContract.RidesListTable.TABLE_NAME+")");
-        Cursor cursor=db.rawQuery(query,null);
-        return ContactInfoWrapperGenerator.fromDataBase(cursor);
+        ContactDatabaseHandler dbhandler=new ContactDatabaseHandler(getActivity());
+        return dbhandler.getContacts(new String[]{
+                ContactDatabaseContract.ContactListTable.COLUMN_PRESENT + "=1",
+                ContactDatabaseContract.ContactListTable._ID + " NOT IN (" + "SELECT " + ContactDatabaseContract.RidesListTable.COLUMN_ALEPH + " FROM " + ContactDatabaseContract.RidesListTable.TABLE_NAME + ")"
+        }, ContactDatabaseContract.ContactListTable.COLUMN_NAME+" ASC");
     }
 
     public class SubmitFromList extends AsyncTask<InfoWrapper,Void,Void> {
 
         @Override
         protected Void doInBackground(InfoWrapper ... params) {
-            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(getActivity());
-            SQLiteDatabase db=dbHelper.getWritableDatabase();
-            for (InfoWrapper aleph:params) {
-                ContentValues cValues = new ContentValues();
-                cValues.put(ContactDatabaseContract.RidesListTable.COLUMN_ALEPH,aleph.getId());
-                cValues.put(ContactDatabaseContract.RidesListTable.COLUMN_CAR,driverId);
-                db.insert(ContactDatabaseContract.RidesListTable.TABLE_NAME, null, cValues);
-            }
+            RidesDatabaseHandler rideshandler=new RidesDatabaseHandler(getActivity());
+            ContactInfoWrapper[] alephs= Arrays.copyOf(params,params.length,ContactInfoWrapper[].class);
+            rideshandler.addAlephsToCar(driverId,alephs);
             return null;
         }
 

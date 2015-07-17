@@ -3,8 +3,6 @@ package org.ramonaza.officialramonapp.people.rides.fragments;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,13 +14,11 @@ import android.widget.TextView;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
-import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.people.rides.activities.AddAlephToDriverActivity;
 import org.ramonaza.officialramonapp.people.rides.activities.RemoveAlephFromDriverActivity;
 import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapper;
-import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapperGenerator;
+import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -100,22 +96,15 @@ public class RidesDriverManipFragment extends Fragment {
 
         @Override
         protected ContactInfoWrapper[] doInBackground(Void... params) {
-            SQLiteDatabase db=new ContactDatabaseHelper(getActivity()).getReadableDatabase();
-            String query="SELECT * FROM "+ ContactDatabaseContract.RidesListTable.TABLE_NAME +" JOIN "+ ContactDatabaseContract.ContactListTable.TABLE_NAME +
-                    " ON "+ ContactDatabaseContract.RidesListTable.TABLE_NAME+"."+ ContactDatabaseContract.RidesListTable.COLUMN_ALEPH +"="+ ContactDatabaseContract.ContactListTable.TABLE_NAME+"."+ ContactDatabaseContract.ContactListTable._ID+
-                    " WHERE "+ ContactDatabaseContract.RidesListTable.TABLE_NAME+"."+ ContactDatabaseContract.RidesListTable.COLUMN_CAR+"="+driverId+
-                    " ORDER BY "+ ContactDatabaseContract.ContactListTable.TABLE_NAME+"."+ ContactDatabaseContract.ContactListTable.COLUMN_NAME+" ASC";
-            Cursor cursor=db.rawQuery(query, null);
-            return ContactInfoWrapperGenerator.fromDataBase(cursor);
+            RidesDatabaseHandler handler=new RidesDatabaseHandler(getActivity());
+            return handler.getAlephsInCar(driverId);
         }
 
         @Override
         protected void onPostExecute(ContactInfoWrapper[] contactInfoWrappers) {
             super.onPostExecute(contactInfoWrappers);
-            SQLiteDatabase db=new ContactDatabaseHelper(getActivity()).getReadableDatabase();
-            String query=String.format("SELECT * FROM %s WHERE %s=%d LIMIT 1", ContactDatabaseContract.DriverListTable.TABLE_NAME, ContactDatabaseContract.DriverListTable._ID, driverId);
-            Cursor cursor=db.rawQuery(query, null);
-            mDriver= DriverInfoWrapperGenerator.fromDataBase(cursor)[0];
+            RidesDatabaseHandler handler=new RidesDatabaseHandler(getActivity());
+            mDriver= handler.getDrivers(new String[]{ContactDatabaseContract.DriverListTable._ID+"="+driverId}, null)[0];
             for(ContactInfoWrapper inCar:contactInfoWrappers){
                 mDriver.addAlephToCar(inCar);
             }

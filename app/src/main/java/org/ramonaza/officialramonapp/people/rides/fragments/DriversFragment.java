@@ -3,8 +3,6 @@ package org.ramonaza.officialramonapp.people.rides.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +13,9 @@ import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.fragments.InfoWrapperButtonListFragment;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.rides.activities.AddCustomDriverActivity;
 import org.ramonaza.officialramonapp.people.rides.activities.RidesDriverManipActivity;
-import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapperGenerator;
+import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,10 +62,8 @@ public class DriversFragment extends InfoWrapperButtonListFragment {
 
     @Override
     public InfoWrapper[] generateInfo() {
-        ContactDatabaseHelper dbHelpter = new ContactDatabaseHelper(getActivity());
-        SQLiteDatabase db = dbHelpter.getReadableDatabase();
-        Cursor cursor = db.rawQuery(String.format("SELECT * FROM %s ORDER BY %s DESC", ContactDatabaseContract.DriverListTable.TABLE_NAME, ContactDatabaseContract.DriverListTable.COLUMN_NAME), null);
-        return DriverInfoWrapperGenerator.fromDataBase(cursor);
+        RidesDatabaseHandler handler=new RidesDatabaseHandler(getActivity());
+        return handler.getDrivers(null,ContactDatabaseContract.DriverListTable.COLUMN_NAME+" DESC");
     }
 }
 
