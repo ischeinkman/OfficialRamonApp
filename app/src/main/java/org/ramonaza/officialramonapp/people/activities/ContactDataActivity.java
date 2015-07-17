@@ -2,9 +2,8 @@ package org.ramonaza.officialramonapp.people.activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -12,10 +11,8 @@ import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.activities.BaseActivity;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
-import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.people.fragments.GeneralContactFragment;
 
 public class ContactDataActivity extends BaseActivity {
@@ -33,7 +30,7 @@ public class ContactDataActivity extends BaseActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle("Blank Contact Data");
         inputId=intent.getIntExtra(EXTRA_CONTRUCTION_INFO,0);
-        new intentToFrag().execute(inputId);
+        new intentToFrag(this).execute(inputId);
     }
 
 
@@ -56,12 +53,16 @@ public class ContactDataActivity extends BaseActivity {
     }
     public class intentToFrag extends AsyncTask<Integer,Void,ContactInfoWrapper>{
 
+        private Context context;
+
+        public intentToFrag(Context context){
+            this.context=context;
+        }
+
         @Override
         protected ContactInfoWrapper doInBackground(Integer... params) {
-            ContactDatabaseHelper dbHelper=new ContactDatabaseHelper(getApplicationContext());
-            SQLiteDatabase db=dbHelper.getReadableDatabase();
-            Cursor c=db.rawQuery(String.format("SELECT * FROM %s WHERE %s=%d;", ContactDatabaseContract.ContactListTable.TABLE_NAME, ContactDatabaseContract.ContactListTable._ID,params[0]),null);
-            return ContactInfoWrapperGenerator.fromDataBase(c)[0];
+            ContactDatabaseHandler handler=new ContactDatabaseHandler(context);
+            return handler.getContact(inputId);
         }
 
         @Override
@@ -73,6 +74,6 @@ public class ContactDataActivity extends BaseActivity {
         }
     }
     public void refreshFrag(){
-        new intentToFrag().execute(inputId);
+        new intentToFrag(this).execute(inputId);
     }
 }

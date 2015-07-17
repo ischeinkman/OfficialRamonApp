@@ -89,6 +89,17 @@ public class ContactDatabaseHandler {
         });
     }
 
+    public ContactInfoWrapper getContact(int id){
+        String query=String.format("SELECT * FROM %s WHERE %s=%d LIMIT 1",
+                ContactDatabaseContract.ContactListTable.TABLE_NAME,
+                ContactDatabaseContract.ContactListTable._ID,
+                id
+                );
+        Cursor cursor=db.rawQuery(query, null);
+        ContactInfoWrapper[] contactArray=getContactsFromCursor(cursor);
+        return contactArray[0];
+    }
+
     public void updateField(String field, String value, ContactInfoWrapper[] toUpdate) {
         String query = String.format("UPDATE %s SET %s=%s WHERE %s IN (",
                 ContactDatabaseContract.ContactListTable.TABLE_NAME,
