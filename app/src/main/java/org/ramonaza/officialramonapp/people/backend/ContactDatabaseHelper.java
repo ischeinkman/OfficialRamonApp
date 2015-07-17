@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapper;
 
 /**
+ * A simple database helper for accessing the contact/rides database.
+ * All database interactions should be handled by a separate handler.
  * Created by ilanscheinkman on 3/12/15.
  */
 public class ContactDatabaseHelper extends SQLiteOpenHelper{
@@ -50,7 +52,7 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper{
         }
     }
     public void genDatabaseFromCSV(SQLiteDatabase db) throws ContactCSVReadError{
-        ContactInfoWrapper[] csvContacts= ContactInfoWrapperGenerator.getCtactInfoListFromCSV(context);
+        ContactInfoWrapper[] csvContacts= ContactCSVHandler.getCtactInfoListFromCSV(context);
         for(ContactInfoWrapper cAleph: csvContacts){
             ContentValues value=new ContentValues();
             value.put(ContactDatabaseContract.ContactListTable.COLUMN_NAME, cAleph.getName());
