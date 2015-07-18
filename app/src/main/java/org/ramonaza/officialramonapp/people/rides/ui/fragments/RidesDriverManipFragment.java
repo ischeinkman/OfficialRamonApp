@@ -105,9 +105,6 @@ public class RidesDriverManipFragment extends Fragment {
             super.onPostExecute(contactInfoWrappers);
             RidesDatabaseHandler handler=new RidesDatabaseHandler(getActivity());
             mDriver= handler.getDrivers(new String[]{ContactDatabaseContract.DriverListTable._ID+"="+driverId}, null)[0];
-            for(ContactInfoWrapper inCar:contactInfoWrappers){
-                mDriver.addAlephToCar(inCar);
-            }
             ActionBar actionBar=getActivity().getActionBar();
             actionBar.setTitle(mDriver.getName());
             ((TextView) view.findViewById(R.id.DriverName)).setText(mDriver.getName());
