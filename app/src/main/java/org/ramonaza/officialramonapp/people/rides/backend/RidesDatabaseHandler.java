@@ -150,7 +150,7 @@ public class RidesDatabaseHandler {
     public void removeAlephFromCar(int alephToRemove) {
         String query = String.format("DELETE FROM %s WHERE %s=%d",
                 ContactDatabaseContract.RidesListTable.TABLE_NAME,
-                ContactDatabaseContract.RidesListTable._ID,
+                ContactDatabaseContract.RidesListTable.COLUMN_ALEPH,
                 alephToRemove);
         db.execSQL(query);
     }
