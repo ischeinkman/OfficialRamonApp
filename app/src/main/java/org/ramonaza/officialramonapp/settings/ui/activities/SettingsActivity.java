@@ -14,7 +14,10 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.people.backend.ContactCSVHandler;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 
 import java.util.List;
 
@@ -73,7 +76,16 @@ public class SettingsActivity extends PreferenceActivity {
         refDataButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                new refreshDatabase(getApplicationContext()).execute();
+                new refreshDatabase(SettingsActivity.this).execute();
+                return false;
+            }
+        });
+        Preference saveDataButton=findPreference("databasesave");
+        bindPreferenceSummaryToValue(saveDataButton);
+        saveDataButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                new saveDatabase(SettingsActivity.this).execute();
                 return false;
             }
         });
@@ -188,6 +200,22 @@ public class SettingsActivity extends PreferenceActivity {
             // guidelines.
             //bindPreferenceSummaryToValue(findPreference("example_text"));
 
+        }
+    }
+
+    public class saveDatabase extends AsyncTask<Void,Void,Void>{
+        Context context;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ContactDatabaseHandler handler=new ContactDatabaseHandler(context);
+            ContactInfoWrapper[] allContacts=handler.getContacts(null, null);
+            ContactCSVHandler.writesContactsToCSV(allContacts, false);
+            return null;
+        }
+
+        public saveDatabase(Context context){
+            this.context=context;
         }
     }
 

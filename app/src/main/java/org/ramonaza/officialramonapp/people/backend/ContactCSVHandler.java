@@ -8,6 +8,7 @@ import com.opencsv.CSVReader;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +20,49 @@ import java.util.List;
  * Created by ilanscheinkman on 3/14/15.
  */
 public abstract class ContactCSVHandler {
+
+
     private static final String CSV_NAME = "AlephNameSchYAddMailNum.csv";
+
+
+    /**
+     * Retrieves contacts from a CSV file in the downloads folder.
+     * @param context the context to use
+     * @return the contacts from the CSV file in an array
+     */
+    public static ContactInfoWrapper[] getCtactInfoListFromCSV(Context context) {
+        List<String[]> cInfo = readAlephInfoCsv(context);
+        ContactInfoWrapper[] rval = new ContactInfoWrapper[cInfo.size()];
+        for (int i = 0; i < cInfo.size(); i++) {
+            rval[i] = createContactInfoWrapperFromCSVargs(cInfo.get(i));
+        }
+        return rval;
+    }
+
+
+    /**
+     * Writes contacts to the CSV file in the downloads folder.
+     * @param toSave the contacts to save
+     * @param append whether or not to append to the CSV or rewrite it
+     * @return the method's success
+     */
+    public static void writesContactsToCSV(ContactInfoWrapper[] toSave, boolean append){
+        String dataToWrite="";
+        for(ContactInfoWrapper aleph: toSave){
+            dataToWrite+= aleph.getName()+","+aleph.getSchool()+","+aleph.getGradYear()+",\""+aleph.getAddress()+"\","
+                            +aleph.getEmail()+","+aleph.getPhoneNumber()+"\n";
+        }
+        try {
+            FileOutputStream outputStream=new FileOutputStream(getCSVFile(),append);
+            outputStream.write(dataToWrite.getBytes());
+            outputStream.flush();
+            outputStream.close();
+        } catch (Exception e) {
+            Log.d(ContactCSVHandler.class.getName(),e.getMessage());
+        }
+
+    }
+
 
     private static List<String[]> readAlephInfoCsv(Context context) {
         List<String[]> alephCSVline = new ArrayList<String[]>();
@@ -38,9 +81,7 @@ public abstract class ContactCSVHandler {
         return alephCSVline;
     }
 
-    private static InputStream getCSVStream(Context context) throws IOException {
-        InputStream rval;
-
+    private static File getCSVFile(){
         File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File[] ddFiles = downloadDir.listFiles(new FilenameFilter() {
             @Override
@@ -50,27 +91,24 @@ public abstract class ContactCSVHandler {
             }
         });
         if (ddFiles.length > 0) {
-            File dFile = ddFiles[0];
-            rval = new FileInputStream(dFile);
+            return ddFiles[0];
+        } else {
+           return null;
+        }
+    }
+
+    private static InputStream getCSVStream(Context context) throws IOException {
+        InputStream rval;
+
+        File CSVfile=getCSVFile();
+        if (CSVfile != null) {
+            rval = new FileInputStream(CSVfile);
         } else {
             rval = context.getAssets().open("DefaultContactFileTemplate.csv");
         }
         return rval;
     }
 
-    /**
-     * Retrieves contacts from a CSV file in the downloads folder.
-     * @param context the context to use
-     * @return the contacts from the CSV file in an array
-     */
-    public static ContactInfoWrapper[] getCtactInfoListFromCSV(Context context) {
-        List<String[]> cInfo = readAlephInfoCsv(context);
-        ContactInfoWrapper[] rval = new ContactInfoWrapper[cInfo.size()];
-        for (int i = 0; i < cInfo.size(); i++) {
-            rval[i] = createContactInfoWrapperFromCSVargs(cInfo.get(i));
-        }
-        return rval;
-    }
 
     private static ContactInfoWrapper createContactInfoWrapperFromCSVargs(String[] args) {
         ContactInfoWrapper rRapper = new ContactInfoWrapper();
