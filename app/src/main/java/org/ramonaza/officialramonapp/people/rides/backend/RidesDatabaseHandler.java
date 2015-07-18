@@ -58,6 +58,10 @@ public class RidesDatabaseHandler {
             drivers[i] = temp;
             i++;
         } while (queryResults.moveToNext());
+        for(DriverInfoWrapper driver: drivers){
+            ContactInfoWrapper[] allInCar=getAlephsInCar(driver.getId());
+            for (ContactInfoWrapper inCar:allInCar) driver.addAlephToCar(inCar);
+        }
         queryResults.close();
         return drivers;
     }

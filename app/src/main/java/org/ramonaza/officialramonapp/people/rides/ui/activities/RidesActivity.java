@@ -100,7 +100,8 @@ public class RidesActivity extends BaseActivity implements ActionBar.TabListener
                 startActivity(bacIntent);
                 return true;
             case R.id.action_generate:
-                //TODO: Implement a rides screen
+                Intent ridesListIntent=new Intent(this,DisplayRidesActivity.class);
+                startActivity(ridesListIntent);
         }
 
         return super.onOptionsItemSelected(item);

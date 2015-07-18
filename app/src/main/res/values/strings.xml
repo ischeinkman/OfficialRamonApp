@@ -230,5 +230,6 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
     <string name="title_activity_add_aleph_to_driver">Add Aleph To Car</string>
     <string name="title_activity_remove_aleph_from_car">Remove Aleph From Car</string>
     <string name="RemoveAlephMenuButton">Remove Aleph</string>
+    <string name="title_activity_display_rides">DisplayRidesActivity</string>
 
 </resources>
