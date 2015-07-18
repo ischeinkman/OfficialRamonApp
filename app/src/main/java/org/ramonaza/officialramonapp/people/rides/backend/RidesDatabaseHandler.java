@@ -16,7 +16,7 @@ import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
  */
 public class RidesDatabaseHandler {
 
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
 
     public RidesDatabaseHandler(Context context) {
         ContactDatabaseHelper dbHelper = new ContactDatabaseHelper(context);
@@ -58,6 +58,7 @@ public class RidesDatabaseHandler {
             drivers[i] = temp;
             i++;
         } while (queryResults.moveToNext());
+        queryResults.close();
         return drivers;
     }
 

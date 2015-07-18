@@ -6,7 +6,6 @@ import android.provider.BaseColumns;
  * Created by ilanscheinkman on 3/12/15.
  */
 public final class ContactDatabaseContract {
-    public ContactDatabaseContract(){}
 
     public static abstract class ContactListTable implements BaseColumns{
         public static final String TABLE_NAME="alephs";

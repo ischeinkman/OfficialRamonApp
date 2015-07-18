@@ -16,7 +16,7 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME="ContactDriverDatabase";
     public static final int DATABASE_VERSION=3;
-    Context context;
+    private Context context;
 
     public ContactDatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,6 +49,7 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper{
         try {
             genDatabaseFromCSV(db);
         } catch (ContactCSVReadError contactCSVReadError) {
+            contactCSVReadError.printStackTrace();
         }
     }
     public void genDatabaseFromCSV(SQLiteDatabase db) throws ContactCSVReadError{

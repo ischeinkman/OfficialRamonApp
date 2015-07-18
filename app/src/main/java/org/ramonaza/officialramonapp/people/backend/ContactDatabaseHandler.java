@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
  */
 public class ContactDatabaseHandler {
 
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
 
     public ContactDatabaseHandler(Context context) {
         ContactDatabaseHelper dbHelper = new ContactDatabaseHelper(context);
