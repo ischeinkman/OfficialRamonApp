@@ -3,7 +3,6 @@ package org.ramonaza.officialramonapp.people.rides.ui.activities;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.ui.activities.BaseActivity;
@@ -21,12 +20,5 @@ public class RidesDriverManipActivity extends BaseActivity {
         driverId=intent.getIntExtra("DriverId",0);
         FragmentManager fragmentManager=getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, RidesDriverManipFragment.newInstance(driverId)).commit();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_driver_manip, menu);
-        return true;
     }
 }

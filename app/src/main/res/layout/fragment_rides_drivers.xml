@@ -1,32 +1,40 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="org.ramonaza.officialramonapp.people.rides.ui.fragments.DriversFragment">
 
-    <ScrollView
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="org.ramonaza.officialramonapp.people.rides.ui.fragments.AlephsFragment">
+
+
+<ProgressBar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cProgressBar"/>
+
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:id="@+id/infowrapperbuttonlist"
+    android:layout_weight="1"></ListView>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/listfooter"
+    android:layout_gravity="bottom"
+    android:layout_weight="0">
+    <Button
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/general_textbutton_layout"
+        android:text="@string/AddCustomDriverButton"
+        android:id="@+id/AddCustomDriveButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/cProgressBar"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/cListLinearList"></LinearLayout>
+        android:layout_height="match_parent" />
+</LinearLayout>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/general_textbutton_layout"
-                android:text="@string/AddCustomDriverButton"
-                android:id="@+id/AddCustomDriveButton"/>
-        </LinearLayout>
-    </ScrollView>
 
-</FrameLayout>
+</LinearLayout>

@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
+import org.ramonaza.officialramonapp.helpers.ui.other.InfoWrapperAdapter;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
@@ -28,6 +28,8 @@ public class RidesDriverManipFragment extends Fragment {
     private DriverInfoWrapper mDriver;
     private int driverId;
     private View rootView;
+    private ListView passengersView;
+    private InfoWrapperAdapter mAdapter;
 
     public RidesDriverManipFragment() {
     }
@@ -44,9 +46,7 @@ public class RidesDriverManipFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args=getArguments();
-        ActionBar actionBar=getActivity().getActionBar();
         driverId= args.getInt("DriverId");
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -54,6 +54,25 @@ public class RidesDriverManipFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView= inflater.inflate(R.layout.fragment_rides_driver_manip, container, false);
         this.rootView=rootView;
+        passengersView=(ListView) rootView.findViewById(R.id.Passengers);
+        this.mAdapter=new InfoWrapperAdapter(getActivity(),InfoWrapperAdapter.NAME_ONLY);
+        passengersView.setAdapter(mAdapter);
+        (rootView.findViewById(R.id.AddAlephToDriverButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAdd = new Intent(getActivity(), AddAlephToDriverActivity.class);
+                intentAdd.putExtra("DriverId", mDriver.getId());
+                startActivity(intentAdd);
+            }
+        });
+        rootView.findViewById(R.id.RemoveAlephFromDriverButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentRemove=new Intent(getActivity(), RemoveAlephFromDriverActivity.class);
+                intentRemove.putExtra("DriverId",mDriver.getId());
+                startActivity(intentRemove);
+            }
+        });
         refreshData();
         return rootView;
     }
@@ -66,32 +85,30 @@ public class RidesDriverManipFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_add_aleph:
-                Intent intentAdd=new Intent(getActivity(),AddAlephToDriverActivity.class);
-                intentAdd.putExtra("DriverId", mDriver.getId());
-                startActivity(intentAdd);
-                break;
-            case R.id.action_remove_aleph:
-                Intent intentRemove=new Intent(getActivity(), RemoveAlephFromDriverActivity.class);
-                intentRemove.putExtra("DriverId",mDriver.getId());
-                startActivity(intentRemove);
-                break;
-        }
         return super.onOptionsItemSelected(item);
     }
 
     private void refreshData(){
-        new PopulateView(this.driverId,this.rootView).execute();
+        new PopulateView(this.driverId,this.rootView, this.mAdapter).execute();
     }
 
     private class PopulateView extends AsyncTask<Void,Void,ContactInfoWrapper[]>{
 
         int driverId;
         View view;
-        public PopulateView(int id, View rootView){
+        InfoWrapperAdapter mAdapter;
+
+        public PopulateView(int id, View rootView, InfoWrapperAdapter adapter){
             this.driverId=id;
             this.view=rootView;
+            this.mAdapter=adapter;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mAdapter.clear();
+
         }
 
         @Override
@@ -103,20 +120,16 @@ public class RidesDriverManipFragment extends Fragment {
         @Override
         protected void onPostExecute(ContactInfoWrapper[] contactInfoWrappers) {
             super.onPostExecute(contactInfoWrappers);
+            if (!isAdded() || isDetached()) {
+                return; //In case the calling activity is no longer attached
+            }
             RidesDatabaseHandler handler=new RidesDatabaseHandler(getActivity());
-            mDriver= handler.getDrivers(new String[]{ContactDatabaseContract.DriverListTable._ID+"="+driverId}, null)[0];
+            mDriver= handler.getDriver(driverId);
             ActionBar actionBar=getActivity().getActionBar();
             actionBar.setTitle(mDriver.getName());
             ((TextView) view.findViewById(R.id.DriverName)).setText(mDriver.getName());
             ((TextView) view.findViewById(R.id.FreeSpots)).setText(""+mDriver.getFreeSpots());
-            LinearLayout linearLayout=(LinearLayout)view.findViewById(R.id.Passengers);
-            linearLayout.removeAllViewsInLayout();
-            for (ContactInfoWrapper contact:contactInfoWrappers){
-                TextView textView=new TextView(getActivity());
-                textView.setTextSize(20);
-                textView.setText(contact.getName());
-                linearLayout.addView(textView);
-            }
+            mAdapter.addAll(contactInfoWrappers);
         }
     }
 }

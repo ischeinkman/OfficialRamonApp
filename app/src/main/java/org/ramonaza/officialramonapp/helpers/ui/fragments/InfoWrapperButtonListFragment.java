@@ -8,12 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
+import org.ramonaza.officialramonapp.helpers.ui.other.InfoWrapperAdapter;
 
 /**
  * Parent fragment class for all InfoWrapper top level
@@ -22,9 +23,10 @@ import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 public abstract class InfoWrapperButtonListFragment extends Fragment {
 
     protected View rootView; //Root View containing all other children
-    protected LinearLayout mLayout; //To be populated with buttons
     protected ProgressBar progressBar;
     protected int mLayoutId; //For children to override as necessary.
+    protected ListView listView;
+    protected InfoWrapperAdapter mAdapter;
     protected GetInfoWrappers currentAsync;
 
     public InfoWrapperButtonListFragment() {
@@ -43,14 +45,24 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
         // Inflate the layout for this fragment
         if (mLayoutId == 0) mLayoutId = R.layout.fragment_info_wrapper_button_list;
         rootView = inflater.inflate(mLayoutId, container, false);
-        mLayout = (LinearLayout) rootView.findViewById(R.id.cListLinearList);
         progressBar = (ProgressBar) rootView.findViewById(R.id.cProgressBar);
+        listView=(ListView) rootView.findViewById(R.id.infowrapperbuttonlist);
+
+        mAdapter=new InfoWrapperAdapter(getActivity(),InfoWrapperAdapter.NAME_ONLY);
         refreshData();
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                InfoWrapper thisWrapper = (InfoWrapper) listView.getItemAtPosition(position);
+                onButtonClick(thisWrapper);
+            }
+        });
         return rootView;
     }
 
     public void refreshData() {
-        currentAsync = new GetInfoWrappers(getActivity(), mLayout, progressBar);
+        currentAsync = new GetInfoWrappers(getActivity(), mAdapter, progressBar);
         currentAsync.execute();
     }
 
@@ -91,23 +103,29 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
      * The class for retrieving the InfoWrappers.
      */
     protected class GetInfoWrappers extends AsyncTask<Void, Integer, InfoWrapper[]> {
-        protected LinearLayout mLayout;
         protected Context mContext;
         protected ProgressBar mBar;
+        protected InfoWrapperAdapter mAdapter;
 
         /**
          * Constructs the activity.
          *
          * @param context      the context to use
-         * @param linearLayout the layout to populate with buttons
+         * @param adapter      adapter to populate
          * @param progressBar  the bar to report progress to
          */
-        public GetInfoWrappers(Context context, LinearLayout linearLayout, ProgressBar progressBar) {
+        public GetInfoWrappers(Context context, InfoWrapperAdapter adapter, ProgressBar progressBar) {
             this.mContext = context;
             this.mBar = progressBar;
-            this.mLayout = linearLayout;
+            this.mAdapter=adapter;
         }
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mBar.setVisibility(View.VISIBLE);
+            mAdapter.clear();
+        }
 
         @Override
         protected InfoWrapper[] doInBackground(Void... params) {
@@ -120,38 +138,9 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
             if (!isAdded() || isDetached()) {
                 return; //In case the calling activity is no longer attached
             }
-            mLayout.removeAllViewsInLayout(); //In case this is not the first time running .refreshData()
+            mAdapter.addAll(infoWrappers);
             mBar.setVisibility(View.GONE);
-            int infoLen=infoWrappers.length;
-            Button[] contactButtons = new Button[infoLen];
-            for (int i=0;i<infoLen;i++) {
-                InfoWrapper info=infoWrappers[i];
-                Button temp = new Button(mContext);
-                temp.setBackground(getResources().getDrawable(R.drawable.general_textbutton_layout));
-                temp.setText(info.getName());
-                InfoWrapperButtonListener buttonClickListener = new InfoWrapperButtonListener(info);
-                temp.setOnClickListener(buttonClickListener);
-                contactButtons[i]=temp;
-            }
-            for (Button cButton : contactButtons) {
-                mLayout.addView(cButton);
-            }
 
-
-        }
-    }
-
-    protected class InfoWrapperButtonListener implements View.OnClickListener {
-
-        protected InfoWrapper mInfoWrapper;
-
-        public InfoWrapperButtonListener(InfoWrapper infoWrapper) {
-            mInfoWrapper = infoWrapper;
-        }
-
-        @Override
-        public void onClick(View v) {
-            onButtonClick(mInfoWrapper);
         }
     }
 }

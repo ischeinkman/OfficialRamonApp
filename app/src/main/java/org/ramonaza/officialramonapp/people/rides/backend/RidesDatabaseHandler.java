@@ -66,6 +66,19 @@ public class RidesDatabaseHandler {
         return drivers;
     }
 
+    public DriverInfoWrapper getDriver(int id){
+        String query="SELECT * FROM "+ContactDatabaseContract.DriverListTable.TABLE_NAME+
+                " WHERE "+ContactDatabaseContract.DriverListTable._ID+" = "+id;
+        Cursor queryResults=db.rawQuery(query, null);
+        queryResults.moveToFirst();
+        DriverInfoWrapper driver=new DriverInfoWrapper();
+        driver.setId(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable._ID)));
+        driver.setName(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable.COLUMN_NAME)));
+        driver.setSpots(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable.COLUMN_SPACE)));
+        driver.setArea(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable.COLUMN_AREA)));
+        return driver;
+    }
+
     public void addDriver(DriverInfoWrapper toAdd) throws DriverReadError {
         ContentValues value = new ContentValues();
         value.put(ContactDatabaseContract.DriverListTable.COLUMN_NAME, toAdd.getName());

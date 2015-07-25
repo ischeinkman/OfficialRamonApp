@@ -8,12 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cProgressBar"/>
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/cListScrollView"><LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cListLinearList"></LinearLayout></ScrollView>
+        android:id="@+id/infowrapperbuttonlist"></ListView>
 </LinearLayout>

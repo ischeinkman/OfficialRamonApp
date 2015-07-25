@@ -44,7 +44,6 @@ public abstract class ContactCSVHandler {
      * Writes contacts to the CSV file in the downloads folder.
      * @param toSave the contacts to save
      * @param append whether or not to append to the CSV or rewrite it
-     * @return the method's success
      */
     public static void writesContactsToCSV(ContactInfoWrapper[] toSave, boolean append){
         String dataToWrite="";
