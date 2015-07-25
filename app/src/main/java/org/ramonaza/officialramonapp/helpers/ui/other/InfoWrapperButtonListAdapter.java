@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by ilanscheinkman on 7/24/15.
  */
-public class InfoWrapperAdapter extends ArrayAdapter<InfoWrapper>{
+public class InfoWrapperButtonListAdapter extends ArrayAdapter<InfoWrapper>{
 
     //List of allowed view types
     public static final int NAME_ONLY=0;
@@ -28,11 +28,11 @@ public class InfoWrapperAdapter extends ArrayAdapter<InfoWrapper>{
 
     private int displayType;
 
-    public InfoWrapperAdapter(Context context, int displayType) {
+    public InfoWrapperButtonListAdapter(Context context, int displayType) {
         super(context,0,new ArrayList<InfoWrapper>());
     }
 
-    public InfoWrapperAdapter(Context context, InfoWrapper[] objects, int displayType) {
+    public InfoWrapperButtonListAdapter(Context context, InfoWrapper[] objects, int displayType) {
         super(context, 0, objects);
         this.displayType=displayType;
     }

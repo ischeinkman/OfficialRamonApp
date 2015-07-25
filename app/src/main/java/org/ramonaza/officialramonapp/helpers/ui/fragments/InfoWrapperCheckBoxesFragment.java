@@ -11,15 +11,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.ramonaza.officialramonapp.helpers.ui.other.InfoWrapperCheckboxListAdapter;
 
 /**
  * Parent class for fragments with a checkbox list and a submit button.
@@ -28,11 +25,11 @@ import java.util.List;
 public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
 
     protected View rootView; //Root View containing all other children
-    protected LinearLayout mLayout; //To be populated with checkboxes
-    protected int mLayoutId; //For children to override as necessary.
     protected ProgressBar progressBar;
+    protected int mLayoutId; //For children to override as necessary.
+    protected ListView listView;
+    protected InfoWrapperCheckboxListAdapter mAdapter;
     protected GetInfoWrappers currentAsync;
-    protected InfoWrapperCheckbox[] allBoxes;
 
 
     @Override
@@ -45,16 +42,17 @@ public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if (mLayoutId == 0) mLayoutId = R.layout.fragment_info_wrapper_button_list;
+        if (mLayoutId == 0) mLayoutId = R.layout.fragment_info_wrapper_checkboxes;
         rootView = inflater.inflate(R.layout.fragment_info_wrapper_checkboxes, container, false);
-        mLayout = (LinearLayout) rootView.findViewById(R.id.CheckBoxView);
+        listView=(ListView) rootView.findViewById(R.id.infowrappercheckboxlist);
+        mAdapter=new InfoWrapperCheckboxListAdapter(getActivity());
         progressBar = (ProgressBar) rootView.findViewById(R.id.cProgressBar);
-        //allBoxes = new ArrayList<InfoWrapperCheckbox>();
         refreshData();
+        listView.setAdapter(mAdapter);
         return rootView;
     }
 
-    public abstract void onSubmitButton(List<InfoWrapper> checked, List<InfoWrapper> unchecked);
+    public abstract void onSubmitButton(InfoWrapper[] checked, InfoWrapper[] unchecked);
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -65,16 +63,7 @@ public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
 
         switch (id) {
             case R.id.action_submit:
-                List<InfoWrapper> checked = new ArrayList<InfoWrapper>();
-                List<InfoWrapper> unchecked = new ArrayList<InfoWrapper>();
-                for (InfoWrapperCheckbox box : allBoxes) {
-                    if (box.isChecked()) {
-                        checked.add(box.getmWrapper());
-                    } else {
-                        unchecked.add(box.getmWrapper());
-                    }
-                }
-                onSubmitButton(checked, unchecked);
+                onSubmitButton(mAdapter.getBoth()[0], mAdapter.getBoth()[1]);
                 getActivity().finish();
                 break;
 
@@ -100,21 +89,40 @@ public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
     }
 
     public void refreshData() {
-        currentAsync = new GetInfoWrappers(mLayout, getActivity());
+        if(currentAsync != null) currentAsync.cancel(true);
+        currentAsync = new GetInfoWrappers(getActivity(),mAdapter,progressBar);
         currentAsync.execute();
     }
 
 
     public abstract InfoWrapper[] generateInfo();
 
-
+    /**
+     * The class for retrieving the InfoWrappers.
+     */
     protected class GetInfoWrappers extends AsyncTask<Void, Integer, InfoWrapper[]> {
-        private LinearLayout cLayout;
-        private Context context;
+        protected Context mContext;
+        protected ProgressBar mBar;
+        protected InfoWrapperCheckboxListAdapter mAdapter;
 
-        public GetInfoWrappers(LinearLayout layout, Context context) {
-            this.cLayout = layout;
-            this.context = context;
+        /**
+         * Constructs the activity.
+         *
+         * @param context      the context to use
+         * @param adapter      adapter to populate
+         * @param progressBar  the bar to report progress to
+         */
+        public GetInfoWrappers(Context context, InfoWrapperCheckboxListAdapter adapter, ProgressBar progressBar) {
+            this.mContext = context;
+            this.mBar = progressBar;
+            this.mAdapter=adapter;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mBar.setVisibility(View.VISIBLE);
+            mAdapter.clear();
         }
 
         @Override
@@ -124,31 +132,14 @@ public abstract class InfoWrapperCheckBoxesFragment extends Fragment {
 
         @Override
         protected void onPostExecute(InfoWrapper[] infoWrappers) {
-            if(!isAdded() ||isDetached()) return; //In case calling activity is no longer attached
-            progressBar.setVisibility(View.INVISIBLE);
-            int infoLen=infoWrappers.length;
-            allBoxes=new InfoWrapperCheckbox[infoLen];
-            for (int i=0;i<infoLen;i++) {
-               allBoxes[i]=new InfoWrapperCheckbox(context,infoWrappers[i]);
+            super.onPostExecute(infoWrappers);
+            if (!isAdded() || isDetached()) {
+                return; //In case the calling activity is no longer attached
             }
-            for (CheckBox box : allBoxes) {
-                cLayout.addView(box);
-            }
+            mAdapter.addAll(infoWrappers);
+            mBar.setVisibility(View.GONE);
         }
     }
-
-    protected class InfoWrapperCheckbox extends CheckBox {
-        private InfoWrapper mWrapper;
-
-        public InfoWrapperCheckbox(Context context, InfoWrapper mWrapper) {
-            super(context);
-            this.mWrapper = mWrapper;
-            this.setText(mWrapper.getName());
-        }
-
-        public InfoWrapper getmWrapper() {
-            return mWrapper;
-        }
-    }
-
 }
+
+

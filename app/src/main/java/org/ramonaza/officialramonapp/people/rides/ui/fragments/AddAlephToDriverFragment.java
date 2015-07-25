@@ -11,7 +11,6 @@ import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class AddAlephToDriverFragment extends InfoWrapperCheckBoxesFragment {
 
@@ -34,10 +33,8 @@ public class AddAlephToDriverFragment extends InfoWrapperCheckBoxesFragment {
     }
 
     @Override
-    public void onSubmitButton(List<InfoWrapper> checked, List<InfoWrapper> unchecked) {
-        InfoWrapper[] addToCar=new InfoWrapper[checked.size()];
-        addToCar=checked.toArray(addToCar);
-        new SubmitFromList().execute(addToCar);
+    public void onSubmitButton(InfoWrapper[] checked, InfoWrapper[] unchecked) {
+        new SubmitFromList().execute(checked);
     }
 
     @Override

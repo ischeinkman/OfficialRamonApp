@@ -11,7 +11,6 @@ import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +33,8 @@ public class PresentAlephFromListFragment extends InfoWrapperCheckBoxesFragment 
     }
 
     @Override
-    public void onSubmitButton(List<InfoWrapper> checked, List<InfoWrapper> unchecked) {
-        InfoWrapper[] toSetPresent=new InfoWrapper[checked.size()];
-        toSetPresent=checked.toArray(toSetPresent);
-        new SubmitFromList().execute(toSetPresent);
+    public void onSubmitButton(InfoWrapper[] checked, InfoWrapper[] unchecked) {
+        new SubmitFromList().execute(checked);
     }
 
     @Override

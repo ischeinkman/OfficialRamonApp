@@ -7,8 +7,6 @@ import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperCheckBoxesFragment;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 
-import java.util.List;
-
 public class RemoveAlephFromDriverFragment extends InfoWrapperCheckBoxesFragment {
 
     private int driverId;
@@ -30,10 +28,8 @@ public class RemoveAlephFromDriverFragment extends InfoWrapperCheckBoxesFragment
     }
 
     @Override
-    public void onSubmitButton(List<InfoWrapper> checked, List<InfoWrapper> unchecked) {
-        InfoWrapper[] addToCar=new InfoWrapper[checked.size()];
-        addToCar=checked.toArray(addToCar);
-        new SubmitFromList().execute(addToCar);
+    public void onSubmitButton(InfoWrapper[] checked, InfoWrapper[] unchecked) {
+        new SubmitFromList().execute(checked);
     }
 
     @Override
