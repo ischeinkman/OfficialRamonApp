@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperButtonListFragment;
+import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperTextListFragment;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 import org.ramonaza.officialramonapp.people.rides.ui.activities.AddCustomDriverActivity;
@@ -22,7 +22,7 @@ import org.ramonaza.officialramonapp.people.rides.ui.activities.RidesDriverManip
  * Use the {@link DriversFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DriversFragment extends InfoWrapperButtonListFragment {
+public class DriversFragment extends InfoWrapperTextListFragment {
 
 
     public static DriversFragment newInstance() {

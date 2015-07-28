@@ -10,7 +10,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.ramonaza.officialramonapp.events.backend.EventInfoWrapper;
 import org.ramonaza.officialramonapp.events.ui.activities.EventPageActivity;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperButtonListFragment;
+import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperTextListFragment;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
 /*
  * Created by Ilan Scheinkman
  */
-public class EventListFragment extends InfoWrapperButtonListFragment {
+public class EventListFragment extends InfoWrapperTextListFragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String EVENT_DATA = "org.ramonaza.officialramonapp.EVENT_DATA";
 

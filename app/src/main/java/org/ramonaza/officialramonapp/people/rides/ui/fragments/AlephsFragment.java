@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperButtonListFragment;
+import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperTextWithButtonFragment;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
@@ -25,7 +25,7 @@ import org.ramonaza.officialramonapp.people.ui.activities.AddCustomAlephActivity
  * Use the {@link AlephsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AlephsFragment extends InfoWrapperButtonListFragment {
+public class AlephsFragment extends InfoWrapperTextWithButtonFragment {
 
     private static final String EXTRA_PARENT_ACTIVITY="parent activity";
 
@@ -40,6 +40,11 @@ public class AlephsFragment extends InfoWrapperButtonListFragment {
 
     public AlephsFragment() {
 
+    }
+
+    @Override
+    public String buttonName() {
+        return "Delete";
     }
 
     @Override

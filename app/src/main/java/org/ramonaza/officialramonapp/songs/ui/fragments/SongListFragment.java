@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import org.ramonaza.officialramonapp.frontpage.ui.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperButtonListFragment;
+import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperTextListFragment;
 import org.ramonaza.officialramonapp.songs.backend.SongInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.songs.ui.activities.SongDataActivity;
 
@@ -15,7 +15,7 @@ import org.ramonaza.officialramonapp.songs.ui.activities.SongDataActivity;
  * Created by ilanscheinkman on 1/9/15.
  */
 
-public class SongListFragment extends InfoWrapperButtonListFragment {
+public class SongListFragment extends InfoWrapperTextListFragment {
 
     private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";

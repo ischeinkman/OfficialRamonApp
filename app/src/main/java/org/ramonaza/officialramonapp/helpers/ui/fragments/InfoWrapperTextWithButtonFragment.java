@@ -14,28 +14,23 @@ import android.widget.ProgressBar;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-import org.ramonaza.officialramonapp.helpers.ui.other.InfoWrapperButtonListAdapter;
+import org.ramonaza.officialramonapp.helpers.ui.other.InfoWrapperTextWithButtonAdapter;
 
 /**
- * Parent fragment class for all InfoWrapper top level
- * lists that then lead to detail pages.
+ * A simple {@link Fragment} subclass.
  */
-public abstract class InfoWrapperButtonListFragment extends Fragment {
+public abstract class InfoWrapperTextWithButtonFragment extends Fragment {
 
     protected View rootView; //Root View containing all other children
     protected ProgressBar progressBar;
     protected int mLayoutId; //For children to override as necessary.
     protected ListView listView;
-    protected InfoWrapperButtonListAdapter mAdapter;
+    protected InfoWrapperTextWithButtonAdapter mAdapter;
     protected GetInfoWrappers currentAsync;
 
-    public InfoWrapperButtonListFragment() {
-        // Required empty public constructor
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public InfoWrapperTextWithButtonFragment() {
+        // Required empty public constructor
     }
 
 
@@ -43,12 +38,23 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        // Inflate the layout for this fragment
         if (mLayoutId == 0) mLayoutId = R.layout.fragment_info_wrapper_button_list;
         rootView = inflater.inflate(mLayoutId, container, false);
         progressBar = (ProgressBar) rootView.findViewById(R.id.cProgressBar);
         listView=(ListView) rootView.findViewById(R.id.infowrapperbuttonlist);
 
-        mAdapter=new InfoWrapperButtonListAdapter(getActivity(), InfoWrapperButtonListAdapter.NAME_ONLY);
+        mAdapter=new InfoWrapperTextWithButtonAdapter(getActivity()) {
+            @Override
+            public String getButtonText() {
+                return buttonName();
+            }
+
+            @Override
+            public void onButton(InfoWrapper info) {
+                onButtonClick(info);
+            }
+        };
         refreshData();
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,9 +86,16 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        currentAsync.cancel(true);
+        if(currentAsync != null) currentAsync.cancel(true);
         super.onDetach();
     }
+
+
+    /**
+     * Method to get each button name.
+     * @return the name of the button.
+     */
+    public abstract String buttonName();
 
     /**
      * The action each button performs.
@@ -98,15 +111,13 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
      */
     public abstract InfoWrapper[] generateInfo();
 
-
-
     /**
      * The class for retrieving the InfoWrappers.
      */
     protected class GetInfoWrappers extends AsyncTask<Void, Integer, InfoWrapper[]> {
         protected Context mContext;
         protected ProgressBar mBar;
-        protected InfoWrapperButtonListAdapter mAdapter;
+        protected InfoWrapperTextWithButtonAdapter mAdapter;
 
         /**
          * Constructs the activity.
@@ -115,7 +126,7 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
          * @param adapter      adapter to populate
          * @param progressBar  the bar to report progress to
          */
-        public GetInfoWrappers(Context context, InfoWrapperButtonListAdapter adapter, ProgressBar progressBar) {
+        public GetInfoWrappers(Context context, InfoWrapperTextWithButtonAdapter adapter, ProgressBar progressBar) {
             this.mContext = context;
             this.mBar = progressBar;
             this.mAdapter=adapter;
@@ -144,5 +155,5 @@ public abstract class InfoWrapperButtonListFragment extends Fragment {
 
         }
     }
-}
 
+}

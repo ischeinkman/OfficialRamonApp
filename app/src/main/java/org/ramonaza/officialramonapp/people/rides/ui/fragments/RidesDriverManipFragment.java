@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.helpers.ui.other.InfoWrapperButtonListAdapter;
+import org.ramonaza.officialramonapp.helpers.ui.other.InfoWrapperTextListAdapter;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
@@ -29,7 +29,7 @@ public class RidesDriverManipFragment extends Fragment {
     private int driverId;
     private View rootView;
     private ListView passengersView;
-    private InfoWrapperButtonListAdapter mAdapter;
+    private InfoWrapperTextListAdapter mAdapter;
 
     public RidesDriverManipFragment() {
     }
@@ -55,7 +55,7 @@ public class RidesDriverManipFragment extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_rides_driver_manip, container, false);
         this.rootView=rootView;
         passengersView=(ListView) rootView.findViewById(R.id.Passengers);
-        this.mAdapter=new InfoWrapperButtonListAdapter(getActivity(), InfoWrapperButtonListAdapter.NAME_ONLY);
+        this.mAdapter=new InfoWrapperTextListAdapter(getActivity(), InfoWrapperTextListAdapter.NAME_ONLY);
         passengersView.setAdapter(mAdapter);
         (rootView.findViewById(R.id.AddAlephToDriverButton)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,9 +96,9 @@ public class RidesDriverManipFragment extends Fragment {
 
         int driverId;
         View view;
-        InfoWrapperButtonListAdapter mAdapter;
+        InfoWrapperTextListAdapter mAdapter;
 
-        public PopulateView(int id, View rootView, InfoWrapperButtonListAdapter adapter){
+        public PopulateView(int id, View rootView, InfoWrapperTextListAdapter adapter){
             this.driverId=id;
             this.view=rootView;
             this.mAdapter=adapter;

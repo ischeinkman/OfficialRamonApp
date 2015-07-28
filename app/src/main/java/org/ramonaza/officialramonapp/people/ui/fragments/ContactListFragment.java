@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.frontpage.ui.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperButtonListFragment;
+import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperTextListFragment;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.ui.activities.AddCustomAlephActivity;
@@ -19,7 +19,7 @@ import org.ramonaza.officialramonapp.people.ui.activities.ContactDataActivity;
 /**
  * Created by Ilan Scheinkman on 1/12/15.
  */
-public class ContactListFragment  extends InfoWrapperButtonListFragment {
+public class ContactListFragment  extends InfoWrapperTextListFragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
