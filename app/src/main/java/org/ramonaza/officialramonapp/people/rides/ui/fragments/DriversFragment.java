@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperTextListFragment;
+import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperListFragStyles.InfoWrapperTextListFragment;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 import org.ramonaza.officialramonapp.people.rides.ui.activities.AddCustomDriverActivity;
@@ -56,7 +56,7 @@ public class DriversFragment extends InfoWrapperTextListFragment {
     @Override
     public void onButtonClick(InfoWrapper mWrapper) {
         Intent intent=new Intent(getActivity(), RidesDriverManipActivity.class);
-        intent.putExtra("DriverId",mWrapper.getId());
+        intent.putExtra("DriverId", mWrapper.getId());
         startActivity(intent);
     }
 

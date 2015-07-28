@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import org.ramonaza.officialramonapp.frontpage.ui.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperTextListFragment;
+import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperListFragStyles.InfoWrapperTextListFragment;
 import org.ramonaza.officialramonapp.songs.backend.SongInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.songs.ui.activities.SongDataActivity;
 

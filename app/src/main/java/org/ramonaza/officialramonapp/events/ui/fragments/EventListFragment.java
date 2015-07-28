@@ -10,7 +10,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.ramonaza.officialramonapp.events.backend.EventInfoWrapper;
 import org.ramonaza.officialramonapp.events.ui.activities.EventPageActivity;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
-import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperTextListFragment;
+import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperListFragStyles.InfoWrapperTextListFragment;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
