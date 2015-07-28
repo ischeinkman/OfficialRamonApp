@@ -9,16 +9,17 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.helpers.ui.other.InfoWrapperTextListAdapter;
+import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
+import org.ramonaza.officialramonapp.helpers.ui.other.InfoWrapperTextWithButtonAdapter;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 import org.ramonaza.officialramonapp.people.rides.ui.activities.AddAlephToDriverActivity;
-import org.ramonaza.officialramonapp.people.rides.ui.activities.RemoveAlephFromDriverActivity;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -29,7 +30,9 @@ public class RidesDriverManipFragment extends Fragment {
     private int driverId;
     private View rootView;
     private ListView passengersView;
-    private InfoWrapperTextListAdapter mAdapter;
+    private InfoWrapperTextWithButtonAdapter mAdapter;
+    private PopulateViewTask popTask;
+    private DeleteFromCarTask deleteTask;
 
     public RidesDriverManipFragment() {
     }
@@ -55,7 +58,20 @@ public class RidesDriverManipFragment extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_rides_driver_manip, container, false);
         this.rootView=rootView;
         passengersView=(ListView) rootView.findViewById(R.id.Passengers);
-        this.mAdapter=new InfoWrapperTextListAdapter(getActivity(), InfoWrapperTextListAdapter.NAME_ONLY);
+        this.mAdapter=new InfoWrapperTextWithButtonAdapter(getActivity()) {
+            @Override
+            public String getButtonText() {
+                return "Delete";
+            }
+
+            @Override
+            public void onButton(InfoWrapper info) {
+                if(deleteTask != null) deleteTask.cancel(true);
+                deleteTask=new DeleteFromCarTask();
+                deleteTask.execute(info);
+                refreshData();
+            }
+        };
         passengersView.setAdapter(mAdapter);
         (rootView.findViewById(R.id.AddAlephToDriverButton)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,14 +81,14 @@ public class RidesDriverManipFragment extends Fragment {
                 startActivity(intentAdd);
             }
         });
-        rootView.findViewById(R.id.RemoveAlephFromDriverButton).setOnClickListener(new View.OnClickListener() {
+        /*rootView.findViewById(R.id.RemoveAlephFromDriverButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentRemove=new Intent(getActivity(), RemoveAlephFromDriverActivity.class);
                 intentRemove.putExtra("DriverId",mDriver.getId());
                 startActivity(intentRemove);
             }
-        });
+        });*/
         refreshData();
         return rootView;
     }
@@ -89,16 +105,17 @@ public class RidesDriverManipFragment extends Fragment {
     }
 
     private void refreshData(){
-        new PopulateView(this.driverId,this.rootView, this.mAdapter).execute();
+        popTask= new PopulateViewTask(this.driverId,this.rootView, this.mAdapter);
+        popTask.execute();
     }
 
-    private class PopulateView extends AsyncTask<Void,Void,ContactInfoWrapper[]>{
+    private class PopulateViewTask extends AsyncTask<Void,Void,ContactInfoWrapper[]>{
 
         int driverId;
         View view;
-        InfoWrapperTextListAdapter mAdapter;
+        ArrayAdapter mAdapter;
 
-        public PopulateView(int id, View rootView, InfoWrapperTextListAdapter adapter){
+        public PopulateViewTask(int id, View rootView, ArrayAdapter adapter){
             this.driverId=id;
             this.view=rootView;
             this.mAdapter=adapter;
@@ -108,7 +125,6 @@ public class RidesDriverManipFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             mAdapter.clear();
-
         }
 
         @Override
@@ -128,8 +144,21 @@ public class RidesDriverManipFragment extends Fragment {
             ActionBar actionBar=getActivity().getActionBar();
             actionBar.setTitle(mDriver.getName());
             ((TextView) view.findViewById(R.id.DriverName)).setText(mDriver.getName());
-            ((TextView) view.findViewById(R.id.FreeSpots)).setText(""+mDriver.getFreeSpots());
+            ((TextView) view.findViewById(R.id.FreeSpots)).setText("" + mDriver.getFreeSpots());
             mAdapter.addAll(contactInfoWrappers);
         }
+    }
+
+    private class DeleteFromCarTask extends AsyncTask<InfoWrapper,Void,Void> {
+
+        @Override
+        protected Void doInBackground(InfoWrapper ... params) {
+            RidesDatabaseHandler handler=new RidesDatabaseHandler(getActivity());
+            for (InfoWrapper aleph:params) {
+                handler.removeAlephFromCar(aleph.getId());
+            }
+            return null;
+        }
+
     }
 }

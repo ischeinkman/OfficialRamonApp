@@ -76,6 +76,8 @@ public class RidesDatabaseHandler {
         driver.setName(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable.COLUMN_NAME)));
         driver.setSpots(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable.COLUMN_SPACE)));
         driver.setArea(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.DriverListTable.COLUMN_AREA)));
+        ContactInfoWrapper[] carAlephs= getAlephsInCar(id);
+        for(ContactInfoWrapper alephInCar : carAlephs) driver.addAlephToCar(alephInCar);
         return driver;
     }
 
