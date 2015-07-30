@@ -60,9 +60,10 @@ public class FrontalActivity extends BaseActivity
             case 2:
                 getFragmentManager().beginTransaction().replace(R.id.container,ContactListFragment.newInstance(2)).commit();
                 break;
-
         }
-
+        DrawerLayout mDrawerLayout;
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.closeDrawers();
     }
 
     @Override
