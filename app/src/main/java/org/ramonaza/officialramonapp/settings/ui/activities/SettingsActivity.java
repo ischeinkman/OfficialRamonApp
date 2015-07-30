@@ -2,6 +2,7 @@ package org.ramonaza.officialramonapp.settings.ui.activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.frontpage.ui.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.people.backend.ContactCSVHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
@@ -60,8 +62,11 @@ public class SettingsActivity extends PreferenceActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case android.R.id.home:
-                finish();
+                Intent changeActivity = new Intent(this, FrontalActivity.class);
+                startActivity(changeActivity);
                 return true;
+              /*  finish();
+                return true; */
         }
         return super.onOptionsItemSelected(item);
     }
