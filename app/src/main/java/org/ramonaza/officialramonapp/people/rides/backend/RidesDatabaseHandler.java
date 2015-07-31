@@ -91,10 +91,13 @@ public class RidesDatabaseHandler {
     }
 
     public void deleteDriver(int toDelete) {
-        db.delete(ContactDatabaseContract.DriverListTable.TABLE_NAME, "?=?", new String[]{
+        String query= "DELETE FROM "+ ContactDatabaseContract.DriverListTable.TABLE_NAME+
+                " WHERE "+ ContactDatabaseContract.DriverListTable._ID+" = "+toDelete;
+        db.execSQL(query);
+        /*db.delete(ContactDatabaseContract.DriverListTable.TABLE_NAME, "?=?", new String[]{
                 ContactDatabaseContract.DriverListTable._ID,
                 "" + toDelete
-        });
+        });*/
     }
 
     public void updateDriver(DriverInfoWrapper toUpdate) throws DriverReadError {
