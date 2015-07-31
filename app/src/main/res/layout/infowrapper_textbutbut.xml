@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/general_textbutton_layout_borderless">
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textSize="20dp"
+        android:layout_weight="1"
+        android:id="@+id/infowrappername"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:gravity="center_vertical"
+        android:background="@drawable/general_textbutton_layout_borderless"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:textSize="20dp"
+        android:layout_weight="0"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:id="@+id/infowrapperbutton"/>
+
+</LinearLayout>
