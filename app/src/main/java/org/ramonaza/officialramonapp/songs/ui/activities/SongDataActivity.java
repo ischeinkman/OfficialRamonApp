@@ -8,15 +8,15 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.frontpage.ui.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.helpers.ui.activities.BaseActivity;
 import org.ramonaza.officialramonapp.songs.backend.SongInfoWrapperGenerator;
 import org.ramonaza.officialramonapp.songs.ui.fragments.GeneralSongFragment;
 
 public class SongDataActivity extends BaseActivity {
 
-    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
+    public static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
     private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
-    private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class SongDataActivity extends BaseActivity {
         Intent intent=getIntent();
         String songName=intent.getStringExtra(EXTRA_CONTRUCTION_INFO);
         FragmentManager fragmentManager=getFragmentManager();
-        FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFragment.newInstance(0, SongInfoWrapperGenerator.fromName(songName, this)));
+        FragmentTransaction transaction=fragmentManager.beginTransaction().replace(R.id.container, GeneralSongFragment.newInstance(SongInfoWrapperGenerator.fromName(songName, this)));
         transaction.commit();
     }
 
@@ -38,7 +38,7 @@ public class SongDataActivity extends BaseActivity {
         switch (id){
             case android.R.id.home:
                 Intent bacIntent= NavUtils.getParentActivityIntent(this);
-                bacIntent.putExtra(EXTRA_OPENEDPAGE,2);
+                bacIntent.putExtra(FrontalActivity.EXTRA_OPENEDPAGE,2);
                 startActivity(bacIntent);
                 return true;
         }

@@ -17,9 +17,8 @@ import org.ramonaza.officialramonapp.songs.ui.activities.SongDataActivity;
 
 public class SongListFragment extends InfoWrapperTextListFragment {
 
-    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
-    private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
-    private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
+    public static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.CONSTRUCTION_INFO";
+    public static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
 
     /**
      * The fragment argument representing the section number for this

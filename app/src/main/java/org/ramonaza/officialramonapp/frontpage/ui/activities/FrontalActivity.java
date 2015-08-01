@@ -26,13 +26,14 @@ public class FrontalActivity extends BaseActivity
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
+    public static final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
     private SharedPreferences sharedPrefs;
+    private int fragSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +43,22 @@ public class FrontalActivity extends BaseActivity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+
+        Intent intent=getIntent();
+        int pgVal=intent.getIntExtra(EXTRA_OPENEDPAGE,0);
+        if(pgVal == 0 && savedInstanceState != null){
+            pgVal = savedInstanceState.getInt(EXTRA_OPENEDPAGE, 0);
+        }
+        this.fragSwitch=pgVal;
+
+        mTitle = getActionBarTitle(fragSwitch);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-        Intent intent=getIntent();
-        int pgVal=intent.getIntExtra(EXTRA_OPENEDPAGE,0);
-        switch (pgVal){
+
+        switch (fragSwitch){
             case 0:
                 getFragmentManager().beginTransaction().replace(R.id.container, EventListFragment.newInstance(0)).commit();
                 break;
@@ -62,7 +70,6 @@ public class FrontalActivity extends BaseActivity
                 break;
 
         }
-
     }
 
     @Override
@@ -70,7 +77,7 @@ public class FrontalActivity extends BaseActivity
         super.onResume();
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        mTitle = getActionBarTitle(fragSwitch);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -89,14 +96,17 @@ public class FrontalActivity extends BaseActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.container, EventListFragment.newInstance(position + 1))
                     .commit();
+            fragSwitch=0;
         } else if (position == 1) {
             fragmentManager.beginTransaction()
                     .replace(R.id.container, SongListFragment.newInstance(position + 1))
                     .commit();
+            fragSwitch=1;
         } else if (position == 2) {
             fragmentManager.beginTransaction()
                     .replace(R.id.container, ContactListFragment.newInstance(position + 1))
                     .commit();
+            fragSwitch=2;
         } else if(position ==3 &&sharedPrefs.getBoolean("rides",false)){
             Intent ridesIntent=new Intent(this,RidesActivity.class);
             startActivity(ridesIntent);
@@ -104,17 +114,7 @@ public class FrontalActivity extends BaseActivity
     }
 
     public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section4);
-                break;
-        }
+        mTitle=getActionBarTitle(number -1);
     }
 
     public void restoreActionBar() {
@@ -146,5 +146,22 @@ public class FrontalActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(EXTRA_OPENEDPAGE, fragSwitch);
+    }
 
+    private CharSequence getActionBarTitle(int sectionNumber){
+        switch (sectionNumber){
+            case 0:
+                return getString(R.string.title_section1);
+            case 1:
+                return getString(R.string.title_section2);
+            case 2:
+                return getString(R.string.title_section4);
+            default:
+                return getTitle();
+        }
+    }
 }

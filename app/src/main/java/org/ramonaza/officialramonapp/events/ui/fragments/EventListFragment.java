@@ -20,8 +20,8 @@ import java.io.InputStreamReader;
  * Created by Ilan Scheinkman
  */
 public class EventListFragment extends InfoWrapperTextListFragment {
+
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private static final String EVENT_DATA = "org.ramonaza.officialramonapp.EVENT_DATA";
 
 
 
@@ -37,7 +37,7 @@ public class EventListFragment extends InfoWrapperTextListFragment {
     @Override
     public void onButtonClick(InfoWrapper mWrapper) {
         Intent intent=new Intent(getActivity(), EventPageActivity.class);
-        intent.putExtra(EVENT_DATA,(EventInfoWrapper) mWrapper);
+        intent.putExtra(EventPageActivity.EVENT_DATA,(EventInfoWrapper) mWrapper);
         startActivity(intent);
     }
 

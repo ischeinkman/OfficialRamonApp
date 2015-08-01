@@ -20,11 +20,9 @@ import org.ramonaza.officialramonapp.people.ui.activities.ContactDataActivity;
  * Created by Ilan Scheinkman on 1/12/15.
  */
 public class ContactListFragment  extends InfoWrapperTextListFragment {
+
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
-    private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
     private static final String PAGE_NAME="Contact List";
-    private static final String EXTRA_PARENT_ACTIVITY="parent activity";
     public int fraglayer;
 
     public static ContactListFragment newInstance(int sectionNumber) {
@@ -55,7 +53,7 @@ public class ContactListFragment  extends InfoWrapperTextListFragment {
         switch (item.getItemId()){
             case R.id.action_add_custom_aleph:
                 Intent intent=new Intent(getActivity(), AddCustomAlephActivity.class);
-                intent.putExtra(EXTRA_PARENT_ACTIVITY,getActivity().getClass());
+                intent.putExtra(AddCustomAlephActivity.EXTRA_PARENT_ACTIVITY,getActivity().getClass());
                 startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -71,8 +69,8 @@ public class ContactListFragment  extends InfoWrapperTextListFragment {
     @Override
     public void onButtonClick(InfoWrapper mWrapper) {
         Intent intent = new Intent(getActivity(), ContactDataActivity.class);
-        intent.putExtra(EXTRA_LAYER, PAGE_NAME);
-        intent.putExtra(EXTRA_CONTRUCTION_INFO, mWrapper.getId());
+        intent.putExtra(ContactDataActivity.EXTRA_LAYER, PAGE_NAME);
+        intent.putExtra(ContactDataActivity.EXTRA_CONTRUCTION_INFO, mWrapper.getId());
         startActivity(intent);
     }
 

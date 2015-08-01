@@ -10,6 +10,7 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.frontpage.ui.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.helpers.ui.activities.BaseActivity;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
@@ -17,9 +18,8 @@ import org.ramonaza.officialramonapp.people.ui.fragments.GeneralContactFragment;
 
 public class ContactDataActivity extends BaseActivity {
 
-    private static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
-    private static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
-    private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
+    public static final String EXTRA_CONTRUCTION_INFO="org.ramonaza.officialramonapp.ALEPH_ID";
+    public static final String EXTRA_LAYER="org.ramonaza.officialramonapp.LAYER_NAME";
     private int inputId;
 
     @Override
@@ -44,7 +44,7 @@ public class ContactDataActivity extends BaseActivity {
         switch (id){
             case android.R.id.home:
                 Intent bacIntent=NavUtils.getParentActivityIntent(this);
-                bacIntent.putExtra(EXTRA_OPENEDPAGE,2);
+                bacIntent.putExtra(FrontalActivity.EXTRA_OPENEDPAGE,2);
                 startActivity(bacIntent);
                 return true;
         }

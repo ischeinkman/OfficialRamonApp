@@ -18,18 +18,15 @@ import org.ramonaza.officialramonapp.songs.backend.SongInfoWrapper;
  */
 public class GeneralSongFragment extends Fragment {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
     private SongInfoWrapper mySong;
 
     public void setSong(SongInfoWrapper songInfoWrapper){
         this.mySong=songInfoWrapper;
     }
 
-    public static GeneralSongFragment newInstance(int sectionNumber, SongInfoWrapper song) {
+    public static GeneralSongFragment newInstance(SongInfoWrapper song) {
         GeneralSongFragment fragment = new GeneralSongFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setSong(song);
         fragment.setArguments(args);
         return fragment;

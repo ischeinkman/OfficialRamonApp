@@ -96,7 +96,7 @@ public class DriversFragment extends InfoWrapperListFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), RidesDriverManipActivity.class);
-                    intent.putExtra("DriverId", driver.getId());
+                    intent.putExtra(RidesDriverManipActivity.EXTRA_DRIVERID, driver.getId());
                     startActivity(intent);
                 }
             });

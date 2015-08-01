@@ -13,7 +13,7 @@ import org.ramonaza.officialramonapp.people.ui.fragments.AddCustomAlephFragment;
 public class AddCustomAlephActivity extends BaseActivity {
 
 
-    private static final String EXTRA_PARENT_ACTIVITY="parent activity";
+    public static final String EXTRA_PARENT_ACTIVITY="parent activity";
     private Class<? extends Activity> parentActivity;
 
     @Override

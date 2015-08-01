@@ -20,6 +20,7 @@ import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 import org.ramonaza.officialramonapp.people.rides.ui.activities.AddAlephToDriverActivity;
+import org.ramonaza.officialramonapp.people.rides.ui.activities.RidesDriverManipActivity;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -77,18 +78,10 @@ public class RidesDriverManipFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intentAdd = new Intent(getActivity(), AddAlephToDriverActivity.class);
-                intentAdd.putExtra("DriverId", mDriver.getId());
+                intentAdd.putExtra(RidesDriverManipActivity.EXTRA_DRIVERID, mDriver.getId());
                 startActivity(intentAdd);
             }
         });
-        /*rootView.findViewById(R.id.RemoveAlephFromDriverButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentRemove=new Intent(getActivity(), RemoveAlephFromDriverActivity.class);
-                intentRemove.putExtra("DriverId",mDriver.getId());
-                startActivity(intentRemove);
-            }
-        });*/
         refreshData();
         return rootView;
     }

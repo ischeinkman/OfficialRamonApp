@@ -10,7 +10,9 @@ import org.ramonaza.officialramonapp.events.ui.fragments.GeneralEventFragment;
 import org.ramonaza.officialramonapp.helpers.ui.activities.BaseActivity;
 
 public class EventPageActivity extends BaseActivity {
-    private static final String EVENT_DATA = "org.ramonaza.officialramonapp.EVENT_DATA";
+
+    public static final String EVENT_DATA = "org.ramonaza.officialramonapp.EVENT_DATA";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -11,13 +11,14 @@ import org.ramonaza.officialramonapp.people.rides.ui.fragments.RidesDriverManipF
 public class RidesDriverManipActivity extends BaseActivity {
 
     private int driverId;
+    public static final String EXTRA_DRIVERID="org.ramonaza.officialramonapp.DRIVER_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides_driver_manip);
         Intent intent=getIntent();
-        driverId=intent.getIntExtra("DriverId",0);
+        driverId=intent.getIntExtra(EXTRA_DRIVERID,0);
         FragmentManager fragmentManager=getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, RidesDriverManipFragment.newInstance(driverId)).commit();
     }

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
+import org.ramonaza.officialramonapp.frontpage.ui.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.helpers.ui.activities.BaseActivity;
 import org.ramonaza.officialramonapp.people.rides.ui.fragments.AlephsFragment;
 import org.ramonaza.officialramonapp.people.rides.ui.fragments.DriversFragment;
@@ -35,8 +36,6 @@ public class RidesActivity extends BaseActivity implements ActionBar.TabListener
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
-
-    private final String EXTRA_OPENEDPAGE="org.ramonaza.officialramonapp.OPENED_PAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +95,7 @@ public class RidesActivity extends BaseActivity implements ActionBar.TabListener
         switch (id){
             case android.R.id.home:
                 Intent bacIntent= NavUtils.getParentActivityIntent(this);
-                bacIntent.putExtra(EXTRA_OPENEDPAGE,1);
+                bacIntent.putExtra(FrontalActivity.EXTRA_OPENEDPAGE,0);
                 startActivity(bacIntent);
                 return true;
             case R.id.action_generate:
