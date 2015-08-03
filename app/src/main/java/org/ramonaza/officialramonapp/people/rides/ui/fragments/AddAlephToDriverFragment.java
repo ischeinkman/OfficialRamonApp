@@ -9,17 +9,20 @@ import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
+import org.ramonaza.officialramonapp.people.rides.ui.activities.RidesDriverManipActivity;
 
 import java.util.Arrays;
 
 public class AddAlephToDriverFragment extends InfoWrapperCheckBoxesFragment {
 
+
+    public static final String EXTRA_DRIVERID= RidesDriverManipActivity.EXTRA_DRIVERID;
     private int driverId;
 
     public static AddAlephToDriverFragment newInstance(int driverId){
         AddAlephToDriverFragment fragment=new AddAlephToDriverFragment();
         Bundle args=new Bundle();
-        args.putInt("DriverId", driverId);
+        args.putInt(EXTRA_DRIVERID, driverId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -28,7 +31,7 @@ public class AddAlephToDriverFragment extends InfoWrapperCheckBoxesFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        this.driverId=getArguments().getInt("DriverId");
+        this.driverId=getArguments().getInt(EXTRA_DRIVERID);
         super.onCreate(savedInstanceState);
     }
 

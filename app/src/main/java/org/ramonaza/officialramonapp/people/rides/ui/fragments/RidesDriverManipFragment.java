@@ -27,6 +27,8 @@ import org.ramonaza.officialramonapp.people.rides.ui.activities.RidesDriverManip
  */
 public class RidesDriverManipFragment extends Fragment {
 
+    public static final String EXTRA_DRIVERID= RidesDriverManipActivity.EXTRA_DRIVERID;
+
     private DriverInfoWrapper mDriver;
     private int driverId;
     private View rootView;
@@ -41,7 +43,7 @@ public class RidesDriverManipFragment extends Fragment {
     public static RidesDriverManipFragment newInstance(int inDriver){
         RidesDriverManipFragment rFrag=new RidesDriverManipFragment();
         Bundle args=new Bundle();
-        args.putInt("DriverId",inDriver);
+        args.putInt(EXTRA_DRIVERID,inDriver);
         rFrag.setArguments(args);
         return rFrag;
     }
@@ -50,7 +52,7 @@ public class RidesDriverManipFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args=getArguments();
-        driverId= args.getInt("DriverId");
+        driverId= args.getInt(EXTRA_DRIVERID);
     }
 
     @Override
@@ -78,7 +80,7 @@ public class RidesDriverManipFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intentAdd = new Intent(getActivity(), AddAlephToDriverActivity.class);
-                intentAdd.putExtra(RidesDriverManipActivity.EXTRA_DRIVERID, mDriver.getId());
+                intentAdd.putExtra(AddAlephToDriverActivity.EXTRA_DRIVERID, mDriver.getId());
                 startActivity(intentAdd);
             }
         });

@@ -6,15 +6,17 @@ import android.os.Bundle;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperListFragStyles.InfoWrapperCheckBoxesFragment;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
+import org.ramonaza.officialramonapp.people.rides.ui.activities.RidesDriverManipActivity;
 
 public class RemoveAlephFromDriverFragment extends InfoWrapperCheckBoxesFragment {
 
+    public static final String EXTRA_DRIVERID= RidesDriverManipActivity.EXTRA_DRIVERID;
     private int driverId;
 
     public static RemoveAlephFromDriverFragment newInstance(int driverId){
         RemoveAlephFromDriverFragment fragment=new RemoveAlephFromDriverFragment();
         Bundle args=new Bundle();
-        args.putInt("DriverId", driverId);
+        args.putInt(EXTRA_DRIVERID, driverId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -23,7 +25,7 @@ public class RemoveAlephFromDriverFragment extends InfoWrapperCheckBoxesFragment
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        this.driverId=getArguments().getInt("DriverId");
+        this.driverId=getArguments().getInt(EXTRA_DRIVERID);
         super.onCreate(savedInstanceState);
     }
 
