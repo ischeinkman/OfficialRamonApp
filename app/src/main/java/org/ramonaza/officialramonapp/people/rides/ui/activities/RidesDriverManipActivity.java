@@ -19,7 +19,14 @@ public class RidesDriverManipActivity extends BaseActivity {
         setContentView(R.layout.activity_rides_driver_manip);
         Intent intent=getIntent();
         driverId=intent.getIntExtra(EXTRA_DRIVERID,0);
+        if(driverId == 0 && savedInstanceState != null) driverId=savedInstanceState.getInt(EXTRA_DRIVERID, 0);
         FragmentManager fragmentManager=getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, RidesDriverManipFragment.newInstance(driverId)).commit();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(EXTRA_DRIVERID, driverId);
     }
 }

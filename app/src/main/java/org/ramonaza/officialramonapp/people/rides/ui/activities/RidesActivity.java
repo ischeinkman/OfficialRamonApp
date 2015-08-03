@@ -7,13 +7,11 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.frontpage.ui.activities.FrontalActivity;
 import org.ramonaza.officialramonapp.helpers.ui.activities.BaseActivity;
 import org.ramonaza.officialramonapp.people.rides.ui.fragments.AlephsFragment;
 import org.ramonaza.officialramonapp.people.rides.ui.fragments.DriversFragment;
@@ -93,11 +91,6 @@ public class RidesActivity extends BaseActivity implements ActionBar.TabListener
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch (id){
-            case android.R.id.home:
-                Intent bacIntent= NavUtils.getParentActivityIntent(this);
-                bacIntent.putExtra(FrontalActivity.EXTRA_OPENEDPAGE,0);
-                startActivity(bacIntent);
-                return true;
             case R.id.action_generate:
                 Intent ridesListIntent=new Intent(this,DisplayRidesActivity.class);
                 startActivity(ridesListIntent);

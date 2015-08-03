@@ -73,6 +73,25 @@ public class FrontalActivity extends BaseActivity
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.fragSwitch=savedInstanceState.getInt(EXTRA_OPENEDPAGE, 0);
+        mTitle=getActionBarTitle(fragSwitch);
+        switch (fragSwitch){
+            case 0:
+                getFragmentManager().beginTransaction().replace(R.id.container, EventListFragment.newInstance(0)).commit();
+                break;
+            case 1:
+                getFragmentManager().beginTransaction().replace(R.id.container,SongListFragment.newInstance(1)).commit();
+                break;
+            case 2:
+                getFragmentManager().beginTransaction().replace(R.id.container,ContactListFragment.newInstance(2)).commit();
+                break;
+
+        }
+    }
+
+    @Override
     protected void onResume(){
         super.onResume();
         mNavigationDrawerFragment = (NavigationDrawerFragment)
