@@ -94,10 +94,9 @@ public class RidesDatabaseHandler {
         String query= "DELETE FROM "+ ContactDatabaseContract.DriverListTable.TABLE_NAME+
                 " WHERE "+ ContactDatabaseContract.DriverListTable._ID+" = "+toDelete;
         db.execSQL(query);
-        /*db.delete(ContactDatabaseContract.DriverListTable.TABLE_NAME, "?=?", new String[]{
-                ContactDatabaseContract.DriverListTable._ID,
-                "" + toDelete
-        });*/
+        query="DELETE FROM "+ContactDatabaseContract.RidesListTable.TABLE_NAME+" WHERE "+
+                ContactDatabaseContract.RidesListTable.COLUMN_CAR+" = "+toDelete;
+        db.execSQL(query);
     }
 
     public void updateDriver(DriverInfoWrapper toUpdate) throws DriverReadError {
