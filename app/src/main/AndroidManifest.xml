@@ -37,7 +37,9 @@
         </activity>
         <activity
             android:name=".settings.ui.activities.SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:launchMode="singleInstance"
+            >
         </activity>
         <activity
             android:name=".people.rides.ui.activities.RidesActivity"
