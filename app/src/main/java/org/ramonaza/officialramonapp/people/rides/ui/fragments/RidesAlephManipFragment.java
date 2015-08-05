@@ -102,8 +102,9 @@ public class RidesAlephManipFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            String viewData="Name: "+mAleph.getName()+"\n"+
-                    "Address: "+mAleph.getAddress()+"\n";
+            String viewData="Name: "+mAleph.getName()+"\n\n"+
+                    "Address: "+mAleph.getAddress()+"\n\n"+
+                    "School: "+mAleph.getSchool()+"\n\n";
             for(DriverInfoWrapper driver: drivers){
                 viewData+="Currently in car: "+driver.getName()+"\n";
             }
