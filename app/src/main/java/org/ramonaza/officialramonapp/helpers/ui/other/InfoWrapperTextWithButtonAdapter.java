@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
@@ -36,19 +35,31 @@ public abstract class InfoWrapperTextWithButtonAdapter extends ArrayAdapter<Info
      */
     public abstract void onButton(InfoWrapper info);
 
+    /**
+     * What happens when the name is clicked.
+     * @param info the infowrapper entry whose name was clicked
+     */
+    public abstract void onText(InfoWrapper info);
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final InfoWrapper info= getItem(position);
         ViewHolder viewHolder;
         if(convertView == null){
             viewHolder= new ViewHolder();
-            convertView= LayoutInflater.from(getContext()).inflate(R.layout.infowrapper_buttonname, parent, false);
-            viewHolder.name=(TextView) convertView.findViewById(R.id.infowrappername);
+            convertView= LayoutInflater.from(getContext()).inflate(R.layout.infowrapper_textbutbut, parent, false);
+            viewHolder.name=(Button) convertView.findViewById(R.id.infowrappername);
             viewHolder.button=(Button) convertView.findViewById(R.id.infowrapperbutton);
             viewHolder.button.setText(getButtonText());
             convertView.setTag(viewHolder);
         } else viewHolder=(ViewHolder) convertView.getTag();
         viewHolder.name.setText(info.getName());
+        viewHolder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onText(info);
+            }
+        });
         viewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +70,7 @@ public abstract class InfoWrapperTextWithButtonAdapter extends ArrayAdapter<Info
     }
 
     private static class ViewHolder{
-        public TextView name;
+        public Button name;
         public Button button;
     }
 }

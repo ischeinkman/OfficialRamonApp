@@ -81,10 +81,14 @@ public class AlephsFragment extends InfoWrapperTextWithButtonFragment {
 
     @Override
     public void onButtonClick(InfoWrapper mWrapper) {
-        //TODO: Create an activity for manipulation of present alephs
         RidesDatabaseHandler handler=new RidesDatabaseHandler(db);
         handler.setAlephAbsent(mWrapper.getId());
         refreshData();
+    }
+
+    @Override
+    public void onTextClick(InfoWrapper mWrapper) {
+       return;
     }
 
     @Override

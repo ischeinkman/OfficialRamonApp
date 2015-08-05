@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
@@ -73,6 +74,13 @@ public class RidesDriverManipFragment extends Fragment {
                 deleteTask=new DeleteFromCarTask();
                 deleteTask.execute(info);
                 refreshData();
+            }
+
+            @Override
+            public void onText(InfoWrapper info) {
+                ContactInfoWrapper aleph= (ContactInfoWrapper) info;
+                Toast toast=Toast.makeText(getActivity(), aleph.getAddress(), Toast.LENGTH_SHORT);
+                toast.show();
             }
         };
         passengersView.setAdapter(mAdapter);

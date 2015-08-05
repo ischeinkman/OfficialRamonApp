@@ -1,11 +1,6 @@
 package org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperListFragStyles;
 
 import android.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
@@ -34,22 +29,14 @@ public abstract class InfoWrapperTextWithButtonFragment extends InfoWrapperListF
             public void onButton(InfoWrapper info) {
                 onButtonClick(info);
             }
+
+            @Override
+            public void onText(InfoWrapper info) {
+                onTextClick(info);
+            }
         };
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InfoWrapper thisWrapper = (InfoWrapper) listView.getItemAtPosition(position);
-                onButtonClick(thisWrapper);
-            }
-        });
-        return rootView;
-    }
 
 
     /**
@@ -64,6 +51,13 @@ public abstract class InfoWrapperTextWithButtonFragment extends InfoWrapperListF
      * @param mWrapper the button's InfoWrapper; can be cast as necessary
      */
     public abstract void onButtonClick(InfoWrapper mWrapper);
+
+
+    /**
+     * The action pressing on each entry's name performs.
+     * @param mWrapper the button's InfoWrapper; can be cast as necessary
+     */
+    public abstract void onTextClick(InfoWrapper mWrapper);
 
 
 
