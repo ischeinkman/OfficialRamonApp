@@ -108,6 +108,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.people.rides.ui.activities.RidesActivity" />
         </activity>
+        <activity android:name=".people.rides.ui.activities.RidesAlephManipActivity"
+            android:label="@string/title_activity_rides_aleph_manip"
+            android:parentActivityName=".people.rides.ui.activities.RidesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ramonaza.officialramonapp.people.rides.ui.activities.RidesActivity" />
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.CALL_PHONE" />

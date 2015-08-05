@@ -18,6 +18,7 @@ import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
 import org.ramonaza.officialramonapp.people.rides.ui.activities.PresentListedAlephActivity;
+import org.ramonaza.officialramonapp.people.rides.ui.activities.RidesAlephManipActivity;
 import org.ramonaza.officialramonapp.people.ui.activities.AddCustomAlephActivity;
 
 /**
@@ -88,7 +89,9 @@ public class AlephsFragment extends InfoWrapperTextWithButtonFragment {
 
     @Override
     public void onTextClick(InfoWrapper mWrapper) {
-       return;
+        Intent intent= new Intent(getActivity(), RidesAlephManipActivity.class);
+        intent.putExtra(RidesAlephManipActivity.EXTRA_ALEPHID, mWrapper.getId());
+        startActivity(intent);
     }
 
     @Override

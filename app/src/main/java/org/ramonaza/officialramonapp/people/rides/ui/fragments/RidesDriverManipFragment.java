@@ -127,7 +127,6 @@ public class RidesDriverManipFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mAdapter.clear();
         }
 
         @Override
@@ -142,6 +141,7 @@ public class RidesDriverManipFragment extends Fragment {
             if (!isAdded() || isDetached()) {
                 return; //In case the calling activity is no longer attached
             }
+            mAdapter.clear();
             RidesDatabaseHandler handler=new RidesDatabaseHandler(getActivity());
             mDriver= handler.getDriver(driverId);
             ActionBar actionBar=getActivity().getActionBar();
