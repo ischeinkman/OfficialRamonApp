@@ -2,6 +2,7 @@ package org.ramonaza.officialramonapp.people.ui.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,8 @@ import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperListFragStyles.InfoWrapperTextListFragment;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
+import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
+import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.ui.activities.AddCustomAlephActivity;
 import org.ramonaza.officialramonapp.people.ui.activities.ContactDataActivity;
 
@@ -77,7 +80,15 @@ public class ContactListFragment  extends InfoWrapperTextListFragment {
     @Override
     public InfoWrapper[] generateInfo() {
         ContactDatabaseHandler handler=new ContactDatabaseHandler(getActivity());
-        return handler.getContacts(null, ContactDatabaseContract.ContactListTable.COLUMN_NAME+" ASC");
+        ContactInfoWrapper[] currentContacts= handler.getContacts(null, ContactDatabaseContract.ContactListTable.COLUMN_NAME+" ASC");
+        if(currentContacts.length <= 1){
+            ContactDatabaseHelper dbh=new ContactDatabaseHelper(getActivity());
+            SQLiteDatabase db= dbh.getWritableDatabase();
+            dbh.onDelete(db);
+            dbh.onCreate(db);
+            currentContacts= handler.getContacts(null, ContactDatabaseContract.ContactListTable.COLUMN_NAME+" ASC");
+        }
+        return currentContacts;
     }
 
 
