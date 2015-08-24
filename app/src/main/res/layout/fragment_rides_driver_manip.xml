@@ -60,14 +60,18 @@
         android:orientation="horizontal"
         android:id="@+id/listfooter"
         android:layout_gravity="bottom"
-        android:layout_weight="0">
+        android:layout_weight="0"
+        android:layout_marginBottom="8dp">
         <Button
             android:layout_weight="1"
-            android:background="@drawable/general_textbutton_layout"
+            android:background="@drawable/textbutton_with_outline"
             android:text="@string/AddCustomAlephMenuButton"
             android:id="@+id/AddAlephToDriverButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/activity_vertical_margin"/>
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp" />
     </LinearLayout>
 </LinearLayout>
