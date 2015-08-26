@@ -23,8 +23,8 @@
     <string name="TextButton">Text</string>
     <string name="AddAlephsButton">Add Aleph\n From List…</string>
     <string name="AddCustomAlephButton">Add Custom\n Aleph…</string>
-    <string name="AddCustomDriverButton">Add Custom Driver…</string>
-    <string name="AddDriverButton">Add Driver…</string>
+    <string name="AddDriverButton">Add Driver\n From Contact…</string>
+    <string name="AddCustomDriverButton">Add Custom\n Driver…</string>
     <string name="title_activity_rides">RidesActivity</string>
     <string name="empty_info_wrapper_list">--NO DATA CURRENTLY FOUND--</string>
     <string name="upyoumentext">Up, you men, and sing to AZA!\n\
@@ -232,5 +232,6 @@ So I raise my hand up and teach prospectives the handshake of AZA.\n\
     <string name="RemoveAlephMenuButton">Remove Aleph</string>
     <string name="title_activity_display_rides">Rides List</string>
     <string name="title_activity_rides_aleph_manip">AlephDriverManipActivity</string>
+    <string name="title_activity_add_preset_driver">Select Driver...</string>
 
 </resources>

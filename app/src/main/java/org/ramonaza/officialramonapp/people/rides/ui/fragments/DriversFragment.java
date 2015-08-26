@@ -16,6 +16,7 @@ import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperListFragStyles.InfoWrapperTextWithButtonFragment;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
+import org.ramonaza.officialramonapp.people.rides.ui.activities.AddContactDriverActivity;
 import org.ramonaza.officialramonapp.people.rides.ui.activities.AddCustomDriverActivity;
 import org.ramonaza.officialramonapp.people.rides.ui.activities.RidesDriverManipActivity;
 
@@ -44,7 +45,15 @@ public class DriversFragment extends InfoWrapperTextWithButtonFragment {
                              Bundle savedInstanceState) {
         mLayoutId = R.layout.fragment_rides_drivers;
         View rootView = super.onCreateView(inflater, container, savedInstanceState); //Retrieve the parent's view to manipulate
-        Button customButton = (Button) rootView.findViewById(R.id.AddCustomDriveButton);
+        Button presetButton= (Button) rootView.findViewById(R.id.AddPresetDriverButton);
+        presetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent presetDriverIntent = new Intent(getActivity(), AddContactDriverActivity.class);
+                startActivity(presetDriverIntent);
+            }
+        });
+        Button customButton = (Button) rootView.findViewById(R.id.AddCustomDriverButton);
         customButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

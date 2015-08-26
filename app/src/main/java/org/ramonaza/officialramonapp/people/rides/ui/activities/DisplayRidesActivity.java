@@ -11,7 +11,7 @@ public class DisplayRidesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_rides);
+        setContentView(R.layout.activity_single_fragment);
         if(savedInstanceState ==null){
             getFragmentManager().beginTransaction()
                     .add(R.id.container, DisplayRidesFragment.newInstance())

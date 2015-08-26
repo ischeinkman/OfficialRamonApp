@@ -16,7 +16,7 @@ public class RidesDriverManipActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rides_driver_manip);
+        setContentView(R.layout.activity_single_fragment);
         Intent intent=getIntent();
         driverId=intent.getIntExtra(EXTRA_DRIVERID,0);
         if(driverId == 0 && savedInstanceState != null) driverId=savedInstanceState.getInt(EXTRA_DRIVERID, 0);

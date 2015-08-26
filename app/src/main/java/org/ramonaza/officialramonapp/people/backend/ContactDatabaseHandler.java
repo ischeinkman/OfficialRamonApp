@@ -70,7 +70,6 @@ public class ContactDatabaseHandler {
 
     public void updateContact(ContactInfoWrapper toUpdate) throws ContactCSVReadError {
         ContentValues value = new ContentValues();
-        value.put(ContactDatabaseContract.DriverListTable.COLUMN_NAME, toUpdate.getName());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_NAME, toUpdate.getName());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_ADDRESS, toUpdate.getAddress());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_EMAIL, toUpdate.getEmail());
@@ -78,7 +77,8 @@ public class ContactDatabaseHandler {
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_PHONE, toUpdate.getPhoneNumber());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_SCHOOL, toUpdate.getSchool());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, toUpdate.isPresent());
-        long rowId = db.update(ContactDatabaseContract.DriverListTable.TABLE_NAME, value, "id=?", new String[]{"" + toUpdate.getId()});
+        long rowId = db.update(ContactDatabaseContract.ContactListTable.TABLE_NAME, value,
+                ContactDatabaseContract.ContactListTable._ID + "=?", new String[]{"" + toUpdate.getId()});
         if (rowId == -1l) throw new ContactCSVReadError("Null Contact Read", toUpdate);
     }
 

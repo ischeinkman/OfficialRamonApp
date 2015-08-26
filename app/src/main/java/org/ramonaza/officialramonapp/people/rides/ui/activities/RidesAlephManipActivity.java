@@ -16,7 +16,7 @@ public class RidesAlephManipActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rides_driver_manip);
+        setContentView(R.layout.activity_single_fragment);
         Intent intent=getIntent();
         alephID=intent.getIntExtra(EXTRA_ALEPHID,0);
         if(alephID == 0 && savedInstanceState != null) alephID=savedInstanceState.getInt(EXTRA_ALEPHID, 0);

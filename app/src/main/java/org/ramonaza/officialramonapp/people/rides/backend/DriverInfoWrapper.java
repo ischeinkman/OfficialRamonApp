@@ -13,6 +13,16 @@ public class DriverInfoWrapper implements InfoWrapper{
     private int spots;
     private String name;
     private int area;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     private int id;
     private List<ContactInfoWrapper> alephsInCar;
 
