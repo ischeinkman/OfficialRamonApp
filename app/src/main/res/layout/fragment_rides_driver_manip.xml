@@ -43,6 +43,18 @@
             android:paddingTop="@dimen/activity_vertical_margin">
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:text="Address:"
+                android:textAppearance="?android:textAppearanceMedium"/>
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:id="@+id/Address"
+                android:textAppearance="?android:textAppearanceMedium"/>
+        </TableRow>
+        <TableRow
+            android:paddingTop="@dimen/activity_vertical_margin">
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:text="Current Passengers:"
                 android:textAppearance="?android:textAppearanceMedium"/>
         </TableRow>

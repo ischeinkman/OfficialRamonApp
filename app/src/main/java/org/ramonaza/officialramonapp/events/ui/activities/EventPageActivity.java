@@ -16,7 +16,7 @@ public class EventPageActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_page);
+        setContentView(R.layout.activity_single_fragment);
         Intent rIntent=getIntent();
         EventInfoWrapper event=rIntent.getParcelableExtra(EVENT_DATA);
         if (savedInstanceState == null) {

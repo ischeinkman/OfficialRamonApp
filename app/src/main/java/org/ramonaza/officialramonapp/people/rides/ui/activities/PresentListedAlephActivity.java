@@ -13,7 +13,7 @@ public class PresentListedAlephActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_present_listed_aleph);
+        setContentView(R.layout.activity_single_fragment);
         ActionBar actionBar=getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Add Alephs...");

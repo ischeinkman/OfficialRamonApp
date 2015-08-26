@@ -17,7 +17,7 @@ public class RemoveAlephFromDriverActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Intent intent=getIntent();
         driverId=intent.getIntExtra("DriverId",0);
-        setContentView(R.layout.activity_add_aleph_to_driver);
+        setContentView(R.layout.activity_single_fragment);
         FragmentManager fragmentManager=getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, RemoveAlephFromDriverFragment.newInstance(driverId)).commit();
     }

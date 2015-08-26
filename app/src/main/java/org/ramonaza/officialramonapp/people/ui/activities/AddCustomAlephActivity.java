@@ -19,7 +19,7 @@ public class AddCustomAlephActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_custom_aleph);
+        setContentView(R.layout.activity_single_fragment);
         ActionBar actionBar=getActionBar();
         actionBar.setTitle("Add Aleph...");
         Intent callingIntent=getIntent();
