@@ -16,6 +16,7 @@ import android.widget.Toast;
 import org.ramonaza.officialramonapp.R;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
+import org.ramonaza.officialramonapp.people.backend.LocationSupport;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -121,6 +122,11 @@ public class AddCustomAlephFragment extends Fragment {
             int grade=Integer.parseInt(gradeVal);
             mContact.setGrade(grade);
             mContact.setPresent(true);
+            double[] coords= LocationSupport.getCoordsFromAddress(mContact.getAddress(), context);
+            if(coords != null) {
+                mContact.setLatitude(coords[0]);
+                mContact.setLongitude(coords[1]);
+            }
 
             try {
                 handler.addContact(mContact);
@@ -131,10 +137,10 @@ public class AddCustomAlephFragment extends Fragment {
                 Intent updateEmailIntent=new Intent(Intent.ACTION_SEND);
                 updateEmailIntent.setType("text/html");
                 updateEmailIntent.putExtra(Intent.EXTRA_EMAIL, UPDATE_EMAIL);
-                updateEmailIntent.putExtra(Intent.EXTRA_SUBJECT,"NEW CONTACT:"+mContact.getName());
+                updateEmailIntent.putExtra(Intent.EXTRA_SUBJECT, "NEW CONTACT:" + mContact.getName());
                 String message=String.format("Name: %s\nSchool: %s\nGraduation year: %s\nAddress: %s\nEmail: %s\n Phone: %s\n",mContact.getName(),mContact.getSchool(),mContact.getGradYear(),mContact.getAddress(),mContact.getEmail(),mContact.getPhoneNumber());
                 updateEmailIntent.putExtra(Intent.EXTRA_TEXT, message);
-                startActivity(Intent.createChooser(updateEmailIntent,"Request update using..."));
+                startActivity(Intent.createChooser(updateEmailIntent, "Request update using..."));
             }
             getActivity().finish();
         }

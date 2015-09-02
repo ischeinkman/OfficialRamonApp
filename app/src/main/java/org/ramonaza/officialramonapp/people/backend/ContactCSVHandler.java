@@ -49,7 +49,7 @@ public abstract class ContactCSVHandler {
         String dataToWrite="";
         for(ContactInfoWrapper aleph: toSave){
             dataToWrite+= aleph.getName()+","+aleph.getSchool()+","+aleph.getGradYear()+",\""+aleph.getAddress()+"\","
-                            +aleph.getEmail()+","+aleph.getPhoneNumber()+"\n";
+                            +aleph.getLatitude()+","+aleph.getLongitude()+","+aleph.getEmail()+","+aleph.getPhoneNumber()+"\n";
         }
         try {
             FileOutputStream outputStream=new FileOutputStream(getCSVFile(),append);

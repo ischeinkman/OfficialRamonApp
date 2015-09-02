@@ -14,7 +14,7 @@ public class RidesOptimizer {
 
     /**
      * Calculate rides based on latitude and longitude, iterating over the passengers
-     * and assigning them a driver. 
+     * and assigning them a driver.
       */
     public static final int ALGORITHM_LATLONG_ALEPHS_FIRST=0;
 
