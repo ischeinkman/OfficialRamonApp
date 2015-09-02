@@ -7,10 +7,16 @@
     tools:context="org.ramonaza.officialramonapp.people.rides.ui.fragments.AddCustomDriverFragment"
     android:id="@+id/CustomAlephRootLayout">
 
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cProgressBar"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView">
+        android:id="@+id/scrollView"
+        android:visibility="gone">
 
         <TableLayout
             android:layout_width="fill_parent"

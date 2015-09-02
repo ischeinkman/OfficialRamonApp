@@ -26,8 +26,7 @@ public class AddContactDriverFragment extends InfoWrapperTextListFragment {
     public void onButtonClick(InfoWrapper mWrapper) {
         ContactInfoWrapper aleph=(ContactInfoWrapper) mWrapper;
         Intent intent=new Intent(getActivity(), AddCustomDriverActivity.class);
-        intent.putExtra(AddCustomDriverActivity.PRESET_NAME, aleph.getName());
-        intent.putExtra(AddCustomDriverActivity.PRESET_ADDRESS, aleph.getAddress());
+        intent.putExtra(AddCustomDriverActivity.PRESET_CONTACT_ID, aleph.getId());
         startActivity(intent);
         getActivity().finish();
     }

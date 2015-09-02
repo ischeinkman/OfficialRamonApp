@@ -10,19 +10,17 @@ import org.ramonaza.officialramonapp.people.rides.ui.fragments.AddCustomDriverFr
 
 public class AddCustomDriverActivity extends BaseActivity {
 
-    public static final String PRESET_NAME="org.ramonaza.officialramonapp.NAME";
-    public static final String PRESET_ADDRESS="org.ramonaza.officialramonapp.ADDRESS";
+    public static final String PRESET_CONTACT_ID="org.ramonaza.officialramonapp.CONTACT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
         Intent openingIntent=getIntent();
-        String pName=openingIntent.getStringExtra(PRESET_NAME);
-        String pAddress=openingIntent.getStringExtra(PRESET_ADDRESS);
+        int presetID=openingIntent.getIntExtra(PRESET_CONTACT_ID, -1);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, AddCustomDriverFragment.newInstance(pName, pAddress))
+                    .add(R.id.container, AddCustomDriverFragment.newInstance(presetID))
                     .commit();
         }
     }

@@ -91,21 +91,7 @@ public class DriverInfoWrapper implements InfoWrapper{
     public List<ContactInfoWrapper> getAlephsInCar(){
         return alephsInCar;
     }
-    public List<ContactInfoWrapper> attemptGenerate(List<ContactInfoWrapper> totalAlephPool){
-        List<ContactInfoWrapper> rval=new ArrayList<ContactInfoWrapper>();
-        boolean contIter=true;
-        while(this.getFreeSpots()>0 && contIter){
-            contIter=false;
-            for (ContactInfoWrapper cAleph:totalAlephPool){
-                if (cAleph.getArea()==this.getArea()){
-                    rval.add(cAleph);
-                    this.addAlephToCar(cAleph);
-                    contIter=true;
-                }
-            }
-        }
-        return rval; //returning the added alephs allows easy removal from the external present pool
-    }
+
 
     @Override
     public boolean equals(Object o) {
