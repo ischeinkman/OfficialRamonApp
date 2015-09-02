@@ -52,6 +52,8 @@ public class GeneralContactFragment extends Fragment{
 
         if(sp.getBoolean("admin",false)){
             infoDump+="ID: "+aleph.getId()+"\n";
+            infoDump+="Lat: "+aleph.getLatitude()+"\n";
+            infoDump+="Long: "+aleph.getLongitude()+"\n";
             if(aleph.isPresent()){
                 infoDump+="RIDES: PRESENT";
             }

@@ -17,6 +17,8 @@ public final class ContactDatabaseContract {
         public static final String COLUMN_GRADYEAR="alephgraduationyear";
         public static final String COLUMN_AREA="alephareanumber";
         public static final String COLUMN_PRESENT="alephatevent";
+        public static final String COLUMN_LATITUDE="alephaddresslat";
+        public static final String COLUMN_LONGITUDE="alephaddresslong";
         public static final String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"("+
                 ContactListTable._ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME+" "+ VTYPE_TEXT+","+
@@ -25,6 +27,8 @@ public final class ContactDatabaseContract {
                 COLUMN_SCHOOL+" "+ VTYPE_TEXT+","+
                 COLUMN_GRADYEAR+" "+ VTYPE_INT+","+
                 COLUMN_ADDRESS+" "+ VTYPE_TEXT+","+
+                COLUMN_LATITUDE+" "+VTYPE_TEXT+","+
+                COLUMN_LONGITUDE+" "+VTYPE_TEXT+","+
                 COLUMN_AREA+" "+VTYPE_INT+","+
                 COLUMN_PRESENT+" "+VTYPE_INT+")";
         public static final String DELETE_TABLE="DROP TABLE IF EXISTS "+TABLE_NAME;
@@ -34,9 +38,15 @@ public final class ContactDatabaseContract {
         public static final String COLUMN_NAME="drivername";
         public static final String COLUMN_SPACE="driverspots";
         public static final String COLUMN_AREA="driverareanumber";
+        public static final String COLUMN_ADDRESS="driveraddress";
+        public static final String COLUMN_LATITUDE="driveraddresslat";
+        public static final String COLUMN_LONGITUDE="driveraddresslong";
         public static final String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"("+
                 DriverListTable._ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME+" "+ VTYPE_TEXT+", "+
+                COLUMN_ADDRESS+" "+VTYPE_TEXT+", "+
+                COLUMN_LATITUDE+" "+VTYPE_TEXT+", "+
+                COLUMN_LONGITUDE+" "+VTYPE_TEXT+", "+
                 COLUMN_AREA+" "+ VTYPE_INT+", "+
                 COLUMN_SPACE+" "+VTYPE_INT+")";
         public static final String DELETE_TABLE="DROP TABLE IF EXISTS "+TABLE_NAME;

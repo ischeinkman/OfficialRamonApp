@@ -39,6 +39,8 @@ public class ContactDatabaseHandler {
             temp.setEmail(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_EMAIL)));
             temp.setAddress(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_ADDRESS)));
             temp.setArea(queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_AREA)));
+            temp.setLatitude(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_LATITUDE)));
+            temp.setLongitude(queryResults.getString(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_LONGITUDE)));
             if (queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT)) == 1) {
                 temp.setPresent(true);
             } else if (queryResults.getInt(queryResults.getColumnIndexOrThrow(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT)) == 0) {
@@ -63,6 +65,8 @@ public class ContactDatabaseHandler {
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_PHONE, toAdd.getPhoneNumber());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_SCHOOL, toAdd.getSchool());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, toAdd.isPresent());
+        value.put(ContactDatabaseContract.ContactListTable.COLUMN_LATITUDE, toAdd.getLatitude());
+        value.put(ContactDatabaseContract.ContactListTable.COLUMN_LONGITUDE, toAdd.getLongitude());
         long rowId = db.insert(ContactDatabaseContract.ContactListTable.TABLE_NAME, null, value);
         if (rowId == -1l) throw new ContactCSVReadError("Null Contact Read", toAdd);
         else toAdd.setId((int) rowId);
@@ -76,6 +80,8 @@ public class ContactDatabaseHandler {
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_GRADYEAR, toUpdate.getGradYear());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_PHONE, toUpdate.getPhoneNumber());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_SCHOOL, toUpdate.getSchool());
+        value.put(ContactDatabaseContract.ContactListTable.COLUMN_LATITUDE, toUpdate.getLatitude());
+        value.put(ContactDatabaseContract.ContactListTable.COLUMN_LONGITUDE, toUpdate.getLongitude());
         value.put(ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, toUpdate.isPresent());
         long rowId = db.update(ContactDatabaseContract.ContactListTable.TABLE_NAME, value,
                 ContactDatabaseContract.ContactListTable._ID + "=?", new String[]{"" + toUpdate.getId()});

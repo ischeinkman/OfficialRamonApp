@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ContactDatabaseHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME="ContactDriverDatabase";
-    public static final int DATABASE_VERSION=3;
+    public static final int DATABASE_VERSION=4;
     private Context context;
 
     public ContactDatabaseHelper(Context context){

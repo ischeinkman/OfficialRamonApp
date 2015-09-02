@@ -19,6 +19,8 @@ public class ContactInfoWrapper implements InfoWrapper{
     private int idNum;
     private int area;
     private boolean present;
+    private String latitude;
+    private String longitude;
 
     public ContactInfoWrapper(){
         this.setPresent(false);
@@ -74,6 +76,22 @@ public class ContactInfoWrapper implements InfoWrapper{
         int month=c.get(Calendar.MONTH);
         if(month>8) year++;
         return 12-(gradYear-year);
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public boolean isPresent() {

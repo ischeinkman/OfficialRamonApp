@@ -111,12 +111,24 @@ public abstract class ContactCSVHandler {
 
     private static ContactInfoWrapper createContactInfoWrapperFromCSVargs(String[] args) {
         ContactInfoWrapper rRapper = new ContactInfoWrapper();
-        rRapper.setName(args[0]);
-        rRapper.setSchool(args[1]);
-        rRapper.setGradYear(args[2]);
-        rRapper.setAddress(args[3]);
-        rRapper.setEmail(args[4]);
-        rRapper.setPhoneNumber(args[5]);
+        if(args.length <=6){
+            rRapper.setName(args[0]);
+            rRapper.setSchool(args[1]);
+            rRapper.setGradYear(args[2]);
+            rRapper.setAddress(args[3]);
+            rRapper.setEmail(args[4]);
+            rRapper.setPhoneNumber(args[5]);
+        }
+        else{
+            rRapper.setName(args[0]);
+            rRapper.setSchool(args[1]);
+            rRapper.setGradYear(args[2]);
+            rRapper.setAddress(args[3]);
+            rRapper.setLatitude(args[4]);
+            rRapper.setLongitude(args[5]);
+            rRapper.setEmail(args[6]);
+            rRapper.setPhoneNumber(args[7]);
+        }
         return rRapper;
     }
 }
