@@ -74,7 +74,6 @@ public class RidesOptimizer {
     public RidesOptimizer setAlgorithm(int algorithm, boolean retainPreexisting){
         this.algorithm=algorithm;
         this.retainPreexisting=retainPreexisting;
-        Log.d("Opt", "Algorithm Set: "+algorithm);
         return this;
     }
 
@@ -83,24 +82,26 @@ public class RidesOptimizer {
      * loaded cars being full.
      */
     public void optimize(){
-        Log.d("Opt", "Optimizing");
-        if (algorithm < 0 || alephsToOptimize.isEmpty() || driversToOptimize.isEmpty()) return;
+        if (algorithm < 0 || driversToOptimize.isEmpty()) return;
         if(!retainPreexisting){
             for(DriverInfoWrapper driver:driversToOptimize){
                 for(ContactInfoWrapper aleph : driver.getAlephsInCar()){
                     alephsToOptimize.add(aleph);
                 }
-                driver.getAlephsInCar().clear();
+                int dSize=driver.getAlephsInCar().size();
+                while(dSize>0){
+                    driver.removeAlephFromCar(driver.getAlephsInCar().get(dSize-1));
+                    dSize=driver.getAlephsInCar().size();
+                }
             }
         }
+        if(alephsToOptimize.isEmpty()) return;
         switch (algorithm){
             case ALGORITHM_LATLONG_ALEPHS_FIRST:
                 latLongAlephsFirst();
-                Log.d("Opt", "Driverless: " + alephsToOptimize.size());
                 break;
             case ALGORITHM_LATLONG_DRIVERS_FIRST:
                 latLongDriversFirst();
-                Log.d("Opt", "Driverless: " + alephsToOptimize.size());
                 break;
         }
     }
