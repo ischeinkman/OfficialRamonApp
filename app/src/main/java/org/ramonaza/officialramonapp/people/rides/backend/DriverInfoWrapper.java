@@ -14,8 +14,8 @@ public class DriverInfoWrapper implements InfoWrapper{
     private String name;
     private int area;
     private String address;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
     private int id;
     private List<ContactInfoWrapper> alephsInCar;
 
@@ -23,20 +23,20 @@ public class DriverInfoWrapper implements InfoWrapper{
         this.alephsInCar=new ArrayList<ContactInfoWrapper>(spots+1);
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
     public void setLatitude(String latitude) {
-        this.latitude = latitude;
+            this.latitude=Double.valueOf(latitude);
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
     public void setLongitude(String longitude) {
-        this.longitude = longitude;
+        this.longitude = Double.valueOf(longitude);
     }
 
     public String getAddress() {
