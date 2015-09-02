@@ -95,6 +95,13 @@ public class RidesOptimizer {
                 }
             }
         }
+        else{
+            for(DriverInfoWrapper driver : driversToOptimize){
+                for(ContactInfoWrapper contact : driver.getAlephsInCar()){
+                    if(alephsToOptimize.contains(contact)) alephsToOptimize.remove(contact);
+                }
+            }
+        }
         if(alephsToOptimize.isEmpty()) return;
         switch (algorithm){
             case ALGORITHM_LATLONG_ALEPHS_FIRST:
