@@ -18,6 +18,7 @@ import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.DriverInfoWrapper;
 import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
+import org.ramonaza.officialramonapp.people.rides.backend.RidesOptimizer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,8 +27,14 @@ import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
  */
 public class DisplayRidesFragment extends Fragment {
 
+    private static final String EXTRA_ALGORITHM="org.ramonaza.officialramonapp.algorithm";
+    private static final String EXTRA_RETAIN_RIDES="org.ramonaza.officialramonapp.retainrides";
+
     private TextView ridesDisplay;
     private ProgressBar mBar;
+
+    private int optimizationAlgorithm;
+    private boolean retainRides;
 
     /**
      * Use this factory method to create a new instance of
@@ -35,9 +42,11 @@ public class DisplayRidesFragment extends Fragment {
      *
      * @return A new instance of fragment DisplayRidesFragment.
      */
-    public static DisplayRidesFragment newInstance() {
+    public static DisplayRidesFragment newInstance(int algorithm, boolean retain) {
         DisplayRidesFragment fragment = new DisplayRidesFragment();
         Bundle args = new Bundle();
+        args.putInt(EXTRA_ALGORITHM, algorithm);
+        args.putBoolean(EXTRA_RETAIN_RIDES, retain);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,23 +67,18 @@ public class DisplayRidesFragment extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_display_rides, container, false);
         ridesDisplay=(TextView)rootView.findViewById(R.id.RidesTextList);
         mBar=(ProgressBar) rootView.findViewById(R.id.cProgressBar);
+        optimizationAlgorithm=getArguments().getInt(EXTRA_ALGORITHM);
+        retainRides=getArguments().getBoolean(EXTRA_RETAIN_RIDES);
         new CreateRidesText().execute();
         return rootView;
     }
 
-    private String createRidesList(){
-        SQLiteDatabase db= new ContactDatabaseHelper(getActivity()).getWritableDatabase();
-        RidesDatabaseHandler rhandler=new RidesDatabaseHandler(db);
-        DriverInfoWrapper[] rides=rhandler.getDrivers(null, ContactDatabaseContract.DriverListTable.COLUMN_NAME+" ASC");
-        ContactDatabaseHandler chandler= new ContactDatabaseHandler(db);
-        String[] whereclause= new String[]{
-                String.format("%s = %d", ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, 1),
-                String.format("not %s in (SELECT %s FROM %s)", ContactDatabaseContract.ContactListTable._ID,
-                    ContactDatabaseContract.RidesListTable.COLUMN_ALEPH, ContactDatabaseContract.RidesListTable.TABLE_NAME)
-        };
-        ContactInfoWrapper[] driverless= chandler.getContacts(whereclause, null);
+
+
+
+    private static String createRidesList(DriverInfoWrapper[] drivers, ContactInfoWrapper[] driverless){
         String ridesList="";
-        for(DriverInfoWrapper driver:rides){
+        for(DriverInfoWrapper driver:drivers){
             ridesList+=String.format("<h1><b><u>%s</u></b></h1>",driver.getName(), driver.getFreeSpots());
             for (ContactInfoWrapper alephInCar:driver.getAlephsInCar()){
                 ridesList+=String.format("-%s<br/>",alephInCar.getName());
@@ -91,10 +95,24 @@ public class DisplayRidesFragment extends Fragment {
 
     private class CreateRidesText extends AsyncTask<Void, Void, String>{
 
+        DriverInfoWrapper[] rides;
+        ContactInfoWrapper[] driverless;
 
         @Override
         protected String doInBackground(Void... params) {
-            return createRidesList();
+            createRides();
+            if(optimizationAlgorithm>=0){
+                RidesOptimizer optimizer=new RidesOptimizer();
+                optimizer.loadDriver(rides);
+                optimizer.loadPassengers(driverless);
+                optimizer.setAlgorithm(optimizationAlgorithm, retainRides);
+                optimizer.optimize();
+                RidesDatabaseHandler ridesDatabaseHandler=new RidesDatabaseHandler(getActivity());
+                ridesDatabaseHandler.updateRides(optimizer.getDrivers(),optimizer.getDriverless());
+                rides=optimizer.getDrivers();
+                driverless=optimizer.getDriverless();
+            }
+            return createRidesList(rides, driverless);
         }
 
         @Override
@@ -102,6 +120,20 @@ public class DisplayRidesFragment extends Fragment {
             super.onPostExecute(s);
             mBar.setVisibility(View.GONE);
             ridesDisplay.setText(Html.fromHtml(s));
+        }
+
+        private void createRides(){
+            SQLiteDatabase db= new ContactDatabaseHelper(getActivity()).getWritableDatabase();
+            RidesDatabaseHandler rhandler=new RidesDatabaseHandler(db);
+            rides=rhandler.getDrivers(null, ContactDatabaseContract.DriverListTable.COLUMN_NAME + " ASC");
+            ContactDatabaseHandler chandler= new ContactDatabaseHandler(db);
+            String[] whereclause;
+            whereclause= new String[]{
+                    String.format("%s = %d", ContactDatabaseContract.ContactListTable.COLUMN_PRESENT, 1),
+                    String.format("not %s in (SELECT %s FROM %s)", ContactDatabaseContract.ContactListTable._ID,
+                            ContactDatabaseContract.RidesListTable.COLUMN_ALEPH, ContactDatabaseContract.RidesListTable.TABLE_NAME)
+            };
+            driverless= chandler.getContacts(whereclause, null);
         }
     }
 

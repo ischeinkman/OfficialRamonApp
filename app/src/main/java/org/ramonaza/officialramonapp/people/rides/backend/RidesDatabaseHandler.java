@@ -125,26 +125,30 @@ public class RidesDatabaseHandler {
     }
 
     public void updateRides(DriverInfoWrapper[] drivers, ContactInfoWrapper[] driverless) {
-        String driverlessIDs = "(";
-        for (ContactInfoWrapper aleph : driverless) {
-            driverlessIDs += aleph.getId() + ", ";
-        }
-        driverlessIDs += ")";
-        db.delete(ContactDatabaseContract.DriverListTable.TABLE_NAME, "? IN ?", new String[]{
-                ContactDatabaseContract.RidesListTable.COLUMN_ALEPH,
-                driverlessIDs});
-        for (DriverInfoWrapper driver : drivers) {
-            for (ContactInfoWrapper aleph : driver.getAlephsInCar()) {
-                ContentValues cValues = new ContentValues();
-                cValues.put(ContactDatabaseContract.RidesListTable.COLUMN_ALEPH, aleph.getId());
-                cValues.put(ContactDatabaseContract.RidesListTable.COLUMN_CAR, driver.getId());
-                db.insert(ContactDatabaseContract.RidesListTable.TABLE_NAME, null, cValues);
+        String driverlessIDs;
+        if(driverless.length !=0) {
+            driverlessIDs = "(";
+            for (ContactInfoWrapper aleph : driverless) {
+                driverlessIDs += aleph.getId() + ",";
             }
+            driverlessIDs = driverlessIDs.substring(0, driverlessIDs.length() - 1);
+            driverlessIDs += ")";
+            db.execSQL("DELETE FROM " + ContactDatabaseContract.RidesListTable.TABLE_NAME +
+                    " WHERE " + ContactDatabaseContract.RidesListTable.COLUMN_ALEPH+
+                    " IN "+ driverlessIDs);
+        }
+        for (DriverInfoWrapper driver : drivers) {
+            addAlephsToCar(driver.getId(), driver.getAlephsInCar().toArray(new ContactInfoWrapper[driver.getAlephsInCar().size()
+                    ]));
         }
     }
 
     public void addAlephsToCar(int driverid, ContactInfoWrapper[] inCar) {
         for (ContactInfoWrapper aleph : inCar) {
+            Cursor checkPreexist=db.rawQuery("SELECT * FROM "+ ContactDatabaseContract.RidesListTable.TABLE_NAME+
+            " WHERE "+ContactDatabaseContract.RidesListTable.COLUMN_CAR +" = "+driverid+
+            " AND "+ ContactDatabaseContract.RidesListTable.COLUMN_ALEPH+ " = "+aleph.getId(), null);
+            if(checkPreexist.getCount() >0 )continue;
             ContentValues contentValues = new ContentValues();
             contentValues.put(ContactDatabaseContract.RidesListTable.COLUMN_ALEPH, aleph.getId());
             contentValues.put(ContactDatabaseContract.RidesListTable.COLUMN_CAR, driverid);

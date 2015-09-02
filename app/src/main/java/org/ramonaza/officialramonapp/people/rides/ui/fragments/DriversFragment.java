@@ -86,7 +86,7 @@ public class DriversFragment extends InfoWrapperTextWithButtonFragment {
     @Override
     public InfoWrapper[] generateInfo() {
         RidesDatabaseHandler handler=new RidesDatabaseHandler(getActivity());
-        return handler.getDrivers(null,ContactDatabaseContract.DriverListTable.COLUMN_NAME+" DESC");
+        return handler.getDrivers(null,ContactDatabaseContract.DriverListTable.COLUMN_NAME+" ASC");
     }
 
 

@@ -103,10 +103,10 @@
         <activity
             android:name=".people.rides.ui.activities.DisplayRidesActivity"
             android:label="@string/title_activity_display_rides"
-            android:parentActivityName=".people.rides.ui.activities.RidesActivity" >
+            android:parentActivityName=".people.rides.ui.activities.ConfigureRidesDisplayActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ramonaza.officialramonapp.people.rides.ui.activities.RidesActivity" />
+                android:value="org.ramonaza.officialramonapp.people.rides.ui.activities.ConfigureRidesDisplayActivity" />
         </activity>
         <activity android:name=".people.rides.ui.activities.RidesAlephManipActivity"
             android:label="@string/title_activity_rides_aleph_manip"
@@ -121,6 +121,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ramonaza.officialramonapp.people.rides.ui.activities.RidesActivity" />
+        </activity>
+        <activity android:name=".people.rides.ui.activities.ConfigureRidesDisplayActivity"
+            android:label="@string/action_rides_generate"
+            android:parentActivityName=".people.rides.ui.activities.RidesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".people.rides.ui.activities.RidesActivity" />
         </activity>
     </application>
 

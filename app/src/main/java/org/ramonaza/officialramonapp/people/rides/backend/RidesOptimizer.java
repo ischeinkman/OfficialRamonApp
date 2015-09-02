@@ -1,5 +1,7 @@
 package org.ramonaza.officialramonapp.people.rides.backend;
 
+import android.util.Log;
+
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 
 import java.util.ArrayList;
@@ -17,21 +19,26 @@ public class RidesOptimizer {
      * and assigning them a driver.
       */
     public static final int ALGORITHM_LATLONG_ALEPHS_FIRST=0;
-
     /**
      * Calculate rides based on latitude and longitude, iterating over the drivers
      * and assigning them passengers.
      */
     public static final int ALGORITHM_LATLONG_DRIVERS_FIRST=1;
-
     private Set<ContactInfoWrapper> alephsToOptimize;
     private List<DriverInfoWrapper> driversToOptimize;
     private int algorithm;
     private boolean retainPreexisting;
-
     public RidesOptimizer(){
         this.alephsToOptimize=new HashSet<ContactInfoWrapper>();
         this.driversToOptimize=new ArrayList<DriverInfoWrapper>();
+    }
+
+    public ContactInfoWrapper[] getDriverless() {
+        return alephsToOptimize.toArray(new ContactInfoWrapper[alephsToOptimize.size()]);
+    }
+
+    public DriverInfoWrapper[] getDrivers() {
+        return driversToOptimize.toArray(new DriverInfoWrapper[driversToOptimize.size()]);
     }
 
     /**
@@ -41,6 +48,7 @@ public class RidesOptimizer {
      */
     public RidesOptimizer loadPassengers(ContactInfoWrapper... passengersToLoad){
         for(ContactInfoWrapper a:passengersToLoad) alephsToOptimize.add(a);
+        Log.d("Opt", "Loaded Alephs: "+passengersToLoad.length);
         return this;
     }
 
@@ -51,18 +59,22 @@ public class RidesOptimizer {
      */
     public RidesOptimizer loadDriver(DriverInfoWrapper... driversToLoad){
         for(DriverInfoWrapper d:driversToLoad) driversToOptimize.add(d);
+        Log.d("Opt","Loaded Drivers: "+driversToLoad.length);
         return this;
     }
 
     /**
      * Set the algorithm and strength of the optimization.
-     * @param algorithm the algorithm to use, based on public constants
-     * @param retainPreexisting whether or not the optimizer should keep preexisting rides settings
+     * @param algorithm the algorithm to use, based on public constants.
+     * @param retainPreexisting whether or not the optimizer should keep preexisting rides settings.
+     *                          If set to false, current rides are clears and all preconfigured passengers
+     *                          are loaded as driverless passengers.
      * @return this
      */
     public RidesOptimizer setAlgorithm(int algorithm, boolean retainPreexisting){
         this.algorithm=algorithm;
         this.retainPreexisting=retainPreexisting;
+        Log.d("Opt", "Algorithm Set: "+algorithm);
         return this;
     }
 
@@ -71,20 +83,24 @@ public class RidesOptimizer {
      * loaded cars being full.
      */
     public void optimize(){
-        if (algorithm <= 0 || alephsToOptimize.isEmpty() || driversToOptimize.isEmpty()) return;
+        Log.d("Opt", "Optimizing");
+        if (algorithm < 0 || alephsToOptimize.isEmpty() || driversToOptimize.isEmpty()) return;
         if(!retainPreexisting){
             for(DriverInfoWrapper driver:driversToOptimize){
-                for(ContactInfoWrapper aleph:driver.getAlephsInCar()){
-                    driver.removeAlephFromCar(aleph);
+                for(ContactInfoWrapper aleph : driver.getAlephsInCar()){
+                    alephsToOptimize.add(aleph);
                 }
+                driver.getAlephsInCar().clear();
             }
         }
         switch (algorithm){
             case ALGORITHM_LATLONG_ALEPHS_FIRST:
                 latLongAlephsFirst();
+                Log.d("Opt", "Driverless: " + alephsToOptimize.size());
                 break;
             case ALGORITHM_LATLONG_DRIVERS_FIRST:
                 latLongDriversFirst();
+                Log.d("Opt", "Driverless: " + alephsToOptimize.size());
                 break;
         }
     }
