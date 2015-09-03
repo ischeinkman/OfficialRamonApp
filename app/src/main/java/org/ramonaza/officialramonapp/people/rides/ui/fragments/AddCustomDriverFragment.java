@@ -143,12 +143,14 @@ public class AddCustomDriverFragment extends Fragment {
             SQLiteDatabase db= new ContactDatabaseHelper(context).getWritableDatabase();
             RidesDatabaseHandler handler=new RidesDatabaseHandler(db);
             mDriver.setName(driverName);
-            mDriver.setSpots(Integer.parseInt(driverSpots));
+            int inpSpots=Integer.parseInt(driverSpots);
             mDriver.setAddress(driverAddress);
             if(mDriver.getAddress().equals(presContact.getAddress())){
                 mDriver.setLongitude(""+presContact.getLongitude());
                 mDriver.setLatitude(""+presContact.getLatitude());
             }
+            if(mDriver.getName().equals(presContact.getName())) mDriver.setSpots(inpSpots + 1);
+            else mDriver.setSpots(inpSpots);
             try {
                 handler.addDriver(mDriver);
             } catch (Exception e) {

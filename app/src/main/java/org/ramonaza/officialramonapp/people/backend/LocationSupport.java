@@ -23,4 +23,20 @@ public class LocationSupport {
           location.getLongitude()
         };
     }
+
+    public static void recalculateLatLong(Context context){
+        ContactDatabaseHandler handler=new ContactDatabaseHandler(context);
+        ContactInfoWrapper[] toCalc = handler.getContacts(null, null);
+        for(ContactInfoWrapper aleph:toCalc){
+            double[] coords=getCoordsFromAddress(aleph.getAddress(), context);
+            if(coords == null) continue;
+            aleph.setLatitude(coords[0]);
+            aleph.setLongitude(coords[1]);
+            try {
+                handler.updateContact(aleph);
+            } catch (ContactDatabaseHandler.ContactCSVReadError contactCSVReadError) {
+                contactCSVReadError.printStackTrace();
+            }
+        }
+    }
 }
