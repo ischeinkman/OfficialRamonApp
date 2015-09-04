@@ -1,7 +1,5 @@
 package org.ramonaza.officialramonapp.people.rides.backend;
 
-import android.util.Log;
-
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 
 import java.util.ArrayList;
@@ -48,7 +46,6 @@ public class RidesOptimizer {
      */
     public RidesOptimizer loadPassengers(ContactInfoWrapper... passengersToLoad){
         for(ContactInfoWrapper a:passengersToLoad) alephsToOptimize.add(a);
-        Log.d("Opt", "Loaded Alephs: "+passengersToLoad.length);
         return this;
     }
 
@@ -59,7 +56,6 @@ public class RidesOptimizer {
      */
     public RidesOptimizer loadDriver(DriverInfoWrapper... driversToLoad){
         for(DriverInfoWrapper d:driversToLoad) driversToOptimize.add(d);
-        Log.d("Opt","Loaded Drivers: "+driversToLoad.length);
         return this;
     }
 
