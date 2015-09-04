@@ -50,7 +50,7 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper{
         }
     }
     public void genDatabaseFromCSV(SQLiteDatabase db) throws ContactCSVReadError{
-        ContactInfoWrapper[] csvContacts= ContactCSVHandler.getCtactInfoListFromCSV(context);
+        ContactInfoWrapper[] csvContacts= ContactCSVSupport.getCSVHandler(context).getCtactInfoListFromCSV();
         ContactDatabaseHandler contactDatabaseHandler = new ContactDatabaseHandler(db);
         for(ContactInfoWrapper cAleph: csvContacts){
             try {
