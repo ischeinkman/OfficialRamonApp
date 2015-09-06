@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.people.backend.ContactDatabaseContract;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
@@ -28,23 +27,21 @@ import org.ramonaza.officialramonapp.people.rides.backend.RidesDatabaseHandler;
  */
 public class AddCustomDriverFragment extends Fragment {
 
-    private static final String PRESET_NAME="org.ramonaza.officialramonapp.NAME";
-    private static final String PRESET_ADDRESS="org.ramonaza.officialramonapp.ADDRESS";
+    private static final String PRESET_CONTACT_ID="org.ramonaza.officialramonapp.CONTACT";
 
-    private String presetName;
-    private String presetAddress;
-
+    private int presetID;
+    private ContactInfoWrapper presContact;
+    private Initializer initTask;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      * @return A new instance of fragment AddCustomDriverFragment.
      */
-    public static AddCustomDriverFragment newInstance(String presetName, String presetAddress) {
+    public static AddCustomDriverFragment newInstance(int presetID) {
         AddCustomDriverFragment fragment = new AddCustomDriverFragment();
         Bundle args = new Bundle();
-        args.putString(PRESET_NAME, presetName);
-        args.putString(PRESET_ADDRESS,presetAddress);
+        args.putInt(PRESET_CONTACT_ID, presetID);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,20 +59,51 @@ public class AddCustomDriverFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        presetName=getArguments().getString(PRESET_NAME);
-        presetAddress=getArguments().getString(PRESET_ADDRESS);
+        presetID=getArguments().getInt(PRESET_CONTACT_ID);
         View rootView= inflater.inflate(R.layout.fragment_add_custom_driver, container, false);
-        if(!(presetName == null || presetName.equals(""))){
-            EditText nameField=(EditText) rootView.findViewById(R.id.AddDriverName);
-            nameField.setText(presetName);
-        }
-        if(!(presetAddress == null || presetAddress.equals(""))){
-            EditText addressField=(EditText) rootView.findViewById(R.id.AddDriverAddress);
-            addressField.setText(presetAddress);
-        }
-        Button submitButton=(Button) rootView.findViewById(R.id.SubmitButton);
-        submitButton.setOnClickListener(new SubmitListener(getActivity(),rootView));
+        initTask=new Initializer(rootView, getActivity(), presetID);
+        initTask.execute();
         return rootView;
+    }
+
+    public class Initializer extends AsyncTask<Void, Void, Void>{
+
+        private View rootView;
+        private Context context;
+        private int contactID;
+
+        public Initializer(View rootView, Context context, int contactID){
+            this.rootView=rootView;
+            this.context=context;
+            this.contactID=contactID;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if(contactID<1) return null;
+            presContact=new ContactInfoWrapper();
+            ContactDatabaseHandler dbHandler=new ContactDatabaseHandler(context);
+            presContact=dbHandler.getContact(contactID);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if(presContact != null){
+
+                EditText nameField=(EditText) rootView.findViewById(R.id.AddDriverName);
+                nameField.setText(presContact.getName());
+
+                EditText addressField=(EditText) rootView.findViewById(R.id.AddDriverAddress);
+                addressField.setText(presContact.getAddress());
+
+            }
+            Button submitButton=(Button) rootView.findViewById(R.id.SubmitButton);
+            submitButton.setOnClickListener(new SubmitListener(getActivity(),rootView));
+            rootView.findViewById(R.id.scrollView).setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.cProgressBar).setVisibility(View.INVISIBLE);
+            super.onPostExecute(aVoid);
+        }
     }
 
     public class SubmitListener extends AsyncTask<Void, Void, Void> implements View.OnClickListener{
@@ -115,26 +143,28 @@ public class AddCustomDriverFragment extends Fragment {
             SQLiteDatabase db= new ContactDatabaseHelper(context).getWritableDatabase();
             RidesDatabaseHandler handler=new RidesDatabaseHandler(db);
             mDriver.setName(driverName);
-            mDriver.setSpots(Integer.parseInt(driverSpots));
+            int inpSpots=Integer.parseInt(driverSpots);
             mDriver.setAddress(driverAddress);
+            if(mDriver.getAddress().equals(presContact.getAddress())){
+                mDriver.setLongitude(""+presContact.getLongitude());
+                mDriver.setLatitude(""+presContact.getLatitude());
+            }
+            if(mDriver.getName().equals(presContact.getName())) mDriver.setSpots(inpSpots + 1);
+            else mDriver.setSpots(inpSpots);
             try {
                 handler.addDriver(mDriver);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if(presetName != null && !presetName.equals("")){
+            if(presContact != null){
                 ContactDatabaseHandler cHandler= new ContactDatabaseHandler(db);
-                ContactInfoWrapper[] handlerResults=cHandler.getContacts(new String[]{
-                        ContactDatabaseContract.ContactListTable.COLUMN_NAME+" = \""+presetName+"\""
-                }, null);
-                if(handlerResults.length == 0 || handlerResults.length>1) return null;
-                handlerResults[0].setPresent(true);
+                presContact.setPresent(true);
                 try {
-                    cHandler.updateContact(handlerResults[0]);
+                    cHandler.updateContact(presContact);
                 } catch (ContactDatabaseHandler.ContactCSVReadError contactCSVReadError) {
                     contactCSVReadError.printStackTrace();
                 }
-                handler.addAlephsToCar(mDriver.getId(),handlerResults);
+                handler.addAlephsToCar(mDriver.getId(),new ContactInfoWrapper[]{presContact});
             }
             getActivity().finish();
             return null;

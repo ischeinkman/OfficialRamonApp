@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ContactDatabaseHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME="ContactDriverDatabase";
-    public static final int DATABASE_VERSION=3;
+    public static final int DATABASE_VERSION=4;
     private Context context;
 
     public ContactDatabaseHelper(Context context){
@@ -50,7 +50,7 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper{
         }
     }
     public void genDatabaseFromCSV(SQLiteDatabase db) throws ContactCSVReadError{
-        ContactInfoWrapper[] csvContacts= ContactCSVHandler.getCtactInfoListFromCSV(context);
+        ContactInfoWrapper[] csvContacts= ContactCSVSupport.getCSVHandler(context).getCtactInfoListFromCSV();
         ContactDatabaseHandler contactDatabaseHandler = new ContactDatabaseHandler(db);
         for(ContactInfoWrapper cAleph: csvContacts){
             try {

@@ -15,7 +15,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import org.ramonaza.officialramonapp.R;
-import org.ramonaza.officialramonapp.people.backend.ContactCSVHandler;
+import org.ramonaza.officialramonapp.people.backend.ContactCSVSupport;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHandler;
 import org.ramonaza.officialramonapp.people.backend.ContactDatabaseHelper;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
@@ -222,7 +222,7 @@ public class SettingsActivity extends PreferenceActivity {
         protected Void doInBackground(Void... params) {
             ContactDatabaseHandler handler=new ContactDatabaseHandler(context);
             ContactInfoWrapper[] allContacts=handler.getContacts(null, null);
-            ContactCSVHandler.writesContactsToCSV(allContacts, false);
+            ContactCSVSupport.getCSVHandler(context).writesContactsToCSV(allContacts, false);
             return null;
         }
 

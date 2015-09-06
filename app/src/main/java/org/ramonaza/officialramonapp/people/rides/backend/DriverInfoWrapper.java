@@ -14,6 +14,30 @@ public class DriverInfoWrapper implements InfoWrapper{
     private String name;
     private int area;
     private String address;
+    private double latitude;
+    private double longitude;
+    private int id;
+    private List<ContactInfoWrapper> alephsInCar;
+
+    public DriverInfoWrapper(){
+        this.alephsInCar=new ArrayList<ContactInfoWrapper>(spots+1);
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+            this.latitude=Double.valueOf(latitude);
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = Double.valueOf(longitude);
+    }
 
     public String getAddress() {
         return address;
@@ -21,13 +45,6 @@ public class DriverInfoWrapper implements InfoWrapper{
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    private int id;
-    private List<ContactInfoWrapper> alephsInCar;
-
-    public DriverInfoWrapper(){
-        this.alephsInCar=new ArrayList<ContactInfoWrapper>(spots+1);
     }
 
     public int getFreeSpots(){
@@ -74,20 +91,10 @@ public class DriverInfoWrapper implements InfoWrapper{
     public List<ContactInfoWrapper> getAlephsInCar(){
         return alephsInCar;
     }
-    public List<ContactInfoWrapper> attemptGenerate(List<ContactInfoWrapper> totalAlephPool){
-        List<ContactInfoWrapper> rval=new ArrayList<ContactInfoWrapper>();
-        boolean contIter=true;
-        while(this.getFreeSpots()>0 && contIter){
-            contIter=false;
-            for (ContactInfoWrapper cAleph:totalAlephPool){
-                if (cAleph.getArea()==this.getArea()){
-                    rval.add(cAleph);
-                    this.addAlephToCar(cAleph);
-                    contIter=true;
-                }
-            }
-        }
-        return rval; //returning the added alephs allows easy removal from the external present pool
-    }
 
+
+    @Override
+    public boolean equals(Object o) {
+        return (o instanceof DriverInfoWrapper &&((DriverInfoWrapper) o).getName().equals(getName()));
+    }
 }

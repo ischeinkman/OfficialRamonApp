@@ -92,7 +92,7 @@ public class RidesActivity extends BaseActivity implements ActionBar.TabListener
         int id = item.getItemId();
         switch (id){
             case R.id.action_generate:
-                Intent ridesListIntent=new Intent(this,DisplayRidesActivity.class);
+                Intent ridesListIntent=new Intent(this,ConfigureRidesDisplayActivity.class);
                 startActivity(ridesListIntent);
         }
 
