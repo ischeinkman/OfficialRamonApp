@@ -442,18 +442,6 @@ public class RidesOptimizer {
         }
     }
 
-    private double distBetweenHouses(DriverInfoWrapper driver, ContactInfoWrapper aleph) {
-        return Math.sqrt((
-                aleph.getLatitude()-driver.getLatitude())
-                *(aleph.getLatitude()-driver.getLatitude())
-                +(aleph.getLongitude()-driver.getLongitude())
-                *(aleph.getLongitude()-driver.getLongitude()));
-    }
-
-    private void naiveHungarian() {
-
-    }
-
     private void latLongAlephsFirst(){
         List<ContactInfoWrapper> allContacts=new ArrayList<ContactInfoWrapper>(alephsToOptimize);
         for(ContactInfoWrapper toOptimize : allContacts){
@@ -505,6 +493,14 @@ public class RidesOptimizer {
             }
         }
         return rAleph;
+    }
+
+    private double distBetweenHouses(DriverInfoWrapper driver, ContactInfoWrapper aleph) {
+        return Math.sqrt((
+                aleph.getLatitude()-driver.getLatitude())
+                *(aleph.getLatitude()-driver.getLatitude())
+                +(aleph.getLongitude()-driver.getLongitude())
+                *(aleph.getLongitude()-driver.getLongitude()));
     }
 
 }
