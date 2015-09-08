@@ -2,6 +2,7 @@
 <resources>
     <string-array name="algorithmValues">
         <item>None</item>
+        <item>Naive Hungarian</item>
         <item>LATLONG - Alephs First</item>
         <item>LATLONG - Drivers First</item>
     </string-array>

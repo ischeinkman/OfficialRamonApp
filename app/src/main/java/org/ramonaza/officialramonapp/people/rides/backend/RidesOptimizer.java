@@ -13,15 +13,21 @@ import java.util.Set;
 public class RidesOptimizer {
 
     /**
+     * Calculate rides based on latitude and longitude, finding the optimal assignment of passengers
+     * to drivers in order to minimize total distance traveled by all drivers. Makes the simplifying
+     * assumption that all drivers return to their home in between each drop-off.
+     */
+    public static final int ALGORITHM_NAIVE_HUNGARIAN=0;
+    /**
      * Calculate rides based on latitude and longitude, iterating over the passengers
      * and assigning them a driver.
-      */
-    public static final int ALGORITHM_LATLONG_ALEPHS_FIRST=0;
+     */
+    public static final int ALGORITHM_LATLONG_ALEPHS_FIRST=1;
     /**
      * Calculate rides based on latitude and longitude, iterating over the drivers
      * and assigning them passengers.
      */
-    public static final int ALGORITHM_LATLONG_DRIVERS_FIRST=1;
+    public static final int ALGORITHM_LATLONG_DRIVERS_FIRST=2;
     private Set<ContactInfoWrapper> alephsToOptimize;
     private List<DriverInfoWrapper> driversToOptimize;
     private int algorithm;
@@ -100,6 +106,9 @@ public class RidesOptimizer {
         }
         if(alephsToOptimize.isEmpty()) return;
         switch (algorithm){
+            case ALGORITHM_NAIVE_HUNGARIAN:
+                naiveHungarian();
+                break;
             case ALGORITHM_LATLONG_ALEPHS_FIRST:
                 latLongAlephsFirst();
                 break;
@@ -107,6 +116,10 @@ public class RidesOptimizer {
                 latLongDriversFirst();
                 break;
         }
+    }
+
+    private void naiveHungarian() {
+
     }
 
     private void latLongAlephsFirst(){
