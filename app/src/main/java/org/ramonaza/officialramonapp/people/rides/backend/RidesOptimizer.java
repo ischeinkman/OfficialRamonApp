@@ -118,6 +118,30 @@ public class RidesOptimizer {
         }
     }
 
+    private void naiveHungarian() {
+        List<Integer> driverIndicies = new List<Integers>();
+        for (DriverInfoWrapper driver : driversToOptimize)
+            for (int i = 0; i < driver.getFreeSpots(); i++)
+                driverIndicies.add(driversToOptimize.indexOf(driver));
+        double[][] costs = new double[driverIndicies.size()][alephsToOptimize.size()];
+        for (int r = 0; r < driverIndicies.size(); r++) {
+            DriverInfoWrapper driver = driversToOptimize.get(driverIndicies.get(r));
+            for (int c = 0; c < alephsToOptimize.size(); c++) {
+                ContactInfoWrapper aleph = alephsToOptimize.get(c)
+                costs[r][c] = distBetweenHouses(driver, aleph);
+            }
+        }
+        int[] assignments = (new HungarianAlgorithm(costs)).execute();
+        List<ContactInfoWrapper> copy = new List<ContactInfoWrapper>(alephsToOptimize);
+        for (int i = 0; i < assignments.length; i++) {
+            if (assignments[i] == -1) continue;
+            ContactInfoWrapper aleph = copy.get(i);
+            DriverInfoWrapper driver = driversToOptimize.get(driverIndicies.get(assignments[i]));
+            driver.addAlephToCar(aleph);
+            alephsToOptimize.remove(aleph);
+        }
+    }
+
     /**
      * Copyright (c) 2012 Kevin L. Stern
      *
