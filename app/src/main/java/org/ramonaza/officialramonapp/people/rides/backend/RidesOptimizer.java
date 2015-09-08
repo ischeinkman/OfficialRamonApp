@@ -3,6 +3,7 @@ package org.ramonaza.officialramonapp.people.rides.backend;
 import org.ramonaza.officialramonapp.people.backend.ContactInfoWrapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -119,7 +120,7 @@ public class RidesOptimizer {
     }
 
     private void naiveHungarian() {
-        List<Integer> driverIndicies = new List<Integers>();
+        List<Integer> driverIndicies = new ArrayList<Integer>();
         for (DriverInfoWrapper driver : driversToOptimize)
             for (int i = 0; i < driver.getFreeSpots(); i++)
                 driverIndicies.add(driversToOptimize.indexOf(driver));
@@ -127,12 +128,12 @@ public class RidesOptimizer {
         for (int r = 0; r < driverIndicies.size(); r++) {
             DriverInfoWrapper driver = driversToOptimize.get(driverIndicies.get(r));
             for (int c = 0; c < alephsToOptimize.size(); c++) {
-                ContactInfoWrapper aleph = alephsToOptimize.get(c)
+                ContactInfoWrapper aleph = alephsToOptimize.get(c);
                 costs[r][c] = distBetweenHouses(driver, aleph);
             }
         }
         int[] assignments = (new HungarianAlgorithm(costs)).execute();
-        List<ContactInfoWrapper> copy = new List<ContactInfoWrapper>(alephsToOptimize);
+        List<ContactInfoWrapper> copy = new ArrayList<ContactInfoWrapper>(alephsToOptimize);
         for (int i = 0; i < assignments.length; i++) {
             if (assignments[i] == -1) continue;
             ContactInfoWrapper aleph = copy.get(i);
