@@ -28,12 +28,12 @@ public class RidesOptimizer {
      * and assigning them passengers.
      */
     public static final int ALGORITHM_LATLONG_DRIVERS_FIRST=2;
-    private Set<ContactInfoWrapper> alephsToOptimize;
+    private List<ContactInfoWrapper> alephsToOptimize;
     private List<DriverInfoWrapper> driversToOptimize;
     private int algorithm;
     private boolean retainPreexisting;
     public RidesOptimizer(){
-        this.alephsToOptimize=new HashSet<ContactInfoWrapper>();
+        this.alephsToOptimize=new ArrayList<ContactInfoWrapper>();
         this.driversToOptimize=new ArrayList<DriverInfoWrapper>();
     }
 
