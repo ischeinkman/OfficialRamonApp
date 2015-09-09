@@ -8,6 +8,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.ramonaza.officialramonapp.events.backend.EventInfoWrapper;
+import org.ramonaza.officialramonapp.events.backend.EventRSSHandler;
 import org.ramonaza.officialramonapp.events.ui.activities.EventPageActivity;
 import org.ramonaza.officialramonapp.helpers.backend.InfoWrapper;
 import org.ramonaza.officialramonapp.helpers.ui.fragments.InfoWrapperListFragStyles.InfoWrapperTextListFragment;
@@ -23,6 +24,8 @@ public class EventListFragment extends InfoWrapperTextListFragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
+    private EventRSSHandler handler;
+
 
 
 
@@ -37,37 +40,14 @@ public class EventListFragment extends InfoWrapperTextListFragment {
     @Override
     public void onButtonClick(InfoWrapper mWrapper) {
         Intent intent=new Intent(getActivity(), EventPageActivity.class);
-        intent.putExtra(EventPageActivity.EVENT_DATA,(EventInfoWrapper) mWrapper);
+        intent.putExtra(EventPageActivity.EVENT_DATA, handler.getEventRSS(mWrapper.getId()));
         startActivity(intent);
     }
 
     @Override
     public InfoWrapper[] generateInfo() {
-        StringBuilder builder = new StringBuilder(100000);
-
         String url = "http://69.195.124.114/~ramonaza/events/feed/";
-        DefaultHttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(url);
-        try {
-            HttpResponse execute = client.execute(httpGet);
-            InputStream content = execute.getEntity().getContent();
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-            String s;
-            while ((s = buffer.readLine()) != null) {
-                builder.append(s);
-            }
-
-        } catch (Exception e) {
-            Log.d("DEBUG", e.getMessage());
-        }
-
-        String html = builder.toString();
-        String[] itemmedRSS = html.split("<item>");
-        int itemmedLength=itemmedRSS.length-1;
-        EventInfoWrapper[] events = new EventInfoWrapper[itemmedLength];
-        for(int i=0;i<itemmedLength;i++){
-            events[i]=new EventInfoWrapper(itemmedRSS[i+1]);
-        }
-        return events;
+        handler=new EventRSSHandler(url, true);
+        return handler.getEventsFromRss();
     }
 }
