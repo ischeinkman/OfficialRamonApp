@@ -14,27 +14,27 @@ import java.util.Set;
 public class RidesOptimizer {
 
     /**
-     * Calculate rides based on latitude and longitude, finding the optimal assignment of passengers
-     * to drivers in order to minimize total distance traveled by all drivers. Makes the simplifying
-     * assumption that all drivers return to their home in between each drop-off.
-     */
-    public static final int ALGORITHM_NAIVE_HUNGARIAN=0;
-    /**
      * Calculate rides based on latitude and longitude, iterating over the passengers
      * and assigning them a driver.
      */
-    public static final int ALGORITHM_LATLONG_ALEPHS_FIRST=1;
+    public static final int ALGORITHM_LATLONG_ALEPHS_FIRST=0;
     /**
      * Calculate rides based on latitude and longitude, iterating over the drivers
      * and assigning them passengers.
      */
-    public static final int ALGORITHM_LATLONG_DRIVERS_FIRST=2;
-    private List<ContactInfoWrapper> alephsToOptimize;
+    public static final int ALGORITHM_LATLONG_DRIVERS_FIRST=1;
+    /**
+     * Calculate rides based on latitude and longitude, finding the optimal assignment of passengers
+     * to drivers in order to minimize total distance traveled by all drivers. Makes the simplifying
+     * assumption that all drivers return to their home in between each drop-off.
+     */
+    public static final int ALGORITHM_NAIVE_HUNGARIAN=2;
+    private Set<ContactInfoWrapper> alephsToOptimize;
     private List<DriverInfoWrapper> driversToOptimize;
     private int algorithm;
     private boolean retainPreexisting;
     public RidesOptimizer(){
-        this.alephsToOptimize=new ArrayList<ContactInfoWrapper>();
+        this.alephsToOptimize=new HashSet<ContactInfoWrapper>();
         this.driversToOptimize=new ArrayList<DriverInfoWrapper>();
     }
 
@@ -107,36 +107,89 @@ public class RidesOptimizer {
         }
         if(alephsToOptimize.isEmpty()) return;
         switch (algorithm){
-            case ALGORITHM_NAIVE_HUNGARIAN:
-                naiveHungarian();
-                break;
             case ALGORITHM_LATLONG_ALEPHS_FIRST:
                 latLongAlephsFirst();
                 break;
             case ALGORITHM_LATLONG_DRIVERS_FIRST:
                 latLongDriversFirst();
                 break;
+            case ALGORITHM_NAIVE_HUNGARIAN:
+                naiveHungarian();
+                break;
         }
+    }
+
+    private void latLongAlephsFirst(){
+        List<ContactInfoWrapper> allContacts=new ArrayList<ContactInfoWrapper>(alephsToOptimize);
+        for(ContactInfoWrapper toOptimize : allContacts){
+            DriverInfoWrapper driver=getClosestDriver(toOptimize);
+            if(driver == null) break;
+            driver.addAlephToCar(toOptimize);
+            alephsToOptimize.remove(toOptimize);
+        }
+    }
+
+    private DriverInfoWrapper getClosestDriver(ContactInfoWrapper aleph){
+        double minDist=Double.MAX_VALUE;
+        DriverInfoWrapper rDriver=null;
+        for(DriverInfoWrapper driver:driversToOptimize){
+            if(driver.getFreeSpots()<=0) continue;
+            double curDist=distBetweenHouses(driver, aleph);
+            if(curDist <minDist){
+                minDist=curDist;
+                rDriver=driver;
+            }
+        }
+        return rDriver;
+    }
+
+
+    private void latLongDriversFirst(){
+        boolean allFull=false;
+        while(!alephsToOptimize.isEmpty() && !allFull){
+            allFull=true;
+            for(DriverInfoWrapper toOptimize:driversToOptimize){
+                if(toOptimize.getFreeSpots()<=0) continue;
+                ContactInfoWrapper aleph=getClosestAleph(toOptimize);
+                if(aleph == null) break;
+                toOptimize.addAlephToCar(aleph);
+                alephsToOptimize.remove(aleph);
+                allFull=false;
+            }
+        }
+    }
+
+    private ContactInfoWrapper getClosestAleph(DriverInfoWrapper driver){
+        double minDist=Double.MAX_VALUE;
+        ContactInfoWrapper rAleph=null;
+        for(ContactInfoWrapper aleph:alephsToOptimize){
+            double curDist=distBetweenHouses(driver, aleph);
+            if(curDist <minDist){
+                minDist=curDist;
+                rAleph=aleph;
+            }
+        }
+        return rAleph;
     }
 
     private void naiveHungarian() {
         List<Integer> driverIndicies = new ArrayList<Integer>();
+        List<ContactInfoWrapper> indexedAlephs = new ArrayList<ContactInfoWrapper>(alephsToOptimize);
         for (DriverInfoWrapper driver : driversToOptimize)
             for (int i = 0; i < driver.getFreeSpots(); i++)
                 driverIndicies.add(driversToOptimize.indexOf(driver));
-        double[][] costs = new double[driverIndicies.size()][alephsToOptimize.size()];
+        double[][] costs = new double[driverIndicies.size()][indexedAlephs.size()];
         for (int r = 0; r < driverIndicies.size(); r++) {
             DriverInfoWrapper driver = driversToOptimize.get(driverIndicies.get(r));
-            for (int c = 0; c < alephsToOptimize.size(); c++) {
-                ContactInfoWrapper aleph = alephsToOptimize.get(c);
+            for (int c = 0; c < indexedAlephs.size(); c++) {
+                ContactInfoWrapper aleph = indexedAlephs.get(c);
                 costs[r][c] = distBetweenHouses(driver, aleph);
             }
         }
         int[] assignments = (new HungarianAlgorithm(costs)).execute();
-        List<ContactInfoWrapper> copy = new ArrayList<ContactInfoWrapper>(alephsToOptimize);
         for (int i = 0; i < assignments.length; i++) {
             if (assignments[i] == -1) continue;
-            ContactInfoWrapper aleph = copy.get(i);
+            ContactInfoWrapper aleph = indexedAlephs.get(assignments[i]);
             DriverInfoWrapper driver = driversToOptimize.get(driverIndicies.get(assignments[i]));
             driver.addAlephToCar(aleph);
             alephsToOptimize.remove(aleph);
@@ -465,59 +518,6 @@ public class RidesOptimizer {
                 }
             }
         }
-    }
-
-    private void latLongAlephsFirst(){
-        List<ContactInfoWrapper> allContacts=new ArrayList<ContactInfoWrapper>(alephsToOptimize);
-        for(ContactInfoWrapper toOptimize : allContacts){
-            DriverInfoWrapper driver=getClosestDriver(toOptimize);
-            if(driver == null) break;
-            driver.addAlephToCar(toOptimize);
-            alephsToOptimize.remove(toOptimize);
-        }
-    }
-
-    private DriverInfoWrapper getClosestDriver(ContactInfoWrapper aleph){
-        double minDist=Double.MAX_VALUE;
-        DriverInfoWrapper rDriver=null;
-        for(DriverInfoWrapper driver:driversToOptimize){
-            if(driver.getFreeSpots()<=0) continue;
-            double curDist=distBetweenHouses(driver, aleph);
-            if(curDist <minDist){
-                minDist=curDist;
-                rDriver=driver;
-            }
-        }
-        return rDriver;
-    }
-
-
-    private void latLongDriversFirst(){
-        boolean allFull=false;
-        while(!alephsToOptimize.isEmpty() && !allFull){
-            allFull=true;
-            for(DriverInfoWrapper toOptimize:driversToOptimize){
-                if(toOptimize.getFreeSpots()<=0) continue;
-                ContactInfoWrapper aleph=getClosestAleph(toOptimize);
-                if(aleph == null) break;
-                toOptimize.addAlephToCar(aleph);
-                alephsToOptimize.remove(aleph);
-                allFull=false;
-            }
-        }
-    }
-
-    private ContactInfoWrapper getClosestAleph(DriverInfoWrapper driver){
-        double minDist=Double.MAX_VALUE;
-        ContactInfoWrapper rAleph=null;
-        for(ContactInfoWrapper aleph:alephsToOptimize){
-            double curDist=distBetweenHouses(driver, aleph);
-            if(curDist <minDist){
-                minDist=curDist;
-                rAleph=aleph;
-            }
-        }
-        return rAleph;
     }
 
     private double distBetweenHouses(DriverInfoWrapper driver, ContactInfoWrapper aleph) {
