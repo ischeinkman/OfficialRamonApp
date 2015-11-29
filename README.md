@@ -1,3 +1,5 @@
+NOTE: This repo is now obsolete. Development has been moved to the general [Unofficial AZA App.](https://github.com/ischeinkman/UnofficialAZAApp)
+
 The Official App of Ramon AZA #195
 ================
 To build:
