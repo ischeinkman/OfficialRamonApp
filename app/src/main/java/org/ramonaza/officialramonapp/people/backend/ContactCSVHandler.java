@@ -96,15 +96,14 @@ public class ContactCSVHandler {
 
     private ContactInfoWrapper createContactInfoWrapperFromCSVargs(String[] args) {
         ContactInfoWrapper rRapper = new ContactInfoWrapper();
-        if(args.length <=6){
+        if(args.length <= 7){
             rRapper.setName(args[0]);
             rRapper.setSchool(args[1]);
             rRapper.setGradYear(args[2]);
             rRapper.setAddress(args[3]);
             rRapper.setEmail(args[4]);
             rRapper.setPhoneNumber(args[5]);
-        }
-        else{
+        } else{
             rRapper.setName(args[0]);
             rRapper.setSchool(args[1]);
             rRapper.setGradYear(args[2]);
