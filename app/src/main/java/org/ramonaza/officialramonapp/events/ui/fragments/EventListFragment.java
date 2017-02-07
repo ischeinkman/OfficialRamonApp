@@ -46,7 +46,7 @@ public class EventListFragment extends InfoWrapperTextListFragment {
 
     @Override
     public InfoWrapper[] generateInfo() {
-        String url = "http://69.195.124.114/~ramonaza/events/feed/";
+        String url = "http://ramonaza.org/events/feed/";
         handler=new EventRSSHandler(url, true);
         return handler.getEventsFromRss();
     }

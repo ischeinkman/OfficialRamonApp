@@ -41,11 +41,18 @@ public class EventRSSHandler {
             e.printStackTrace();
         }
         String totalRss=builder.toString();
-        String strippedRss=totalRss.substring(totalRss.indexOf(ITEM_SPLITTER)+ITEM_SPLITTER.length());
+        String strippedRss;
+        if (totalRss.indexOf(ITEM_SPLITTER) == -1)
+            strippedRss = "";
+        else strippedRss=totalRss.substring(totalRss.indexOf(ITEM_SPLITTER)+ITEM_SPLITTER.length());
         return strippedRss;
     }
     
     public EventInfoWrapper[] getEventsFromRss(){
+        // In case of no events posted
+        if (rawRSS.length() == 0)
+            return new EventInfoWrapper[0];
+
         String[] itemmedRSS = rawRSS.split(ITEM_SPLITTER);
         EventInfoWrapper[] events = new EventInfoWrapper[itemmedRSS.length];
         for(int i=0;i<itemmedRSS.length;i++){
