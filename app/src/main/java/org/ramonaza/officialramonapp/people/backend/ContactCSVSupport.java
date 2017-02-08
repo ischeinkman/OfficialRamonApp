@@ -16,7 +16,7 @@ import java.io.InputStream;
 public class ContactCSVSupport {
 
 
-    private static final String CSV_NAME = "AlephNameSchYAddMailNum.csv";
+    private static final String CSV_EXTENSION = ".csv";
     private static final String DEFAULT_CSV_NAME="DefaultContactFileTemplate.csv";
 
     private static File getCSVFile(Context context){
@@ -24,7 +24,8 @@ public class ContactCSVSupport {
         File[] ddFiles = downloadDir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
-                return filename.equals(CSV_NAME);
+                String extension = filename.substring(filename.lastIndexOf("."));
+                return extension.equals(CSV_EXTENSION);
 
             }
         });
